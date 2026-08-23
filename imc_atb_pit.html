@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0E5C53">
+<meta name="application-name" content="Aide calculs IMC">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Aide IMC">
+<title>IMC - ATB - PIT</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkJhbGFuY2UiPgogIDxyZWN0IHg9IjMyIiB5PSIzMiIgd2lkdGg9IjQ0OCIgaGVpZ2h0PSI0NDgiIHJ4PSIxMTIiIGZpbGw9IiMwRTVDNTMiLz4KICA8cmVjdCB4PSIxMTIiIHk9Ijc4IiB3aWR0aD0iMjg4IiBoZWlnaHQ9IjM1NiIgcng9IjY2IiBmaWxsPSIjRkZGRkZGIi8+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMTk0IiByPSI4MiIgZmlsbD0iI0RDRUFFNyIgc3Ryb2tlPSIjMEEzRjM5IiBzdHJva2Utd2lkdGg9IjEyIi8+CiAgPHBhdGggZD0iTTIwMyAxNTdsMTMgMTZNMjMyIDEzN2w2IDIwTTI4MCAxMzdsLTYgMjBNMzA5IDE1N2wtMTMgMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBFNUM1MyIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTI1NiAxOTRsNDctNDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0EyM0IzQiIgc3Ryb2tlLXdpZHRoPSIxMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMTk0IiByPSIxNSIgZmlsbD0iIzBBM0YzOSIvPgogIDxwYXRoIGQ9Ik0xNjggMzE4aDE3Nk0xOTAgMzU2aDEzMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRDdERkRDIiBzdHJva2Utd2lkdGg9IjE4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkJhbGFuY2UiPgogIDxyZWN0IHg9IjMyIiB5PSIzMiIgd2lkdGg9IjQ0OCIgaGVpZ2h0PSI0NDgiIHJ4PSIxMTIiIGZpbGw9IiMwRTVDNTMiLz4KICA8cmVjdCB4PSIxMTIiIHk9Ijc4IiB3aWR0aD0iMjg4IiBoZWlnaHQ9IjM1NiIgcng9IjY2IiBmaWxsPSIjRkZGRkZGIi8+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMTk0IiByPSI4MiIgZmlsbD0iI0RDRUFFNyIgc3Ryb2tlPSIjMEEzRjM5IiBzdHJva2Utd2lkdGg9IjEyIi8+CiAgPHBhdGggZD0iTTIwMyAxNTdsMTMgMTZNMjMyIDEzN2w2IDIwTTI4MCAxMzdsLTYgMjBNMzA5IDE1N2wtMTMgMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBFNUM1MyIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTI1NiAxOTRsNDctNDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0EyM0IzQiIgc3Ryb2tlLXdpZHRoPSIxMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMTk0IiByPSIxNSIgZmlsbD0iIzBBM0YzOSIvPgogIDxwYXRoIGQ9Ik0xNjggMzE4aDE3Nk0xOTAgMzU2aDEzMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRDdERkRDIiBzdHJva2Utd2lkdGg9IjE4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==">
+<style>
+  :root{
+    --paper:#EEF2F0;
+    --surface:#FFFFFF;
+    --ink:#132623;
+    --ink-soft:#52625F;
+    --teal:#0E5C53;
+    --teal-dark:#0A3F39;
+    --teal-pale:#DCEAE7;
+    --amber:#B8722B;
+    --amber-pale:#F5E7D6;
+    --alert:#A23B3B;
+    --alert-pale:#F4E1DF;
+    --line:#D7DFDC;
+  }
+
+  /*
+    Les seuils sont ceux de la classification internationale OMS de l'IMC adulte.
+    L'OMS ne prescrivant pas de nuancier unique, la palette ci-dessous reprend
+    une progression clinique accessible : vert = corpulence normale,
+    ambre/orange = écart modéré, rouge/bordeaux = écart important.
+  */
+  body[data-bmi-theme="thinness-severe"]{
+    --paper:#F7EEF1; --ink:#2E171F; --ink-soft:#70545E;
+    --teal:#8C2F4A; --teal-dark:#5D1830; --teal-pale:#F0DCE3; --line:#E2CDD5;
+  }
+  body[data-bmi-theme="thinness-moderate"]{
+    --paper:#F8F1ED; --ink:#2D1C15; --ink-soft:#74594D;
+    --teal:#9A4B24; --teal-dark:#662C12; --teal-pale:#F3E2D8; --line:#E6D4CA;
+  }
+  body[data-bmi-theme="thinness-mild"]{
+    --paper:#F8F5E9; --ink:#292310; --ink-soft:#6D6242;
+    --teal:#806008; --teal-dark:#574004; --teal-pale:#F3EACB; --line:#E4D9B8;
+  }
+  body[data-bmi-theme="normal"]{
+    --paper:#EFF6F1; --ink:#14261A; --ink-soft:#52675A;
+    --teal:#2E7248; --teal-dark:#1C4E31; --teal-pale:#DCEDE2; --line:#CEE0D4;
+  }
+  body[data-bmi-theme="pre-obese"]{
+    --paper:#F8F5E9; --ink:#292310; --ink-soft:#6D6242;
+    --teal:#806008; --teal-dark:#574004; --teal-pale:#F3EACB; --line:#E4D9B8;
+  }
+  body[data-bmi-theme="obese-i"]{
+    --paper:#F9F0EB; --ink:#2E1B12; --ink-soft:#73584A;
+    --teal:#A34E1C; --teal-dark:#6C2C08; --teal-pale:#F4E1D5; --line:#E7D1C4;
+  }
+  body[data-bmi-theme="obese-ii"]{
+    --paper:#FAEEEE; --ink:#2E1717; --ink-soft:#725252;
+    --teal:#A43838; --teal-dark:#702020; --teal-pale:#F3DCDC; --line:#E5CCCC;
+  }
+  body[data-bmi-theme="obese-iii"]{
+    --paper:#F8EEF1; --ink:#2B151E; --ink-soft:#70515D;
+    --teal:#77233D; --teal-dark:#4C1025; --teal-pale:#EDD9E0; --line:#DFC8D1;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .35s ease, color .35s ease;
+  }
+  .page{width:100%;max-width:1120px;min-width:0;margin:0 auto;padding:36px 24px 64px;}
+
+  header.top{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:2px solid var(--teal-dark);
+    padding-bottom:18px;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+  }
+  header.top .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:0 0 6px;
+  }
+  header.top h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(24px, 3.4vw, 34px);
+    font-weight:700;
+    margin:0;
+    color:var(--teal-dark);
+    letter-spacing:-0.01em;
+  }
+  .title-lockup{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    min-width:0;
+    flex:1;
+  }
+  .title-lockup > div:last-child{
+    min-width:0;
+    flex:1;
+    text-align:center;
+    padding-right:74px;
+  }
+  .app-icon{
+    width:58px;
+    height:58px;
+    flex:0 0 58px;
+    filter:drop-shadow(0 5px 10px rgba(10,63,57,.16));
+  }
+  .app-icon svg{display:block; width:100%; height:100%;}
+
+  main{
+    display:grid;
+    grid-template-columns:290px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+  main > *{min-width:0;max-width:100%;}
+  @media (max-width:820px){
+    main{grid-template-columns:1fr; gap:14px;}
+    .inputs{position:static; top:auto;}
+  }
+
+  .panel{
+    min-width:0;
+    max-width:100%;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:22px;
+    transition:background-color .35s ease, border-color .35s ease;
+  }
+  .panel h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--teal);
+    margin:0 0 16px;
+  }
+  .panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .panel-head h2{margin-bottom:0;}
+  .raz-btn{
+    margin-bottom:16px;
+    padding:5px 12px;
+    border:1px solid var(--teal);
+    border-radius:20px;
+    background:var(--surface);
+    color:var(--teal);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.04em;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .raz-btn:hover, .raz-btn:focus-visible{background:var(--teal); color:#fff; outline:none;}
+  .raz-btn:active{transform:translateY(1px);}
+
+  /* --- Inputs panel --- */
+  .inputs{position:sticky; top:20px;}
+  @media (max-width:820px){
+    .inputs{position:static; top:auto;}
+  }
+  .field{margin-bottom:18px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .toggle{
+    display:flex;
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .toggle button{
+    flex:1;
+    padding:9px 6px;
+    border:none;
+    background:var(--surface);
+    color:var(--ink-soft);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .toggle button + button{border-left:1px solid var(--line);}
+  .toggle button.active{background:var(--teal); color:#fff;}
+
+  .num-wrap{position:relative;}
+  .num-wrap input[type=number]{
+    width:100%;
+    padding:10px 40px 10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+    color:var(--ink);
+    background:var(--paper);
+  }
+  .num-wrap input[type=number]:focus{outline:2px solid var(--teal); outline-offset:1px;}
+  .num-wrap .unit{
+    position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--ink-soft);
+  }
+  select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13.5px;
+    color:var(--ink);
+    background:var(--paper);
+  }
+  select:focus{outline:2px solid var(--teal); outline-offset:1px;}
+
+  .err-box{
+    margin-top:16px;
+    padding:10px 12px;
+    border-radius:8px;
+    background:var(--alert-pale);
+    color:var(--alert);
+    font-size:12.5px;
+    font-weight:500;
+    display:none;
+  }
+  .err-box.show{display:block;}
+
+  /* --- tabs --- */
+  .tabs{
+    display:flex;
+    gap:6px;
+    margin-bottom:18px;
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+    scrollbar-width:thin;
+  }
+  .tab-btn{
+    flex:0 0 auto;
+    padding:10px 18px;
+    border:none;
+    background:transparent;
+    color:var(--ink-soft);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    margin-bottom:-1px;
+    transition:color .15s, border-color .15s;
+  }
+  .tab-btn:hover{color:var(--teal-dark);}
+  .tab-btn.active{color:var(--teal-dark); border-bottom-color:var(--teal);}
+  .tab-panel{display:none;min-width:0;max-width:100%;}
+  .tab-panel.active{display:block;}
+
+  /* --- results grid --- */
+  .results-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  @media (max-width:560px){
+    .results-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px;}
+    .results-grid .imc-stat{grid-column:1 / -1;}
+  }
+  .stat{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    background:var(--paper);
+    transition:background-color .35s ease, border-color .35s ease;
+  }
+  .stat.imc-stat{
+    border-left:5px solid var(--teal);
+    background:linear-gradient(135deg, var(--teal-pale), var(--paper));
+    transition:background .35s ease, border-color .35s ease;
+  }
+  .stat .label{font-size:11.5px; color:var(--ink-soft); font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+  .stat .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:26px;
+    font-weight:600;
+    color:var(--teal-dark);
+    margin-top:4px;
+  }
+  .stat .value .unit{font-size:14px; color:var(--ink-soft); font-weight:500; margin-left:3px;}
+  .stat .sub{font-size:11.5px; color:var(--ink-soft); margin-top:3px;}
+  .stat .sub.bmi-classification{
+    min-height:34px;
+    display:flex;
+    align-items:flex-start;
+    color:var(--teal-dark);
+    font-weight:600;
+    line-height:1.3;
+  }
+
+  /* --- gauge --- */
+  .gauge-wrap{margin-top:22px;}
+  .gauge-track{
+    position:relative;
+    height:8px;
+    background:var(--teal-pale);
+    border-radius:4px;
+    margin:34px 6px 26px;
+  }
+  .pin{
+    position:absolute;
+    top:50%;
+    transform:translate(-50%,-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    transition:left .25s ease;
+  }
+  .pin .dot{
+    width:12px; height:12px; border-radius:50%;
+    background:var(--ink-soft);
+    border:2px solid var(--surface);
+    box-shadow:0 0 0 1px var(--line);
+  }
+  .pin .tag{
+    position:absolute;
+    bottom:16px;
+    white-space:nowrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--surface);
+    padding:1px 5px;
+    border-radius:4px;
+  }
+  .pin.active .dot{background:var(--teal); width:16px; height:16px; box-shadow:0 0 0 4px var(--teal-pale);}
+  .pin.active .tag{color:var(--teal-dark); font-weight:600;}
+  .gauge-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    background:var(--paper);
+    border:1px dashed var(--line);
+    border-radius:8px;
+    padding:9px 12px;
+  }
+  .gauge-note b{color:var(--teal-dark);}
+
+  /* --- pertes insensibles --- */
+  .pertes-box{
+    margin-top:8px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    background:var(--teal-dark);
+    color:#fff;
+    border-radius:8px;
+    padding:20px 24px;
+    flex-wrap:wrap;
+  }
+  .pertes-box .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:38px;
+    font-weight:600;
+  }
+  .pertes-box .value span{font-size:16px; font-weight:500; opacity:.8; margin-left:4px;}
+  .pertes-box .detail{font-size:12.5px; opacity:.85; max-width:360px;}
+
+  /* --- table --- */
+  table{width:100%; border-collapse:collapse; margin-top:4px;}
+  thead th{
+    text-align:left;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--line);
+    padding:0 10px 8px;
+  }
+  thead th:last-child, tbody td:last-child{text-align:right;}
+  tbody td{
+    padding:10px 10px;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td.drug{font-weight:600; color:var(--ink);}
+  tbody td.w{font-family:'IBM Plex Mono', monospace; font-weight:600; color:var(--teal-dark); font-size:15px; white-space:nowrap;}
+
+  /* --- formulas and references --- */
+  .reference-stack{display:flex; min-width:0; max-width:100%; flex-direction:column; gap:16px;}
+  .formula-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+  .formula-card{
+    min-width:0;
+    max-width:100%;
+    border:1px solid var(--line);
+    border-radius:9px;
+    padding:14px 16px;
+    background:var(--paper);
+  }
+  .formula-card.wide{grid-column:1 / -1;}
+  .formula-card h3{
+    margin:0 0 7px;
+    color:var(--teal-dark);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:13px;
+  }
+  .formula-card p{margin:4px 0; max-width:100%; font-size:12.5px; color:var(--ink-soft); overflow-wrap:anywhere;}
+  .formula-card .formula{
+    color:var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    overflow-wrap:anywhere;
+  }
+  .reference-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .reference-table{min-width:520px;}
+  .reference-table thead th:last-child,
+  .reference-table tbody td:last-child{text-align:left;}
+  .reference-table tbody td:last-child{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .bmi-reference-table{min-width:440px;}
+  .bmi-reference-table thead th:last-child,
+  .bmi-reference-table tbody td:last-child{text-align:left;}
+  .sources{font-size:12.5px; color:var(--ink-soft);}
+  .sources p{margin:8px 0;}
+  .sources p:first-child{margin-top:0;}
+  .sources p:last-child{margin-bottom:0;}
+  .sources a{color:var(--teal-dark); font-weight:600;}
+  .clinical-warning{
+    border-left:4px solid var(--amber);
+    background:var(--amber-pale);
+    color:#5C3B19;
+    border-radius:7px;
+    padding:10px 12px;
+  }
+  .copyright{
+    padding-top:10px;
+    border-top:1px solid var(--line);
+    color:var(--teal-dark);
+    font-weight:700;
+    text-align:center;
+  }
+
+  @media (max-width:480px){
+    .page{padding:10px 10px 36px;}
+    header.top{
+      gap:8px;
+      padding-bottom:8px;
+      margin-bottom:10px;
+      flex-wrap:nowrap;
+      align-items:center;
+    }
+    header.top .eyebrow{display:none;}
+    header.top h1{font-size:23px; line-height:1.1;}
+    main{gap:10px;}
+    .panel{padding:12px; border-radius:9px;}
+    .panel h2{font-size:12px; margin-bottom:9px;}
+    .panel-head h2{margin-bottom:0;}
+    .raz-btn{margin-bottom:7px; padding:3px 10px;}
+    .field{margin-bottom:8px;}
+    .field label{font-size:11.5px; margin-bottom:3px;}
+    .toggle button{padding:7px 5px; font-size:12.5px;}
+    .measure-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px;}
+    .measure-grid .field{min-width:0;}
+    .num-wrap input[type=number]{padding:7px 34px 7px 9px; font-size:14px;}
+    .num-wrap .unit{right:9px; font-size:11px;}
+    select{padding:7px 9px; font-size:12.5px;}
+    .err-box{margin-top:8px; padding:7px 9px;}
+    .tabs{margin-bottom:8px; gap:0;}
+    .tab-btn{flex:1 1 0; padding:7px 5px; font-size:11.5px;}
+    .stack{gap:10px;}
+    .primary-results > h2{display:none;}
+    .stat{padding:9px 10px; min-width:0;}
+    .stat.imc-stat{
+      display:grid;
+      grid-template-columns:auto auto minmax(0,1fr);
+      align-items:center;
+      column-gap:9px;
+      padding:8px 10px;
+    }
+    .stat.imc-stat .value{margin-top:0;}
+    .stat.imc-stat .bmi-classification{margin-top:0; min-height:0;}
+    .stat .label{font-size:9.5px; line-height:1.2;}
+    .stat .value{font-size:20px; white-space:nowrap;}
+    .stat .value .unit{font-size:11px;}
+    .gauge-wrap{margin-top:8px;}
+    .gauge-track{margin:27px 6px 15px;}
+    .gauge-note{padding:7px 9px; font-size:10.5px; line-height:1.35;}
+    .pertes-box{padding:16px;}
+    .pertes-box .value{font-size:28px;}
+    thead th{padding:0 6px 6px; font-size:10.5px;}
+    tbody td{padding:8px 6px; font-size:13px;}
+    tbody td.w{font-size:13.5px;}
+    .title-lockup{align-items:center; gap:9px;}
+    .title-lockup > div:last-child{padding-right:49px;}
+    .app-icon{width:40px; height:40px; flex-basis:40px;}
+    .reference-stack{gap:10px;}
+    .formula-grid{grid-template-columns:1fr; gap:8px;}
+    .formula-card.wide{grid-column:auto;}
+    .formula-card{padding:11px 12px;}
+    .formula-card h3{font-size:12px;}
+    .formula-card p,
+    .formula-card .formula,
+    .sources{font-size:11px;}
+  }
+
+  /* Sur smartphone, les références deviennent des fiches verticales.
+     Aucun tableau ni aucune formule ne peut élargir la page. */
+  @media (max-width:600px){
+    #tab-references,
+    #tab-references .reference-stack,
+    #tab-references .panel,
+    #tab-references .formula-grid,
+    #tab-references .formula-card{
+      width:100%;
+      min-width:0;
+      max-width:100%;
+    }
+    #tab-references .panel{overflow:hidden;}
+    #tab-references .formula-card p,
+    #tab-references .formula-card .formula,
+    #tab-references .sources{
+      font-size:12px;
+      line-height:1.5;
+      white-space:normal;
+      overflow-wrap:anywhere;
+      word-break:normal;
+    }
+    #tab-references .reference-table-wrap{overflow:visible;}
+    #tab-references .reference-table,
+    #tab-references .bmi-reference-table{
+      display:block;
+      width:100%;
+      min-width:0;
+      max-width:100%;
+      margin-top:0;
+      table-layout:fixed;
+    }
+    #tab-references table thead{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+    #tab-references table tbody{display:block;width:100%;}
+    #tab-references table tbody tr{
+      display:block;
+      width:100%;
+      margin:0 0 8px;
+      padding:9px 10px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:var(--paper);
+    }
+    #tab-references table tbody tr:last-child{margin-bottom:0;}
+    #tab-references table tbody td{
+      display:block;
+      width:100%;
+      max-width:100%;
+      padding:2px 0;
+      border:0;
+      text-align:left;
+      white-space:normal;
+      overflow-wrap:anywhere;
+      word-break:normal;
+    }
+    #tab-references table tbody td:first-child{
+      color:var(--teal-dark);
+      font-size:12.5px;
+      font-weight:700;
+    }
+    #tab-references table tbody td:last-child{
+      margin-top:3px;
+      color:var(--ink-soft);
+      font-size:12px;
+      line-height:1.45;
+      text-align:left;
+    }
+    #tab-references .reference-table tbody td:last-child::before{
+      content:"Formule : ";
+      color:var(--ink);
+      font-family:'IBM Plex Sans', sans-serif;
+      font-weight:600;
+    }
+    #tab-references .bmi-reference-table tbody td:last-child::before{
+      content:"Intervalle : ";
+      color:var(--ink);
+      font-weight:600;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    body, .panel, .stat, .stat.imc-stat{transition:none;}
+  }
+
+  .stack{display:flex; flex-direction:column; gap:24px;}
+  @media (max-width:480px){
+    .stack{gap:10px;}
+  }
+</style>
+</head>
+<body data-bmi-theme="neutral">
+<div class="page">
+
+  <header class="top">
+    <div class="title-lockup">
+      <div class="app-icon" aria-hidden="true">
+        <svg viewBox="0 0 512 512" focusable="false">
+          <rect x="32" y="32" width="448" height="448" rx="112" fill="#0E5C53"/>
+          <rect x="112" y="78" width="288" height="356" rx="66" fill="#FFFFFF"/>
+          <circle cx="256" cy="194" r="82" fill="#DCEAE7" stroke="#0A3F39" stroke-width="12"/>
+          <path d="M203 157l13 16M232 137l6 20M280 137l-6 20M309 157l-13 16" fill="none" stroke="#0E5C53" stroke-width="10" stroke-linecap="round"/>
+          <path d="M256 194l47-45" fill="none" stroke="#A23B3B" stroke-width="13" stroke-linecap="round"/>
+          <circle cx="256" cy="194" r="15" fill="#0A3F39"/>
+          <path d="M168 318h176M190 356h132" fill="none" stroke="#D7DFDC" stroke-width="18" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">Outil clinique de calcul</p>
+        <h1>IMC - ATB - PIT</h1>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- INPUT PANEL -->
+    <section class="panel inputs">
+      <div class="panel-head">
+        <h2>Patient</h2>
+        <button type="button" id="razBtn" class="raz-btn" title="Effacer taille et poids">RAZ</button>
+      </div>
+
+      <div class="field">
+        <label>Sexe</label>
+        <div class="toggle" id="sexeToggle">
+          <button type="button" data-val="Femme" class="active">Femme</button>
+          <button type="button" data-val="Homme">Homme</button>
+        </div>
+      </div>
+
+      <div class="measure-grid">
+        <div class="field">
+          <label for="taille">Taille</label>
+          <div class="num-wrap">
+            <input type="number" id="taille" min="45" step="1">
+            <span class="unit">cm</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="poids">Poids réel</label>
+          <div class="num-wrap">
+            <input type="number" id="poids" min="0" step="0.1">
+            <span class="unit">kg</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="statut">Statut ventilatoire</label>
+        <select id="statut">
+          <option>Non Intubé</option>
+          <option>Intubé avec Filtre</option>
+          <option>Humidificateur Chauffant</option>
+        </select>
+      </div>
+
+      <div class="err-box" id="errBox"></div>
+    </section>
+
+    <!-- RESULTS AREA WITH TABS -->
+    <div>
+      <div class="tabs" role="tablist" aria-label="Sections de l’application">
+        <button type="button" class="tab-btn active" id="tab-btn-resultats" role="tab" aria-selected="true" aria-controls="tab-resultats" data-tab="resultats">Résultats</button>
+        <button type="button" class="tab-btn" id="tab-btn-antibiotiques" role="tab" aria-selected="false" aria-controls="tab-antibiotiques" data-tab="antibiotiques">Antibiotiques</button>
+        <button type="button" class="tab-btn" id="tab-btn-references" role="tab" aria-selected="false" aria-controls="tab-references" data-tab="references">Références</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-resultats" role="tabpanel" aria-labelledby="tab-btn-resultats">
+        <div class="stack">
+
+          <section class="panel primary-results">
+            <h2>IMC · Poids idéal · Poids ajusté</h2>
+            <div class="results-grid">
+              <div class="stat imc-stat" id="imcStat">
+                <div class="label">IMC</div>
+                <div class="value" id="outIMC">—<span class="unit">kg/m²</span></div>
+                <div class="sub bmi-classification" id="outIMCsub" aria-live="polite">&nbsp;</div>
+              </div>
+              <div class="stat">
+                <div class="label">PIT (Poids Idéal Théorique)</div>
+                <div class="value" id="outPIT">—<span class="unit">kg</span></div>
+              </div>
+              <div class="stat">
+                <div class="label">Poids ajusté</div>
+                <div class="value" id="outPA">—<span class="unit">kg</span></div>
+              </div>
+            </div>
+
+            <div class="gauge-wrap">
+              <div class="gauge-track" id="gaugeTrack"></div>
+              <div class="gauge-note">
+                Poids utilisé pour les pertes insensibles : <b id="gaugeChoice">—</b>.
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>Pertes insensibles journalières</h2>
+            <div class="pertes-box">
+              <div class="value" id="outPertes">—<span>mL / jour</span></div>
+              <div class="detail" id="pertesDetail">Renseignez les données du patient. La méthode de calcul figure dans l’onglet Références.</div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-antibiotiques" role="tabpanel" aria-labelledby="tab-btn-antibiotiques">
+        <section class="panel">
+          <h2>Antibiotiques — poids à utiliser pour les calculs</h2>
+          <table>
+            <thead>
+              <tr><th scope="col">Molécule</th><th scope="col">Poids (kg)</th></tr>
+            </thead>
+            <tbody id="atbBody"></tbody>
+          </table>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="tab-references" role="tabpanel" aria-labelledby="tab-btn-references">
+        <div class="reference-stack">
+          <section class="panel">
+            <h2>Formules générales</h2>
+            <div class="formula-grid">
+              <article class="formula-card">
+                <h3>Indice de masse corporelle</h3>
+                <p class="formula">IMC = poids réel (kg) ÷ [taille (m)]²</p>
+              </article>
+              <article class="formula-card">
+                <h3>Poids ajusté</h3>
+                <p class="formula">Poids ajusté = PIT + 0,3 × (poids réel − PIT)</p>
+              </article>
+              <article class="formula-card wide">
+                <h3>PIT — Poids Idéal Théorique</h3>
+                <p class="formula"><strong>Homme :</strong> PIT (kg) = 50 + 0,91 × (taille en cm − 152,4)</p>
+                <p class="formula"><strong>Femme :</strong> PIT (kg) = 45,5 + 0,91 × (taille en cm − 152,4)</p>
+              </article>
+              <article class="formula-card wide">
+                <h3>Pertes insensibles journalières</h3>
+                <p class="formula">Pertes (mL/jour) = poids retenu (kg) × coefficient ventilatoire</p>
+                <p>Poids retenu : poids réel si IMC &lt; 30 ; poids ajusté si IMC ≥ 30.</p>
+                <p>Coefficients : 10 mL/kg non intubé · 7 mL/kg intubé avec filtre · 6 mL/kg avec humidificateur chauffant.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>Formules utilisées pour les antibiotiques</h2>
+            <div class="reference-table-wrap">
+              <table class="reference-table">
+                <thead><tr><th scope="col">Molécule</th><th scope="col">Poids ou formule</th></tr></thead>
+                <tbody id="atbFormulaBody"></tbody>
+              </table>
+            </div>
+            <div class="sources"><p><strong>PR</strong> : poids réel · <strong>PIT</strong> : Poids Idéal Théorique.</p></div>
+          </section>
+
+          <section class="panel">
+            <h2>Classification internationale de l’IMC adulte</h2>
+            <div class="reference-table-wrap">
+              <table class="bmi-reference-table">
+                <thead><tr><th scope="col">Catégorie</th><th scope="col">Intervalle</th></tr></thead>
+                <tbody id="bmiReferenceBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel sources">
+            <h2>Sources, références et limites</h2>
+            <p><strong>Antibiotiques :</strong> Wurtz R, Itokazu G, Rodvold K. <em>Antimicrobial dosing in obese patients.</em> Clinical Infectious Diseases. 1997;25:112–118.</p>
+            <p><strong>IMC :</strong> classification de l’adulte selon les <a href="https://apps.who.int/nutrition/landscape/help.aspx?helpid=420&amp;menu=0" target="_blank" rel="noopener noreferrer">seuils internationaux de l’OMS</a>. Les couleurs constituent une aide visuelle accessible et n’ont pas de valeur normative propre.</p>
+            <p>Reproduction des calculs du classeur « Aide aux calculs IMC ATB et PIT ».</p>
+            <p class="clinical-warning"><strong>Précaution :</strong> les formules doivent être validées selon le contexte clinique et le protocole du service. Cet outil d’aide ne se substitue pas au jugement médical.</p>
+            <p class="copyright">© Gabriel THOMAS — Élaboration : août 2026.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const sexeToggle = document.getElementById('sexeToggle');
+  const tailleEl = document.getElementById('taille');
+  const poidsEl = document.getElementById('poids');
+  const statutEl = document.getElementById('statut');
+  const errBox = document.getElementById('errBox');
+  const pertesDetail = document.getElementById('pertesDetail');
+
+  // --- tabs ---
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      tabPanels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      tabBtns.forEach(b=>b.setAttribute('aria-selected', String(b===btn)));
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  const ATB = [
+    {name:'Betalactamine', coef:0.30, formula:'PIT + 0,30×(PR−PIT)'},
+    {name:'Vancomycine',   coef:null, formula:'Poids réel (PR)'},
+    {name:'Ciprofloxacine',coef:0.45, formula:'PIT + 0,45×(PR−PIT)'},
+    {name:'Gentamicine',   coef:0.43, formula:'PIT + 0,43×(PR−PIT)'},
+    {name:'Amikacine',     coef:0.38, formula:'PIT + 0,38×(PR−PIT)'},
+    {name:'Erythromycine', coef:0,    formula:'PIT'},
+    {name:'Acyclovir',     coef:0,    formula:'PIT'},
+    {name:'Ampho B (déoxicholate)', coef:null, formula:'Poids réel (PR)'},
+  ];
+
+  // Classification internationale OMS de l'IMC chez l'adulte.
+  // La catégorie est toujours affichée en toutes lettres : la couleur seule
+  // ne porte jamais l'information clinique.
+  const BMI_CATEGORIES = [
+    {max:16,       key:'thinness-severe',   label:'Maigreur sévère',                    range:'IMC < 16,0'},
+    {max:17,       key:'thinness-moderate', label:'Maigreur modérée',                  range:'IMC de 16,0 à 16,9'},
+    {max:18.5,     key:'thinness-mild',     label:'Maigreur légère',                   range:'IMC de 17,0 à 18,4'},
+    {max:25,       key:'normal',            label:'Corpulence normale',                range:'IMC de 18,5 à 24,9'},
+    {max:30,       key:'pre-obese',         label:'Surpoids · pré-obésité',            range:'IMC de 25,0 à 29,9'},
+    {max:35,       key:'obese-i',           label:'Obésité · classe I',                range:'IMC de 30,0 à 34,9'},
+    {max:40,       key:'obese-ii',          label:'Obésité · classe II',               range:'IMC de 35,0 à 39,9'},
+    {max:Infinity, key:'obese-iii',         label:'Obésité · classe III',              range:'IMC ≥ 40,0'},
+  ];
+
+  function applyBmiTheme(imc){
+    const category = Number.isFinite(imc)
+      ? BMI_CATEGORIES.find(item => imc < item.max)
+      : null;
+    const imcStat = document.getElementById('imcStat');
+    const imcSub = document.getElementById('outIMCsub');
+
+    document.body.dataset.bmiTheme = category ? category.key : 'neutral';
+    if(!category){
+      imcSub.innerHTML = '&nbsp;';
+      imcStat.removeAttribute('aria-label');
+      return null;
+    }
+
+    imcSub.textContent = category.label + ' — ' + category.range;
+    imcStat.setAttribute('aria-label', 'IMC ' + fmt(imc,1) + ' kg par mètre carré. ' + category.label + '.');
+    return category;
+  }
+
+  // build ATB table rows once
+  const atbBody = document.getElementById('atbBody');
+  const atbFormulaBody = document.getElementById('atbFormulaBody');
+  ATB.forEach((d,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="drug">${d.name}</td><td class="w" id="atb${i}">—</td>`;
+    atbBody.appendChild(tr);
+
+    const formulaTr = document.createElement('tr');
+    const moleculeCell = document.createElement('td');
+    const formulaCell = document.createElement('td');
+    moleculeCell.textContent = d.name;
+    formulaCell.textContent = d.formula;
+    formulaTr.append(moleculeCell, formulaCell);
+    atbFormulaBody.appendChild(formulaTr);
+  });
+
+  const bmiReferenceBody = document.getElementById('bmiReferenceBody');
+  BMI_CATEGORIES.forEach(item=>{
+    const tr = document.createElement('tr');
+    const categoryCell = document.createElement('td');
+    const rangeCell = document.createElement('td');
+    categoryCell.textContent = item.label;
+    rangeCell.textContent = item.range;
+    tr.append(categoryCell, rangeCell);
+    bmiReferenceBody.appendChild(tr);
+  });
+
+  let sexe = 'Femme';
+  const sexeButtons = sexeToggle.querySelectorAll('button');
+  sexeButtons.forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      sexe = btn.dataset.val;
+      sexeButtons.forEach(b=>b.classList.toggle('active', b===btn));
+      calc();
+    });
+  });
+
+  [tailleEl, poidsEl, statutEl].forEach(el=>el.addEventListener('input', calc));
+
+  document.getElementById('razBtn').addEventListener('click', ()=>{
+    tailleEl.value = '';
+    poidsEl.value = '';
+    calc();
+    tailleEl.focus();
+  });
+
+  function fmt(n, d=1){
+    return n.toLocaleString('fr-FR', {minimumFractionDigits:d, maximumFractionDigits:d});
+  }
+
+  function setPin(id, pct, label){
+    const el = document.getElementById(id);
+    el.style.left = pct + '%';
+    el.querySelector('.tag').textContent = label;
+  }
+
+  function calc(){
+    const taille = parseFloat(tailleEl.value);
+    const pr = parseFloat(poidsEl.value);
+    const statut = statutEl.value;
+
+    const problems = [];
+    if(tailleEl.value.trim() === '') problems.push('Veuillez renseigner la taille.');
+    else if(isNaN(taille) || taille <= 45) problems.push('Taille invalide (doit être un nombre > 45 cm).');
+    if(poidsEl.value.trim() === '') problems.push('Veuillez renseigner le poids réel.');
+    else if(isNaN(pr) || pr <= 0) problems.push('Poids réel invalide (doit être un nombre positif).');
+
+    if(problems.length){
+      errBox.textContent = problems.join(' ');
+      errBox.classList.add('show');
+      ['outIMC','outPIT','outPA','outPertes'].forEach(id=>{
+        const el = document.getElementById(id);
+        el.innerHTML = '—';
+      });
+      document.getElementById('gaugeTrack').innerHTML = '';
+      document.getElementById('gaugeChoice').textContent = '—';
+      applyBmiTheme(null);
+      pertesDetail.textContent = 'Renseignez taille et poids pour lancer le calcul.';
+      ATB.forEach((d,i)=>{ document.getElementById('atb'+i).textContent = '—'; });
+      return;
+    }
+    errBox.classList.remove('show');
+
+    // --- core formulas (identical to the workbook) ---
+    const imc = pr / Math.pow(taille/100, 2);
+    const pit = sexe === 'Homme'
+      ? 50 + 0.91*(taille - 152.4)
+      : 45.5 + 0.91*(taille - 152.4);
+    const pa = pit + 0.3*(pr - pit);
+
+    const useAdjusted = imc >= 30;
+    const baseWeight = useAdjusted ? pa : pr;
+    const factor = statut === 'Non Intubé' ? 10 : statut === 'Intubé avec Filtre' ? 7 : 6;
+    const pertes = baseWeight * factor;
+
+    // --- render stats ---
+    applyBmiTheme(imc);
+    document.getElementById('outIMC').innerHTML = fmt(imc,1) + '<span class="unit">kg/m²</span>';
+    document.getElementById('outPIT').innerHTML = fmt(pit,1) + '<span class="unit">kg</span>';
+    document.getElementById('outPA').innerHTML = fmt(pa,1) + '<span class="unit">kg</span>';
+
+    // --- gauge ---
+    const track = document.getElementById('gaugeTrack');
+    track.innerHTML = `<div class="pin" id="pinPIT"><span class="tag"></span><div class="dot"></div></div>
+                        <div class="pin" id="pinPR"><span class="tag"></span><div class="dot"></div></div>
+                        <div class="pin" id="pinPA"><span class="tag"></span><div class="dot"></div></div>`;
+    const vals = [pit, pr, pa];
+    const min = Math.min(...vals) * 0.9;
+    const max = Math.max(...vals) * 1.1;
+    const pct = v => Math.max(2, Math.min(98, ((v-min)/(max-min))*100));
+    setPin('pinPIT', pct(pit), 'PIT ' + fmt(pit,1));
+    setPin('pinPR', pct(pr), 'PR ' + fmt(pr,1));
+    setPin('pinPA', pct(pa), 'PA ' + fmt(pa,1));
+    document.getElementById('pinPR').classList.toggle('active', !useAdjusted);
+    document.getElementById('pinPA').classList.toggle('active', useAdjusted);
+    document.getElementById('gaugeChoice').textContent = useAdjusted
+      ? 'poids ajusté (' + fmt(pa,1) + ' kg)'
+      : 'poids réel (' + fmt(pr,1) + ' kg)';
+
+    // --- pertes insensibles ---
+    document.getElementById('outPertes').innerHTML = Math.round(pertes) + '<span>mL / jour</span>';
+    document.getElementById('pertesDetail').textContent =
+      statut + ' · calcul fondé sur le ' + (useAdjusted ? 'poids ajusté' : 'poids réel') + ' (' + fmt(baseWeight,1) + ' kg).';
+
+    // --- antibiotics ---
+    ATB.forEach((d,i)=>{
+      let w;
+      if(d.name === 'Vancomycine' || d.name === 'Ampho B (déoxicholate)') w = pr;
+      else if(d.coef === 0) w = pit;
+      else w = pit + d.coef*(pr - pit);
+      document.getElementById('atb'+i).textContent = fmt(w,2);
+    });
+  }
+
+  calc();
+  tailleEl.focus();
+</script>
+</body>
+</html>

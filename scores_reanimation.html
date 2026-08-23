@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0e5c53">
+<meta name="description" content="Aide au calcul des scores de réanimation : Braden, BPS, RASS, Glasgow adulte et Cushman.">
+<title>Scores de réanimation</title>
+<style>
+:root{--paper:#eef2f0;--surface:#fff;--ink:#132623;--muted:#52625f;--teal:#0e5c53;--deep:#0a3f39;--pale:#dceae7;--amber:#b8722b;--amber-pale:#f5e7d6;--red:#a23b3b;--red-pale:#f4e1df;--line:#d7dfdc;--shadow:0 12px 30px rgba(10,63,57,.08)}
+*{box-sizing:border-box}html,body{margin:0;min-width:0;overflow-x:hidden}body{background:var(--paper);color:var(--ink);font-family:"Trebuchet MS",system-ui,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}.page{width:100%;max-width:1120px;margin:auto;padding:36px 24px 64px}
+.top{display:flex;align-items:flex-end;gap:20px;border-bottom:2px solid var(--deep);padding-bottom:18px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:16px;min-width:0}.mark{width:58px;height:58px;flex:none;display:grid;place-items:center;border-radius:18px;background:var(--teal);color:white;box-shadow:0 5px 12px rgba(10,63,57,.16);font:700 26px Georgia,serif}.eyebrow{font:12px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:0 0 5px}.top h1{font:700 clamp(25px,3.5vw,36px) Georgia,serif;color:var(--deep);letter-spacing:-.02em;margin:0}.intro{margin:0 0 22px;color:var(--muted);font-size:14px;max-width:760px}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-bottom:18px;scrollbar-width:thin}.tab-btn{flex:none;padding:11px 18px;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;background:transparent;color:var(--muted);font:600 13px ui-monospace,monospace;letter-spacing:.03em;cursor:pointer;transition:.15s}.tab-btn:hover,.tab-btn:focus-visible{color:var(--deep);background:rgba(220,234,231,.55);outline:none}.tab-btn.active{color:var(--deep);border-color:var(--teal)}.tab-panel{display:none}.tab-panel.active{display:block;animation:in .2s ease}@keyframes in{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:18px;align-items:start}.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;box-shadow:var(--shadow)}.panel h2{font:600 14px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0 0 16px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.reset{border:1px solid var(--teal);border-radius:20px;background:var(--surface);color:var(--teal);padding:6px 12px;font:600 11px ui-monospace,monospace;cursor:pointer}.reset:hover,.reset:focus-visible{background:var(--teal);color:#fff;outline:none}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.field{margin-bottom:14px}.field:last-child{margin-bottom:0}.field label{display:block;color:var(--muted);font-size:13px;font-weight:700;margin-bottom:6px}.select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:13px "Trebuchet MS",system-ui,sans-serif}.select:focus-visible{outline:2px solid var(--teal);outline-offset:2px}.hint{font-size:12px;color:var(--muted);margin:4px 0 0}.scorebox{margin-top:20px;padding:18px;border-left:5px solid var(--teal);border-radius:8px;background:linear-gradient(135deg,var(--pale),var(--paper))}.score-label{font:600 11px ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}.score{font:700 34px ui-monospace,monospace;color:var(--deep);margin:3px 0}.interpret{font-weight:700;color:var(--deep);margin:0}.clinical{margin-top:16px;padding:13px 15px;border-radius:8px;background:#f8faf9;border:1px solid var(--line);color:var(--muted);font-size:13px}.clinical strong{color:var(--ink)}.notice{position:sticky;top:18px;background:var(--deep);color:#e8f3f0;border-radius:10px;padding:19px;font-size:13px;box-shadow:var(--shadow)}.notice h2{color:#b9d9d2;margin-bottom:10px}.notice p{margin:0 0 12px}.notice p:last-child{margin:0}.notice strong{color:#fff}.footer-note{margin:20px 0 0;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:15px}
+.component-list{display:grid;gap:10px}.component{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fbfcfb}.component label{font-size:13px;font-weight:700;color:var(--ink);display:block;margin-bottom:7px}.component select{width:100%}.component .points{float:right;color:var(--teal);font:600 12px ui-monospace,monospace}.summary-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.pill{padding:5px 9px;border-radius:99px;background:var(--pale);color:var(--deep);font:600 11px ui-monospace,monospace}.rass-guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:14px}.rass-guide div{padding:8px 10px;border-radius:7px;background:var(--paper);border:1px solid var(--line);font-size:12px}.rass-guide b{color:var(--teal)}.rass-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}.rass-table th,.rass-table td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}.rass-table th{background:var(--teal);color:#fff;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase}.rass-table td:first-child{width:74px;color:var(--deep);font-weight:700;font-family:ui-monospace,monospace;white-space:nowrap}.rass-table tr:nth-child(even){background:var(--paper)}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.notice{position:static}.page{padding:24px 15px 42px}}@media(max-width:520px){.fields{grid-template-columns:1fr}.panel{padding:17px}.tab-btn{padding:10px 13px;font-size:12px}.rass-guide{grid-template-columns:1fr}.top{margin-bottom:18px}.mark{width:48px;height:48px;font-size:22px}}
+
+/* Cushman intégré — mêmes repères graphiques que les autres scores */
+.cush-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.cush-field{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.cush-field:last-child{border-bottom:0}.cush-field label,.cush-risk label{font-size:13px;font-weight:700;color:var(--ink)}.cush-field small{color:var(--muted);font-weight:400}.cush-input{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:13px "Trebuchet MS",system-ui,sans-serif;min-height:40px}.cush-input:focus-visible{outline:2px solid var(--teal);outline-offset:2px}.cush-risk-list{display:grid;gap:8px}.cush-risk{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb}.cush-risk input{width:20px;height:20px;margin:0;accent-color:var(--teal);flex:none}.cush-scorebox{margin-top:18px}.cush-scorebox.min{border-left-color:var(--teal);background:linear-gradient(135deg,var(--pale),var(--paper))}.cush-scorebox.mod{border-left-color:var(--amber);background:linear-gradient(135deg,var(--amber-pale),var(--paper))}.cush-scorebox.sev{border-left-color:var(--red);background:linear-gradient(135deg,var(--red-pale),var(--paper))}.cush-scoreline{display:flex;justify-content:space-between;align-items:flex-end;gap:14px}.cush-badge{font:700 11px ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:6px 9px;background:#fff;color:var(--deep);text-align:center}.cush-detail{margin-top:8px;color:var(--muted);font-size:12px}.cush-action{margin-top:16px;border:1px solid var(--line);border-radius:8px;padding:15px;background:#fbfcfb;color:var(--ink);font-size:13px}.cush-action h3{font:600 12px ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);margin:0 0 10px}.cush-action ul{margin:7px 0 0;padding-left:20px}.cush-action li{margin:5px 0}.cush-alert{padding:11px 12px;border-radius:8px;margin:10px 0;border:1px solid var(--line);font-size:13px}.cush-alert.info{background:var(--pale);border-color:#b9d9d2;border-left:4px solid var(--teal)}.cush-alert.warn{background:var(--amber-pale);border-color:#e6c9a8;border-left:4px solid var(--amber)}.cush-alert.danger{background:var(--red-pale);border-color:#dfb8b5;border-left:4px solid var(--red)}.cush-hidden{display:none!important}.cush-protocol{margin-top:16px}.cush-protocol details{background:#fff;border:1px solid var(--line);border-radius:8px;margin:8px 0;overflow:hidden}.cush-protocol summary{cursor:pointer;font:700 12px ui-monospace,monospace;letter-spacing:.03em;color:var(--deep);padding:12px 14px;background:var(--paper)}.cush-protocol .inside{padding:12px 14px}.cush-table{border-collapse:collapse;width:100%;font-size:12px}.cush-table th,.cush-table td{border:1px solid var(--line);padding:7px;text-align:left;vertical-align:top}.cush-table th{background:var(--teal);color:#fff;font-family:ui-monospace,monospace;font-size:11px}.cush-source{margin:16px 0 0;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+@media(max-width:800px){.cush-grid{grid-template-columns:1fr}}@media(max-width:520px){.cush-field{grid-template-columns:1fr}.cush-scoreline{align-items:flex-start;flex-direction:column}.cush-badge{text-align:left}}
+
+</style>
+</head>
+<body>
+<div class="page">
+<header class="top"><div class="brand"><div class="mark" aria-hidden="true">Σ</div><div><p class="eyebrow">Outil clinique de calcul</p><h1>Scores de réanimation</h1></div></div></header>
+<p class="intro">Une saisie guidée, des résultats immédiats. Braden, BPS, RASS, Glasgow adulte et Cushman sont regroupés dans une interface homogène pour soutenir la transmission et la réévaluation.</p>
+<nav class="tabs" role="tablist" aria-label="Scores disponibles">
+<button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-braden" id="btn-braden" data-tab="braden">BRADEN</button><button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-bps" id="btn-bps" data-tab="bps">BPS</button><button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-rass" id="btn-rass" data-tab="rass">RASS</button><button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-glasgow" id="btn-glasgow" data-tab="glasgow">GLASGOW ADULTE</button><button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-cushman" id="btn-cushman" data-tab="cushman">CUSHMAN</button>
+</nav>
+<main>
+<section class="tab-panel active" id="tab-braden" role="tabpanel" aria-labelledby="btn-braden"><div class="layout"><div class="panel"><div class="panel-head"><h2>Échelle de Braden</h2><button class="reset" type="button" data-reset="braden">Réinitialiser</button></div><p class="hint">Choisir la description qui correspond le mieux à l’observation. Les points sont visibles à droite.</p><div class="component-list" id="braden-fields"></div><div class="scorebox" aria-live="polite"><div class="score-label">Score total · 6 à 23</div><div class="score" id="braden-total">— / 23</div><p class="interpret" id="braden-interp">Compléter les 6 dimensions</p></div><div class="clinical"><strong>Lecture :</strong> plus le score est bas, plus le risque d’escarre est important. La prévention se décide aussi selon l’évaluation clinique.</div></div><aside class="notice"><h2>Repère Braden</h2><p><strong>6 dimensions</strong> : perception sensorielle, humidité, activité, mobilité, nutrition, friction/cisaillement.</p><p>Les cinq premières dimensions vont de 1 à 4 ; friction/cisaillement va de 1 à 3.</p></aside></div></section>
+<section class="tab-panel" id="tab-bps" role="tabpanel" aria-labelledby="btn-bps"><div class="layout"><div class="panel"><div class="panel-head"><h2>Behavioral Pain Scale</h2><button class="reset" type="button" data-reset="bps">Réinitialiser</button></div><p class="hint">Pour patient adulte intubé et ventilé, notamment lorsqu’il ne peut pas s’auto-évaluer.</p><div class="component-list" id="bps-fields"></div><div class="scorebox" aria-live="polite"><div class="score-label">Score total · 3 à 12</div><div class="score" id="bps-total">— / 12</div><p class="interpret" id="bps-interp">Compléter les 3 observations</p></div><div class="clinical"><strong>Interprétation prudente :</strong> 3 = absence de comportement douloureux observé ; un score ≥ 6 suggère une douleur probable. Croiser avec le contexte, les soins et la réévaluation.</div></div><aside class="notice"><h2>Cadre d’utilisation</h2><p>La BPS évalue des <strong>comportements</strong> de douleur : expression faciale, mouvements des membres supérieurs et adaptation au ventilateur.</p><p>Elle ne remplace pas une auto-évaluation lorsqu’elle est possible.</p></aside></div></section>
+<section class="tab-panel" id="tab-rass" role="tabpanel" aria-labelledby="btn-rass"><div class="layout"><div class="panel"><div class="panel-head"><h2>Richmond Agitation-Sedation Scale</h2></div><p class="hint">Échelle de référence statique — de +4 (agitation maximale) à −5 (non éveillable). Aucun calcul ni choix à effectuer.</p><table class="rass-table"><thead><tr><th scope="col">Score</th><th scope="col">Description</th></tr></thead><tbody><tr><td>+4</td><td>Combatif</td></tr><tr><td>+3</td><td>Très agité : arrache les sondes ou cathéters, agressif</td></tr><tr><td>+2</td><td>Agité : mouvements fréquents non coordonnés</td></tr><tr><td>+1</td><td>Inquiet / appréhensif, mais pas franchement agité</td></tr><tr><td>0</td><td>Alerte et calme</td></tr><tr><td>−1</td><td>Somnolent : pas complètement alerte, éveil à la voix &gt; 10 secondes</td></tr><tr><td>−2</td><td>Sédation légère : éveil bref à la voix (&lt; 10 secondes), contact visuel</td></tr><tr><td>−3</td><td>Sédation modérée : mouvement ou ouverture des yeux à la voix, sans contact visuel</td></tr><tr><td>−4</td><td>Sédation profonde : aucun mouvement ni ouverture des yeux à la voix, mouvement à la stimulation physique</td></tr><tr><td>−5</td><td>Non éveillable : aucun mouvement ni ouverture des yeux à la voix ou à la stimulation physique</td></tr></tbody></table><div class="clinical"><strong>Lecture :</strong> les valeurs positives indiquent une agitation ; les valeurs négatives une sédation croissante. Documenter le niveau observé selon le protocole local.</div></div><aside class="notice"><h2>Repère RASS</h2><p>La RASS va de <strong>+4 (combatif)</strong> à <strong>−5 (non éveillable)</strong>.</p><p>Observer spontanément, puis à la voix et enfin à la stimulation physique si nécessaire.</p></aside></div></section>
+<section class="tab-panel" id="tab-glasgow" role="tabpanel" aria-labelledby="btn-glasgow"><div class="layout"><div class="panel"><div class="panel-head"><h2>Glasgow Coma Scale · adulte</h2><button class="reset" type="button" data-reset="glasgow">Réinitialiser</button></div><p class="hint">Saisir chaque composante. « NT » signifie non testable et empêche volontairement tout total.</p><div class="component-list"><div class="component"><label for="g-e">Ouverture des yeux <span class="points" id="g-e-p">—</span></label><select class="select g-select" id="g-e"><option value="">— Choisir —</option><option value="4">4 · Spontanée</option><option value="3">3 · À la voix</option><option value="2">2 · À la douleur</option><option value="1">1 · Aucune</option><option value="NT">NT · Non testable</option></select></div><div class="component"><label for="g-v">Réponse verbale <span class="points" id="g-v-p">—</span></label><select class="select g-select" id="g-v"><option value="">— Choisir —</option><option value="5">5 · Orientée</option><option value="4">4 · Confuse</option><option value="3">3 · Mots inappropriés</option><option value="2">2 · Sons incompréhensibles</option><option value="1">1 · Aucune</option><option value="NT">NT · Non testable (ex. intubation)</option></select></div><div class="component"><label for="g-m">Réponse motrice <span class="points" id="g-m-p">—</span></label><select class="select g-select" id="g-m"><option value="">— Choisir —</option><option value="6">6 · Obéit aux ordres</option><option value="5">5 · Localise la douleur</option><option value="4">4 · Évite la douleur</option><option value="3">3 · Flexion anormale</option><option value="2">2 · Extension</option><option value="1">1 · Aucune</option><option value="NT">NT · Non testable</option></select></div></div><div class="scorebox" aria-live="polite"><div class="score-label">Total GCS · 3 à 15</div><div class="score" id="glasgow-total">— / 15</div><p class="interpret" id="glasgow-interp">Compléter E, V et M</p><div class="summary-row" id="glasgow-parts" aria-label="Composantes du score"></div></div><div class="clinical"><strong>Vigilance :</strong> chez un patient intubé, sédaté ou présentant une limitation de langage, préciser la composante non testable et le contexte (par ex. V NT) ; ne pas inventer ni normaliser le total.</div></div><aside class="notice"><h2>Repère GCS</h2><p>Le score adulte associe <strong>E 1–4, V 1–5, M 1–6</strong>. Le total valide va de 3 à 15 uniquement si les trois composantes sont testables.</p><p>Tracer séparément E, V et M reste indispensable.</p></aside></div></section>
+
+<section class="tab-panel" id="tab-cushman" role="tabpanel" aria-labelledby="btn-cushman">
+  <div class="layout">
+    <div>
+      <div class="panel">
+        <div class="panel-head"><h2>Score de Cushman</h2><button class="reset" id="cush-reset" type="button">Réinitialiser</button></div>
+        <p class="hint">Calculatrice de gravité du syndrome de sevrage alcoolique et conduite à tenir selon le protocole MED PR 80 v2 (mars 2022).</p>
+        <div class="clinical"><strong>Outil d’aide au calcul.</strong> Il restitue le protocole fourni et ne remplace ni l’évaluation clinique ni la prescription médicale. Les critères marqués d’un astérisque dans le protocole (FC, PAS, FR) sont indiqués comme valables en l’absence de fièvre (T &lt; 38 °C).</div>
+
+        <div class="cush-grid" style="margin-top:16px">
+          <div class="component">
+            <label style="margin-bottom:8px">Constantes</label>
+            <div class="cush-field"><label for="cush-age">Âge <small>(ans)</small></label><input class="cush-input" id="cush-age" type="number" min="18" max="120" inputmode="numeric" placeholder="Ex. 41"></div>
+            <div class="cush-field"><label for="cush-sbp">Pression artérielle systolique <small>(mmHg)</small></label><input class="cush-input" id="cush-sbp" type="number" min="40" max="300" inputmode="numeric" placeholder="Ex. 150"></div>
+            <div class="cush-field"><label for="cush-hr">Fréquence cardiaque <small>(/min)</small></label><input class="cush-input" id="cush-hr" type="number" min="20" max="250" inputmode="numeric" placeholder="Ex. 88"></div>
+            <div class="cush-field"><label for="cush-rr">Fréquence respiratoire <small>(/min)</small></label><input class="cush-input" id="cush-rr" type="number" min="4" max="80" inputmode="numeric" placeholder="Ex. 22"></div>
+            <div class="cush-field"><label for="cush-temp">Température <small>(°C, contrôle de validité)</small></label><input class="cush-input" id="cush-temp" type="number" min="30" max="45" step="0.1" inputmode="decimal" placeholder="Ex. 37.2"></div>
+          </div>
+
+          <div class="component">
+            <label style="margin-bottom:8px">Signes cliniques</label>
+            <div class="cush-field"><label for="cush-tremor">Tremblements</label><select class="cush-input" id="cush-tremor"><option value="0">0 — Absents</option><option value="1">1 — Main</option><option value="2">2 — Membre supérieur</option><option value="3">3 — Généralisés</option></select></div>
+            <div class="cush-field"><label for="cush-sweat">Sueurs</label><select class="cush-input" id="cush-sweat"><option value="0">0 — Absentes</option><option value="1">1 — Paumes</option><option value="2">2 — Paumes et front</option><option value="3">3 — Généralisées</option></select></div>
+            <div class="cush-field"><label for="cush-agitation">Agitation</label><select class="cush-input" id="cush-agitation"><option value="0">0 — Absente</option><option value="1">1 — Discrète</option><option value="2">2 — Généralisée et contrôlable</option><option value="3">3 — Généralisée et incontrôlable</option></select></div>
+            <div class="cush-field"><label for="cush-sensory">Troubles sensoriels</label><select class="cush-input" id="cush-sensory"><option value="0">0 — Absents</option><option value="1">1 — Phonophobie, photophobie, prurit</option><option value="2">2 — Hallucinations critiquées</option><option value="3">3 — Hallucinations non critiquées</option></select></div>
+          </div>
+        </div>
+
+        <div class="component" style="margin-top:14px">
+          <label style="margin-bottom:8px">Facteurs guidant la conduite à tenir si Cushman 0–7</label>
+          <div class="cush-risk-list">
+            <div class="cush-risk"><input type="checkbox" id="cush-risk-ccg"><label for="cush-risk-ccg">Antécédent de crise comitiale généralisée (CCG)</label></div>
+            <div class="cush-risk"><input type="checkbox" id="cush-risk-dt"><label for="cush-risk-dt">Antécédent de delirium tremens (DT)</label></div>
+            <div class="cush-risk"><input type="checkbox" id="cush-risk-bzd"><label for="cush-risk-bzd">Consommation de benzodiazépines</label></div>
+            <div class="cush-risk"><input type="checkbox" id="cush-risk-anx"><label for="cush-risk-anx">Anxiété / signes subjectifs de sevrage</label></div>
+          </div>
+        </div>
+
+        <div id="cush-result" class="scorebox cush-scorebox" aria-live="polite">
+          <div class="cush-scoreline"><div><div class="score-label">Score calculé</div><div id="cush-score" class="score">—</div></div><div id="cush-severity" class="cush-badge">Renseigner les constantes</div></div>
+          <div id="cush-breakdown" class="cush-detail"></div>
+          <div id="cush-fever" class="cush-alert danger cush-hidden"></div>
+        </div>
+
+        <div id="cush-action" class="cush-action"><h3>Conduite à tenir selon le protocole</h3><div id="cush-action-body">Le résultat et la conduite à tenir apparaîtront automatiquement dès que l’âge, la PAS, la FC et la FR seront renseignés.</div></div>
+
+        <div class="cush-protocol">
+          <details><summary>Barème du score de Cushman</summary><div class="inside"><div style="overflow-x:auto"><table class="cush-table"><thead><tr><th>Critère</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody>
+            <tr><td>FC (/min)</td><td>&lt;81</td><td>81–100</td><td>101–120</td><td>&gt;120</td></tr><tr><td>PAS 18–30 ans</td><td>&lt;126</td><td>126–135</td><td>136–145</td><td>&gt;145</td></tr><tr><td>PAS 31–50 ans</td><td>&lt;136</td><td>136–145</td><td>146–155</td><td>&gt;155</td></tr><tr><td>PAS &gt;50 ans</td><td>&lt;146</td><td>146–155</td><td>156–165</td><td>&gt;165</td></tr><tr><td>FR (/min)</td><td>&lt;16</td><td>16–25</td><td>26–35</td><td>&gt;35</td></tr><tr><td>Tremblements</td><td>0</td><td>Main</td><td>Membre supérieur</td><td>Généralisés</td></tr><tr><td>Sueurs</td><td>0</td><td>Paumes</td><td>Paumes et front</td><td>Généralisées</td></tr><tr><td>Agitation</td><td>0</td><td>Discrète</td><td>Généralisée et contrôlable</td><td>Généralisée et incontrôlable</td></tr><tr><td>Troubles sensoriels</td><td>0</td><td>Phonophobie, photophobie, prurit</td><td>Hallucinations critiquées</td><td>Hallucinations non critiquées</td></tr>
+          </tbody></table></div></div></details>
+          <details><summary>Mesures générales du protocole</summary><div class="inside"><ul><li>Accueil chaleureux et rassurant, explications sur le déroulement du traitement, chambre éclairée.</li><li>Hydratation suffisante sans hyperhydratation : privilégier les apports per os selon la soif (1,5 à 2 L/j) ; voie IV si nécessaire (solutés isotoniques : NaCl, glucose ± électrolytes).</li><li>Vitaminothérapie : vitamine B1 500 mg/j et B6 250 mg/j, per os ou parentérale en 1 à 2 fois/j. Le protocole indique que la voie parentérale est indispensable en cas de perfusion de solutés glucosés ou de signes de carence.</li></ul></div></details>
+          <details><summary>Situations particulières mentionnées</summary><div class="inside"><ul><li><strong>Insuffisance hépato-cellulaire :</strong> le protocole privilégie l’oxazépam et indique qu’un avis gastro-entérologique est indispensable.</li><li><strong>Insuffisance respiratoire :</strong> avis pneumologique indispensable.</li></ul></div></details>
+        </div>
+        <p class="cush-source">Source intégrée : « Protocole de prise en charge du syndrome de sevrage alcoolique », Centre Hospitalier d’Auch en Gascogne, MED PR 80, version 2, diffusion mars 2022, pages 1–2. Le score est annoncé dans le document comme devant être calculé par l’IDE toutes les 4 à 6 heures pendant 48 heures.</p>
+      </div>
+    </div>
+    <aside class="notice"><h2>Repère Cushman</h2><p><strong>7 critères</strong> : PAS, FC, FR, tremblements, sueurs, agitation et troubles sensoriels.</p><p><strong>0–7 :</strong> minime · <strong>8–14 :</strong> pré-DT / modéré · <strong>15–21 :</strong> DT / sévère.</p><p>FC, PAS et FR sont indiqués comme valables en l’absence de fièvre (&lt; 38 °C).</p></aside>
+  </div>
+</section>
+
+</main>
+<p class="footer-note">Outil d’aide au calcul — sans collecte de données et utilisable hors connexion.</p>
+</div>
+<script>
+(() => {
+  'use strict';
+
+  // Les identifiants correspondent aux conteneurs présents dans le DOM.
+  const SCORE_DEFS = {
+    braden: {
+      fieldsId: 'braden-fields', totalId: 'braden-total', interpId: 'braden-interp',
+      count: 6, max: 23, unit: 'dimensions',
+      interpretation(total) {
+        if (total <= 9) return 'Risque très élevé';
+        if (total <= 12) return 'Risque élevé';
+        if (total <= 14) return 'Risque modéré';
+        if (total <= 18) return 'Risque faible';
+        return 'Aucun / risque faible';
+      },
+      items: [
+        ['Perception sensorielle','1 · Complètement limitée','2 · Très limitée','3 · Légèrement limitée','4 · Aucune limitation'],
+        ['Humidité','1 · Constamment humide','2 · Très humide','3 · Occasionnellement humide','4 · Rarement humide'],
+        ['Activité','1 · Alité','2 · Au fauteuil','3 · Marche occasionnelle','4 · Marche fréquente'],
+        ['Mobilité','1 · Complètement immobile','2 · Très limitée','3 · Légèrement limitée','4 · Aucune limitation'],
+        ['Nutrition','1 · Très pauvre','2 · Probablement inadéquate','3 · Adéquate','4 · Excellente'],
+        ['Friction / cisaillement','1 · Problème','2 · Problème potentiel','3 · Aucun problème']
+      ]
+    },
+    bps: {
+      fieldsId: 'bps-fields', totalId: 'bps-total', interpId: 'bps-interp',
+      count: 3, max: 12, unit: 'observations',
+      interpretation(total) {
+        if (total === 3) return 'Aucun comportement douloureux observé';
+        if (total <= 5) return 'Douleur possible, à réévaluer';
+        if (total <= 8) return 'Douleur probable, modérée';
+        return 'Douleur probable, importante';
+      },
+      items: [
+        ['Expression faciale','1 · Détendue','2 · Plissement du front / grimace occasionnelle','3 · Grimace fréquente','4 · Grimace permanente'],
+        ['Mouvements des membres supérieurs','1 · Aucun mouvement','2 · Mouvements partiels','3 · Mouvements avec retrait','4 · Agitation permanente'],
+        ['Adaptation au ventilateur','1 · Tolère les mouvements','2 · Tousse mais tolère','3 · Lutte contre le ventilateur','4 · Impossible à ventiler']
+      ]
+    }
+  };
+
+  function renderFields(def, key) {
+    const root = document.getElementById(def.fieldsId);
+    if (!root) return;
+    root.replaceChildren();
+    def.items.forEach((item, index) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'component';
+      const selectId = `${def.fieldsId}-${index}`;
+      const label = document.createElement('label');
+      label.htmlFor = selectId;
+      label.textContent = item[0];
+      const points = document.createElement('span');
+      points.className = 'points';
+      points.id = `${def.fieldsId}-p-${index}`;
+      points.textContent = '—';
+      label.appendChild(points);
+      const select = document.createElement('select');
+      select.className = 'select score-select';
+      select.id = selectId;
+      select.setAttribute('aria-label', item[0]);
+      const blank = document.createElement('option');
+      blank.value = '';
+      blank.textContent = '— Choisir —';
+      select.appendChild(blank);
+      item.slice(1).forEach((text, optionIndex) => {
+        const option = document.createElement('option');
+        option.value = String(optionIndex + 1);
+        option.textContent = text;
+        select.appendChild(option);
+      });
+      select.addEventListener('change', () => updateScore(key));
+      wrap.append(label, select);
+      root.appendChild(wrap);
+    });
+  }
+
+  function updateScore(key) {
+    const def = SCORE_DEFS[key];
+    let total = 0;
+    let complete = true;
+    for (let i = 0; i < def.count; i += 1) {
+      const select = document.getElementById(`${def.fieldsId}-${i}`);
+      const points = document.getElementById(`${def.fieldsId}-p-${i}`);
+      const value = select ? select.value : '';
+      if (points) points.textContent = value ? `${value} pt` : '—';
+      if (!value) complete = false;
+      else total += Number(value);
+    }
+    const totalEl = document.getElementById(def.totalId);
+    const interpEl = document.getElementById(def.interpId);
+    if (!totalEl || !interpEl) return;
+    totalEl.textContent = complete ? `${total} / ${def.max}` : `— / ${def.max}`;
+    interpEl.textContent = complete ? def.interpretation(total) : `Compléter les ${def.count} ${def.unit}`;
+  }
+
+  function resetScore(key) {
+    const def = SCORE_DEFS[key];
+    for (let i = 0; i < def.count; i += 1) {
+      const select = document.getElementById(`${def.fieldsId}-${i}`);
+      if (select) select.value = '';
+    }
+    updateScore(key);
+  }
+
+  function updateGlasgow() {
+    const keys = ['e', 'v', 'm'];
+    const vals = keys.map(key => document.getElementById(`g-${key}`).value);
+    vals.forEach((value, index) => {
+      document.getElementById(`g-${keys[index]}-p`).textContent = value ? (value === 'NT' ? 'NT' : `${value} pt`) : '—';
+    });
+    document.getElementById('glasgow-parts').replaceChildren(...vals.map((value, index) => {
+      const pill = document.createElement('span');
+      pill.className = 'pill';
+      pill.textContent = `${['E','V','M'][index]} : ${value || '—'}`;
+      return pill;
+    }));
+    const total = document.getElementById('glasgow-total');
+    const interp = document.getElementById('glasgow-interp');
+    if (vals.some(value => value === 'NT')) {
+      total.textContent = 'Non calculable';
+      interp.textContent = 'Au moins une composante est non testable';
+    } else if (vals.some(value => !value)) {
+      total.textContent = '— / 15';
+      interp.textContent = 'Compléter E, V et M';
+    } else {
+      const score = vals.reduce((sum, value) => sum + Number(value), 0);
+      total.textContent = `${score} / 15`;
+      interp.textContent = score <= 8 ? 'Altération sévère (à interpréter dans le contexte)' : score <= 12 ? 'Altération modérée (à interpréter dans le contexte)' : 'Altération légère ou absence d’altération ; contexte indispensable';
+    }
+  }
+
+  Object.entries(SCORE_DEFS).forEach(([key, def]) => { renderFields(def, key); updateScore(key); });
+  document.querySelectorAll('[data-reset]').forEach(button => button.addEventListener('click', () => {
+    if (SCORE_DEFS[button.dataset.reset]) resetScore(button.dataset.reset);
+    if (button.dataset.reset === 'glasgow') {
+      document.querySelectorAll('.g-select').forEach(select => { select.value = ''; });
+      updateGlasgow();
+    }
+  }));
+  document.querySelectorAll('.g-select').forEach(select => select.addEventListener('change', updateGlasgow));
+  updateGlasgow();
+
+
+  // Score de Cushman — logique conservée depuis Calculatrice_Cushman.html
+  const cushIds = ['cush-age','cush-sbp','cush-hr','cush-rr','cush-temp','cush-tremor','cush-sweat','cush-agitation','cush-sensory','cush-risk-ccg','cush-risk-dt','cush-risk-bzd','cush-risk-anx'];
+  cushIds.forEach(id => document.getElementById(id).addEventListener('input', updateCushman));
+  cushIds.forEach(id => document.getElementById(id).addEventListener('change', updateCushman));
+  document.getElementById('cush-reset').addEventListener('click', () => {
+    ['cush-age','cush-sbp','cush-hr','cush-rr','cush-temp'].forEach(id => document.getElementById(id).value='');
+    ['cush-tremor','cush-sweat','cush-agitation','cush-sensory'].forEach(id => document.getElementById(id).value='0');
+    ['cush-risk-ccg','cush-risk-dt','cush-risk-bzd','cush-risk-anx'].forEach(id => document.getElementById(id).checked=false);
+    updateCushman();
+  });
+
+  function cushScoreHR(v){
+    if(v < 81) return 0;
+    if(v <= 100) return 1;
+    if(v <= 120) return 2;
+    return 3;
+  }
+  function cushScoreRR(v){
+    if(v < 16) return 0;
+    if(v <= 25) return 1;
+    if(v <= 35) return 2;
+    return 3;
+  }
+  function cushScoreSBP(age,v){
+    if(age <= 30){
+      if(v < 126) return 0; if(v <=135) return 1; if(v <=145) return 2; return 3;
+    }
+    if(age <= 50){
+      if(v < 136) return 0; if(v <=145) return 1; if(v <=155) return 2; return 3;
+    }
+    if(v < 146) return 0; if(v <=155) return 1; if(v <=165) return 2; return 3;
+  }
+  function cushSelectedInt(id){ return parseInt(document.getElementById(id).value,10)||0; }
+  function cushAnyRisk(){ return ['cush-risk-ccg','cush-risk-dt','cush-risk-bzd','cush-risk-anx'].some(id=>document.getElementById(id).checked); }
+
+  function updateCushman(){
+    const age = parseFloat(document.getElementById('cush-age').value);
+    const sbp = parseFloat(document.getElementById('cush-sbp').value);
+    const hr = parseFloat(document.getElementById('cush-hr').value);
+    const rr = parseFloat(document.getElementById('cush-rr').value);
+    const temp = parseFloat(document.getElementById('cush-temp').value);
+    const result = document.getElementById('cush-result');
+    const scoreEl = document.getElementById('cush-score');
+    const severity = document.getElementById('cush-severity');
+    const breakdown = document.getElementById('cush-breakdown');
+    const fever = document.getElementById('cush-fever');
+    const actionBody = document.getElementById('cush-action-body');
+
+    result.className='scorebox cush-scorebox';
+    fever.classList.add('cush-hidden');
+    fever.textContent='';
+
+    if(!Number.isFinite(age)||!Number.isFinite(sbp)||!Number.isFinite(hr)||!Number.isFinite(rr)||age<18){
+      scoreEl.textContent='—';
+      severity.textContent= age && age<18 ? 'Barème non défini avant 18 ans' : 'Renseigner les constantes';
+      breakdown.textContent='';
+      actionBody.textContent='Le résultat et la conduite à tenir apparaîtront automatiquement dès que l’âge (≥18 ans), la PAS, la FC et la FR seront renseignés.';
+      return;
+    }
+
+    const sPA = cushScoreSBP(age,sbp), sFC=cushScoreHR(hr), sFR=cushScoreRR(rr);
+    const sT=cushSelectedInt('cush-tremor'), sS=cushSelectedInt('cush-sweat'), sA=cushSelectedInt('cush-agitation'), sTS=cushSelectedInt('cush-sensory');
+    const total=sPA+sFC+sFR+sT+sS+sA+sTS;
+
+    scoreEl.textContent=total;
+    breakdown.textContent=`Détail : PAS ${sPA} + FC ${sFC} + FR ${sFR} + tremblements ${sT} + sueurs ${sS} + agitation ${sA} + troubles sensoriels ${sTS} = ${total}.`;
+
+    if(Number.isFinite(temp) && temp >= 38){
+      fever.textContent='Fièvre ≥ 38 °C : le protocole précise que les critères FC, PAS et FR marqués d’un astérisque sont valables en l’absence de fièvre. Interprétation clinique nécessaire.';
+      fever.classList.remove('cush-hidden');
+    }
+
+    if(total <= 7){
+      result.classList.add('min');
+      severity.textContent='0–7 · Minime';
+      const risk=cushAnyRisk();
+      actionBody.innerHTML = risk ? `
+        <div class="cush-alert info"><strong>Au moins un facteur est coché :</strong> le logigramme oriente vers un traitement sédatif systématique.</div>
+        <ul>
+          <li><strong>Diazépam 10 mg per os</strong> : J0 et J1 = 3 comprimés/24 h ; J2 et J3 = 2 comprimés/24 h ; J4 et J5 = 1 comprimé/24 h puis arrêt.</li>
+          <li><strong>Ne pas administrer si le patient dort</strong> (mention du protocole).</li>
+          <li>Surveillance du score de Cushman toutes les 4 à 6 heures pendant 48 h selon le document.</li>
+        </ul>` : `
+        <div class="cush-alert info"><strong>Aucun des 4 facteurs n’est coché :</strong> le logigramme indique « pas de traitement sédatif systématique ».</div>
+        <ul>
+          <li>Poursuivre les mesures générales et la surveillance prévue par le protocole.</li>
+          <li>Score de Cushman toutes les 4 à 6 heures pendant 48 h selon le document.</li>
+        </ul>`;
+    } else if(total <= 14){
+      result.classList.add('mod');
+      severity.textContent='8–14 · Pré-DT / modéré';
+      actionBody.innerHTML=`
+        <div class="cush-alert warn"><strong>Traitement sédatif de charge pendant les 5 premières heures, sur prescription médicale.</strong></div>
+        <ul>
+          <li><strong>Diazépam 10 mg per os</strong> immédiatement puis toutes les heures sauf si le patient dort, jusqu’à <strong>60 mg au total</strong> (10 mg à H0, H1, H2, H3, H4, H5).</li>
+          <li>Évaluer <strong>score de Cushman et état de vigilance chaque heure avant chaque prise</strong>.</li>
+          <li>Si le score atteint <strong>≥15</strong> pendant cette phase : le logigramme oriente vers <strong>avis soins intensifs</strong> et la branche « DT ».</li>
+          <li><strong>À H6 :</strong> si Cushman ≤7, débuter 4 h après la dernière prise de charge : diazépam 10 mg, J0 = 6 cp/24 h ; J1 = 5 ; J2 = 4 ; J3 = 3 ; J4 = 2 ; J5 = 1 puis arrêt. Ne pas donner si le patient dort.</li>
+          <li><strong>À H6 si Cushman ≥8 :</strong> le logigramme oriente vers un <strong>avis soins intensifs</strong>.</li>
+        </ul>`;
+    } else {
+      result.classList.add('sev');
+      severity.textContent='15–21 · DT / sévère';
+      actionBody.innerHTML=`
+        <div class="cush-alert danger"><strong>Avis soins intensifs</strong> selon le logigramme.</div>
+        <ul>
+          <li>Le protocole indique de commencer une <strong>hydratation IV</strong>.</li>
+          <li><strong>Vitamine B1 500 mg IV</strong>.</li>
+          <li><strong>Diazépam IV 10 mg/h</strong> (branche « DT » du protocole).</li>
+        </ul>`;
+    }
+  }
+  updateCushman();
+
+  document.querySelectorAll('.tab-btn').forEach(button => button.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+      const active = tab === button;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', String(active));
+    });
+    document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === `tab-${button.dataset.tab}`));
+    button.focus();
+  }));
+  document.querySelectorAll('.tab-btn').forEach(button => button.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+    event.preventDefault();
+    const tabs = [...document.querySelectorAll('.tab-btn')];
+    const index = tabs.indexOf(button);
+    tabs[(index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length].click();
+  }));
+})();
+</script>
+
+</body>
+</html>

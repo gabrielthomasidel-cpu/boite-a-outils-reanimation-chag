@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14527E">
+<meta name="application-name" content="Aide insuline">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Insuline">
+<title>Protocole insuline — Aide au calcul</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikluc3VsaW5lIj4KICA8cmVjdCB4PSIzMiIgeT0iMzIiIHdpZHRoPSI0NDgiIGhlaWdodD0iNDQ4IiByeD0iMTEyIiBmaWxsPSIjMTQ1MjdFIi8+CiAgPHJlY3QgeD0iMTEyIiB5PSI3OCIgd2lkdGg9IjI4OCIgaGVpZ2h0PSIzNTYiIHJ4PSI2NiIgZmlsbD0iI0ZGRkZGRiIvPgogIDxwYXRoIGQ9Ik0yNTYgMTE2YzAgMC02NCA4Mi02NCAxMjRhNjQgNjQgMCAwIDAgMTI4IDBjMC00Mi02NC0xMjQtNjQtMTI0eiIgZmlsbD0iI0RDRTdGMyIgc3Ryb2tlPSIjMEIzNTU3IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0iTTIzMiAyNDZhMjQgMjQgMCAwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE0NTI3RSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTI1NiAxNThsMzggNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0EyM0IzQiIgc3Ryb2tlLXdpZHRoPSIxMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTE2OCAzMThoMTc2TTE5MCAzNTZoMTMyIiBmaWxsPSJub25lIiBzdHJva2U9IiNEMkRCRTYiIHN0cm9rZS13aWR0aD0iMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikluc3VsaW5lIj4KICA8cmVjdCB4PSIzMiIgeT0iMzIiIHdpZHRoPSI0NDgiIGhlaWdodD0iNDQ4IiByeD0iMTEyIiBmaWxsPSIjMTQ1MjdFIi8+CiAgPHJlY3QgeD0iMTEyIiB5PSI3OCIgd2lkdGg9IjI4OCIgaGVpZ2h0PSIzNTYiIHJ4PSI2NiIgZmlsbD0iI0ZGRkZGRiIvPgogIDxwYXRoIGQ9Ik0yNTYgMTE2YzAgMC02NCA4Mi02NCAxMjRhNjQgNjQgMCAwIDAgMTI4IDBjMC00Mi02NC0xMjQtNjQtMTI0eiIgZmlsbD0iI0RDRTdGMyIgc3Ryb2tlPSIjMEIzNTU3IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0iTTIzMiAyNDZhMjQgMjQgMCAwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE0NTI3RSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTI1NiAxNThsMzggNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0EyM0IzQiIgc3Ryb2tlLXdpZHRoPSIxMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTE2OCAzMThoMTc2TTE5MCAzNTZoMTMyIiBmaWxsPSJub25lIiBzdHJva2U9IiNEMkRCRTYiIHN0cm9rZS13aWR0aD0iMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
+<style>
+  /*
+    Charte de base bleue, fixe : la couleur ne varie jamais avec la glycémie.
+    La conduite à tenir est toujours écrite en toutes lettres.
+  */
+  :root{
+    --paper:#EEF1F6;
+    --surface:#FFFFFF;
+    --ink:#131E2B;
+    --ink-soft:#4F5F72;
+    --blue:#14527E;
+    --blue-dark:#0B3557;
+    --blue-pale:#DCE7F3;
+    --amber:#B8722B;
+    --amber-pale:#F5E7D6;
+    --alert:#A23B3B;
+    --alert-pale:#F4E1DF;
+    --line:#D2DBE6;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .35s ease, color .35s ease;
+  }
+  .page{width:100%;max-width:1120px;min-width:0;margin:0 auto;padding:36px 24px 64px;}
+
+  header.top{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:2px solid var(--blue-dark);
+    padding-bottom:18px;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+  }
+  header.top .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blue);
+    margin:0 0 6px;
+  }
+  header.top h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(24px, 3.4vw, 34px);
+    font-weight:700;
+    margin:0;
+    color:var(--blue-dark);
+    letter-spacing:-0.01em;
+  }
+  .title-lockup{display:flex; align-items:center; gap:16px; min-width:0; flex:1;}
+  .title-lockup > div:last-child{min-width:0; flex:1; text-align:center; padding-right:74px;}
+  .app-icon{width:58px; height:58px; flex:0 0 58px; filter:drop-shadow(0 5px 10px rgba(11,53,87,.16));}
+  .app-icon svg{display:block; width:100%; height:100%;}
+
+  main{display:grid; grid-template-columns:310px 1fr; gap:24px; align-items:start;}
+  main > *{min-width:0;max-width:100%;}
+  @media (max-width:820px){
+    main{grid-template-columns:1fr; gap:14px;}
+    .inputs{position:static; top:auto;}
+  }
+
+  .panel{
+    min-width:0;
+    max-width:100%;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:22px;
+    transition:background-color .35s ease, border-color .35s ease;
+  }
+  .panel h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--blue);
+    margin:0 0 16px;
+  }
+  .panel h3.sub-head{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:13px;
+    color:var(--blue-dark);
+    margin:22px 0 8px;
+  }
+  .panel h3.sub-head:first-of-type{margin-top:0;}
+  .panel-head{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .panel-head h2{margin-bottom:0;}
+  .raz-btn{
+    margin-bottom:16px;
+    padding:5px 12px;
+    border:1px solid var(--blue);
+    border-radius:20px;
+    background:var(--surface);
+    color:var(--blue);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.04em;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .raz-btn:hover, .raz-btn:focus-visible{background:var(--blue); color:#fff; outline:none;}
+  .raz-btn:active{transform:translateY(1px);}
+
+  /* --- Inputs panel --- */
+  .inputs{position:sticky; top:20px;}
+  @media (max-width:820px){ .inputs{position:static; top:auto;} }
+  .field{margin-bottom:18px;}
+  .field:last-child{margin-bottom:0;}
+  .field.hidden{display:none;}
+  .field label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;}
+  .field .hint{font-size:11.5px; color:var(--ink-soft); margin-top:5px; line-height:1.35;}
+  .toggle{display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .toggle button{
+    flex:1;
+    padding:9px 6px;
+    border:none;
+    background:var(--surface);
+    color:var(--ink-soft);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .toggle button + button{border-left:1px solid var(--line);}
+  .toggle button.active{background:var(--blue); color:#fff;}
+
+  .num-wrap{position:relative;}
+  .num-wrap input[type=number]{
+    width:100%;
+    padding:10px 62px 10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:17px;
+    color:var(--ink);
+    background:var(--paper);
+  }
+  .num-wrap input[type=number]:focus{outline:2px solid var(--blue); outline-offset:1px;}
+  .num-wrap .unit{
+    position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--ink-soft);
+  }
+  select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13.5px;
+    color:var(--ink);
+    background:var(--paper);
+  }
+  select:focus{outline:2px solid var(--blue); outline-offset:1px;}
+
+  .err-box{
+    margin-top:16px;
+    padding:10px 12px;
+    border-radius:8px;
+    background:var(--alert-pale);
+    color:var(--alert);
+    font-size:12.5px;
+    font-weight:500;
+    display:none;
+  }
+  .err-box.show{display:block;}
+
+  /* --- tabs --- */
+  .tabs{display:flex; gap:6px; margin-bottom:18px; border-bottom:1px solid var(--line); overflow-x:auto; scrollbar-width:thin;}
+  .tab-btn{
+    flex:0 0 auto;
+    padding:10px 18px;
+    border:none;
+    background:transparent;
+    color:var(--ink-soft);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    margin-bottom:-1px;
+    transition:color .15s, border-color .15s;
+  }
+  .tab-btn:hover{color:var(--blue-dark);}
+  .tab-btn.active{color:var(--blue-dark); border-bottom-color:var(--blue);}
+  .tab-panel{display:none;min-width:0;max-width:100%;}
+  .tab-panel.active{display:block;}
+
+  /* --- results --- */
+  .zone-box{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    background:linear-gradient(135deg, var(--blue-pale), var(--paper));
+    border:1px solid var(--line);
+    border-left:5px solid var(--blue);
+    border-radius:9px;
+    padding:16px 18px;
+    flex-wrap:wrap;
+    transition:background .35s ease, border-color .35s ease;
+  }
+  .zone-box .glc{font-family:'IBM Plex Mono', monospace; font-size:34px; font-weight:600; color:var(--blue-dark); line-height:1.05;}
+  .zone-box .glc span{font-size:14px; color:var(--ink-soft); font-weight:500; margin-left:4px;}
+  .zone-box .zone-label{font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:15px; color:var(--blue-dark);}
+  .zone-box .zone-range{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); margin-top:2px;}
+  .zone-box .zone-right{text-align:right; min-width:0;}
+
+  .action-box{
+    margin-top:14px;
+    background:var(--blue-dark);
+    color:#fff;
+    border-radius:9px;
+    padding:20px 24px;
+  }
+  .action-box .label{font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; opacity:.75; font-weight:600;}
+  .action-box .value{font-family:'IBM Plex Mono', monospace; font-size:clamp(22px,4.4vw,32px); font-weight:600; margin-top:4px; line-height:1.2;}
+  .action-box .detail{font-size:12.5px; opacity:.85; margin-top:8px;}
+
+  .results-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:14px;}
+  @media (max-width:640px){ .results-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px;} }
+  .stat{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    background:var(--paper);
+    transition:background-color .35s ease, border-color .35s ease;
+  }
+  .stat .label{font-size:11.5px; color:var(--ink-soft); font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+  .stat .value{font-family:'IBM Plex Mono', monospace; font-size:19px; font-weight:600; color:var(--blue-dark); margin-top:4px; line-height:1.25;}
+  .stat .sub{font-size:11.5px; color:var(--ink-soft); margin-top:4px;}
+
+  .alert-banner{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:0 0 14px;
+    background:var(--alert);
+    color:#fff;
+    border-radius:9px;
+    padding:15px 18px;
+    box-shadow:0 5px 16px rgba(162,59,59,.30);
+  }
+  .alert-banner.hidden{display:none;}
+  .alert-banner .ico{flex:0 0 34px; width:34px; height:34px;}
+  .alert-banner .ico svg{display:block; width:100%; height:100%;}
+  .alert-banner .txt{min-width:0;}
+  .alert-banner .txt strong{
+    display:block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    line-height:1.15;
+  }
+  .alert-banner .txt span{display:block; font-size:12.5px; opacity:.92; margin-top:3px;}
+
+  .callout{
+    margin-top:14px;
+    border-radius:8px;
+    padding:11px 14px;
+    font-size:13px;
+    line-height:1.45;
+    border-left:4px solid var(--amber);
+    background:var(--amber-pale);
+    color:#5C3B19;
+  }
+  .callout.danger{border-left-color:var(--alert); background:var(--alert-pale); color:#6E2020;}
+  .callout strong{font-weight:700;}
+  .callout ul{margin:6px 0 0; padding-left:18px;}
+  .callout li{margin:3px 0;}
+  .callout.hidden{display:none;}
+
+  .rules{margin-top:14px; font-size:12.5px; color:var(--ink-soft); background:var(--paper); border:1px dashed var(--line); border-radius:8px; padding:11px 14px;}
+  .rules ul{margin:0; padding-left:18px;}
+  .rules li{margin:4px 0;}
+  .rules b{color:var(--blue-dark);}
+
+  /* --- scale --- */
+  .scale{display:flex; gap:3px; margin-top:16px;}
+  .scale-seg{
+    flex:1;
+    min-width:0;
+    border-radius:5px;
+    padding:7px 4px;
+    text-align:center;
+    background:var(--paper);
+    border:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    color:var(--ink-soft);
+    line-height:1.25;
+    transition:background .2s, color .2s;
+  }
+  .scale-seg.on{background:var(--blue); border-color:var(--blue); color:#fff; font-weight:700;}
+  .scale-seg .seg-dose{display:block; font-size:11px; font-weight:600; margin-top:2px; color:var(--blue-dark);}
+  .scale-seg.on .seg-dose{color:#fff;}
+
+  /* --- tables --- */
+  table{width:100%; border-collapse:collapse; margin-top:4px;}
+  thead th{
+    text-align:left;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--line);
+    padding:0 10px 8px;
+    white-space:nowrap;
+  }
+  tbody td{padding:9px 10px; border-bottom:1px solid var(--line); font-size:13.5px; vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td.glc-col{font-family:'IBM Plex Mono', monospace; font-weight:700; color:var(--blue-dark); white-space:nowrap;}
+  tbody td.dose{font-family:'IBM Plex Mono', monospace; font-weight:600; color:var(--ink);}
+  tbody tr.row-on{background:var(--blue-pale);}
+  tbody tr.row-on td{color:var(--blue-dark);}
+  .table-wrap{max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .table-wrap table{min-width:460px;}
+  @media (max-width:600px){
+    .table-wrap table.cols-2,
+    .table-wrap table.cols-3{min-width:0; width:100%; table-layout:fixed;}
+    .table-wrap table.cols-2 td,
+    .table-wrap table.cols-3 td,
+    .table-wrap table.cols-2 th,
+    .table-wrap table.cols-3 th{white-space:normal; overflow-wrap:anywhere;}
+    .table-wrap table.cols-2 td.glc-col,
+    .table-wrap table.cols-3 td.glc-col{white-space:nowrap;}
+    .table-wrap table.cols-3 th:first-child,
+    .table-wrap table.cols-3 td:first-child{width:34%;}
+    .table-wrap table.cols-4{min-width:430px;}
+    .table-wrap table.cols-4 th,
+    .table-wrap table.cols-4 td{padding-left:5px; padding-right:5px;}
+  }
+
+  /* --- references --- */
+  .stack-flow{display:contents;}
+  .reference-stack{display:flex; min-width:0; max-width:100%; flex-direction:column; gap:16px;}
+  .formula-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+  .formula-card{min-width:0; max-width:100%; border:1px solid var(--line); border-radius:9px; padding:14px 16px; background:var(--paper);}
+  .formula-card.wide{grid-column:1 / -1;}
+  .formula-card h3{margin:0 0 7px; color:var(--blue-dark); font-family:'Space Grotesk', sans-serif; font-size:13px;}
+  .formula-card p{margin:4px 0; max-width:100%; font-size:12.5px; color:var(--ink-soft); overflow-wrap:anywhere;}
+  .formula-card ul{margin:6px 0 0; padding-left:18px; font-size:12.5px; color:var(--ink-soft);}
+  .formula-card li{margin:3px 0;}
+  .formula-card b{color:var(--blue-dark);}
+  .sources{font-size:12.5px; color:var(--ink-soft);}
+  .sources p{margin:8px 0;}
+  .sources p:first-child{margin-top:0;}
+  .sources p:last-child{margin-bottom:0;}
+  .clinical-warning{border-left:4px solid var(--amber); background:var(--amber-pale); color:#5C3B19; border-radius:7px; padding:10px 12px;}
+  .copyright{padding-top:10px; border-top:1px solid var(--line); color:var(--blue-dark); font-weight:700; text-align:center;}
+
+  .stack{display:flex; flex-direction:column; gap:24px;}
+
+  @media (max-width:480px){
+    .page{padding:10px 10px 36px;}
+    header.top{gap:8px; padding-bottom:8px; margin-bottom:10px; flex-wrap:nowrap; align-items:center;}
+    header.top .eyebrow{display:none;}
+    header.top h1{font-size:20px; line-height:1.1;}
+    .title-lockup{align-items:center; gap:9px;}
+    .title-lockup > div:last-child{padding-right:49px;}
+    .app-icon{width:40px; height:40px; flex-basis:40px;}
+    main{gap:10px;}
+    .panel{padding:12px; border-radius:9px;}
+    .panel h2{font-size:12px; margin-bottom:9px;}
+    .panel-head h2{margin-bottom:0;}
+    .raz-btn{margin-bottom:7px; padding:3px 10px;}
+    .field{margin-bottom:9px;}
+    .field label{font-size:11.5px; margin-bottom:3px;}
+    .toggle button{padding:7px 5px; font-size:12.5px;}
+    .num-wrap input[type=number]{padding:8px 56px 8px 9px; font-size:16px;}
+    select{padding:7px 9px; font-size:12.5px;}
+    .tabs{margin-bottom:8px; gap:2px;}
+    .tab-btn{flex:0 0 auto; padding:7px 7px; font-size:11.5px; white-space:nowrap;}
+    .alert-banner{padding:11px 13px; gap:10px; margin-bottom:9px;}
+    .alert-banner .ico{flex-basis:26px; width:26px; height:26px;}
+    .alert-banner .txt strong{font-size:16px;}
+    .alert-banner .txt span{font-size:11.5px;}
+    .stack{gap:10px;}
+    .zone-box{padding:11px 12px; gap:8px;}
+    .zone-box .glc{font-size:27px;}
+    .action-box{padding:14px 16px; margin-top:9px;}
+    .results-grid{margin-top:9px;}
+    .stat{padding:9px 10px;}
+    .stat .label{font-size:10px; line-height:1.2;}
+    .stat .value{font-size:16px;}
+    .callout{margin-top:9px; font-size:12px; padding:9px 11px;}
+    .rules{margin-top:9px; font-size:11.5px; padding:9px 11px;}
+    .scale{gap:2px; margin-top:10px;}
+    .scale-seg{padding:5px 1px; font-size:8.5px;}
+    .scale-seg .seg-dose{font-size:9.5px;}
+    thead th{padding:0 6px 6px; font-size:10.5px;}
+    tbody td{padding:7px 6px; font-size:12.5px;}
+    .reference-stack{gap:10px;}
+    .formula-grid{grid-template-columns:1fr; gap:8px;}
+    .formula-card.wide{grid-column:auto;}
+    .formula-card{padding:11px 12px;}
+    .formula-card h3{font-size:12px;}
+    .formula-card p, .formula-card ul, .sources{font-size:11.5px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    body, .panel, .stat, .zone-box{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div class="title-lockup">
+      <div class="app-icon" aria-hidden="true">
+        <svg viewBox="0 0 512 512" focusable="false">
+          <rect x="32" y="32" width="448" height="448" rx="112" fill="#14527E"/>
+          <rect x="112" y="78" width="288" height="356" rx="66" fill="#FFFFFF"/>
+          <path d="M256 116c0 0-64 82-64 124a64 64 0 0 0 128 0c0-42-64-124-64-124z" fill="#DCE7F3" stroke="#0B3557" stroke-width="12" stroke-linejoin="round"/>
+          <path d="M232 246a24 24 0 0 0 24 24" fill="none" stroke="#14527E" stroke-width="10" stroke-linecap="round"/>
+          <path d="M256 158l38 44" fill="none" stroke="#A23B3B" stroke-width="13" stroke-linecap="round"/>
+          <path d="M168 318h176M190 356h132" fill="none" stroke="#D2DBE6" stroke-width="18" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">Outil clinique de calcul</p>
+        <h1>PROTOCOLE INSULINE</h1>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- INPUT PANEL -->
+    <section class="panel inputs">
+      <div class="panel-head">
+        <h2>Situation</h2>
+        <button type="button" id="razBtn" class="raz-btn" title="Effacer la glycémie">RAZ</button>
+      </div>
+
+      <div class="field">
+        <label for="voie">Voie d’administration</label>
+        <select id="voie">
+          <option value="ivse">IVSE — Intraveineuse à la seringue électrique</option>
+          <option value="sc">SC — Sous-cutanée</option>
+        </select>
+        <div class="hint" id="voieHint"></div>
+      </div>
+
+      <div class="field" id="ageField">
+        <label>Âge du patient</label>
+        <div class="toggle" id="ageToggle">
+          <button type="button" data-val="lt75" class="active">&lt; 75 ans</button>
+          <button type="button" data-val="gt75">&gt; 75 ans</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="glc">Glycémie capillaire</label>
+        <div class="num-wrap">
+          <input type="number" id="glc" min="0" step="0.1" inputmode="decimal" placeholder="—">
+          <span class="unit">mmol/L</span>
+        </div>
+      </div>
+
+      <div class="field" id="debitField">
+        <label for="debit">Débit IVSE en cours</label>
+        <div class="num-wrap">
+          <input type="number" id="debit" min="0" step="0.5" inputmode="decimal" placeholder="—">
+          <span class="unit">UI/h</span>
+        </div>
+        <div class="hint">Facultatif : permet d’afficher le nouveau débit après adaptation.</div>
+      </div>
+
+      <div class="err-box" id="errBox"></div>
+    </section>
+
+    <!-- RESULTS AREA WITH TABS -->
+    <div>
+      <div class="tabs" role="tablist" aria-label="Sections de l’application">
+        <button type="button" class="tab-btn active" id="tab-btn-mode0" role="tab" aria-selected="true" aria-controls="tab-resultats" data-tab="resultats" data-mode="0">Initiation du traitement</button>
+        <button type="button" class="tab-btn" id="tab-btn-mode1" role="tab" aria-selected="false" aria-controls="tab-resultats" data-tab="resultats" data-mode="1">Poursuite du traitement</button>
+        <button type="button" class="tab-btn" id="tab-btn-tableaux" role="tab" aria-selected="false" aria-controls="tab-tableaux" data-tab="tableaux" title="Tableaux du protocole et références">Protocole &amp; références</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-resultats" role="tabpanel" aria-labelledby="tab-btn-mode0">
+        <div class="stack">
+          <section class="panel">
+            <h2 id="resTitle">Conduite à tenir</h2>
+
+            <div class="alert-banner hidden" id="drBanner" role="alert">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 48 48" focusable="false">
+                  <path d="M24 5.5 45 42H3z" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round"/>
+                  <path d="M24 18v11" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+                  <circle cx="24" cy="35.5" r="2.6" fill="#FFFFFF"/>
+                </svg>
+              </span>
+              <span class="txt">
+                <strong>Prévenir le médecin</strong>
+                <span id="drReason">&nbsp;</span>
+              </span>
+            </div>
+
+            <div class="zone-box">
+              <div>
+                <div class="glc" id="outGlc">—<span>mmol/L</span></div>
+              </div>
+              <div class="zone-right">
+                <div class="zone-label" id="outZone">Renseignez la glycémie</div>
+                <div class="zone-range" id="outRange">&nbsp;</div>
+              </div>
+            </div>
+
+            <div class="action-box">
+              <div class="label" id="actionLabel">Action principale</div>
+              <div class="value" id="actionValue">—</div>
+              <div class="detail" id="actionDetail">Sélectionnez la situation et saisissez la glycémie capillaire.</div>
+            </div>
+
+            <div class="results-grid" id="resGrid"></div>
+
+            <div class="callout hidden" id="noteCallout"></div>
+
+            <div class="scale" id="scale" aria-hidden="true"></div>
+
+            <div class="rules" id="rulesBox"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-tableaux" role="tabpanel" aria-labelledby="tab-btn-tableaux">
+        <div class="reference-stack">
+          <div id="tablesStack" class="stack-flow"></div>
+          <section class="panel">
+            <h2>Repères de lecture</h2>
+            <div class="formula-grid">
+              <article class="formula-card">
+                <h3>Resucrage</h3>
+                <p>Le resucrage par <b>sérum glucosé à 30 % (G30 %)</b> intervient dans toutes les situations dès que la glycémie descend sous le seuil bas, en ampoules IVD :</p>
+                <ul>
+                  <li><b>IVSE</b> — glycémie &lt; 2,2 mmol/L : 2 ampoules · 2,2 à 3,3 mmol/L : 1 ampoule.</li>
+                  <li><b>SC</b> — glycémie &lt; 3,3 mmol/L : 1 ampoule.</li>
+                </ul>
+              </article>
+              <article class="formula-card">
+                <h3>Lecture des bornes</h3>
+                <p>Chaque colonne du protocole correspond à un intervalle de glycémie. La borne inférieure est <b>incluse</b>, la borne supérieure <b>exclue</b> : une glycémie de 10,0 mmol/L est traitée dans la colonne « 10 – 14 ».</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel sources">
+            <h2>Sources, références et limites</h2>
+            <p><strong>Source :</strong> protocole de service « Insulinothérapie IVSE / SC » (document <em>Insulinetableaux.pdf</em>), reproduit à l’identique. Aucune dose n’a été extrapolée.</p>
+            <p><strong>Unités :</strong> toutes les glycémies sont exprimées en <strong>mmol/L</strong>, conformément au protocole.</p>
+            <p><strong>UI</strong> : unités internationales d’insuline · <strong>IVD</strong> : intraveineuse directe · <strong>IVSE</strong> : intraveineuse à la seringue électrique · <strong>SC</strong> : sous-cutané · <strong>NE / NP</strong> : nutrition entérale / parentérale.</p>
+            <p class="clinical-warning"><strong>Précaution :</strong> cet outil reproduit un protocole de service et ne se substitue ni à la prescription médicale ni au jugement clinique. Toute situation limite, toute hypoglycémie et toute hyperglycémie majeure imposent de prévenir le médecin.</p>
+            <p class="copyright">© Gabriel THOMAS — Élaboration : août 2026.</p>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script>
+(function(){
+  "use strict";
+
+  var INF = Infinity;
+
+  /* ------------------------------------------------------------------
+     Données du protocole — reproduction stricte de « Insulinetableaux.pdf ».
+     Chaque bande : borne basse incluse, borne haute exclue.
+  ------------------------------------------------------------------ */
+
+  var PROTOCOLS = {
+    ivse_init: {
+      title:'IVSE — Initiation du traitement',
+      hint:'Mise en route de l’insulinothérapie IV à la seringue électrique.',
+      tableTitle:'IVSE — Initiation du traitement',
+      columns:[
+        {key:'bolus', label:'Bolus IVD'},
+        {key:'debit', label:'Débit IVSE'}
+      ],
+      rules:[
+        'Mise en route de l’insuline IVSE uniquement à partir de <b>10 mmol/L</b>.',
+        'En dessous de 3,3 mmol/L : <b>resucrage par G30 % IVD</b> et prévenir le médecin, sans débuter l’insuline.',
+        'Une fois l’IVSE en route, basculer sur l’onglet <b>Poursuite du traitement</b>.'
+      ],
+      bands:[
+        {lo:-INF, hi:2.2,  zone:'hypo-severe',
+         bolus:'G30 % — 2 amp IVD', debit:'Ne pas débuter', dr:true,
+         mainLabel:'Resucrage immédiat', mainValue:'G30 % — 2 ampoules IVD',
+         mainDetail:'Ne pas mettre en route l’insuline IVSE.'},
+        {lo:2.2, hi:3.3,   zone:'hypo',
+         bolus:'G30 % — 1 amp IVD', debit:'Ne pas débuter', dr:true,
+         mainLabel:'Resucrage immédiat', mainValue:'G30 % — 1 ampoule IVD',
+         mainDetail:'Ne pas mettre en route l’insuline IVSE.'},
+        {lo:3.3, hi:5.5,   zone:'low',
+         bolus:'—', debit:'Pas de mise en route',
+         mainLabel:'Mise en route', mainValue:'Pas d’insuline',
+         mainDetail:'Ni bolus, ni mise en route de l’IVSE dans cette zone.'},
+        {lo:5.5, hi:7.5,   zone:'target',
+         bolus:'—', debit:'Pas de mise en route',
+         mainLabel:'Mise en route', mainValue:'Pas d’insuline',
+         mainDetail:'Ni bolus, ni mise en route de l’IVSE dans cette zone.'},
+        {lo:7.5, hi:10,    zone:'target',
+         bolus:'—', debit:'Pas de mise en route',
+         mainLabel:'Mise en route', mainValue:'Pas d’insuline',
+         mainDetail:'Ni bolus, ni mise en route de l’IVSE dans cette zone.'},
+        {lo:10,  hi:14,    zone:'high-mild',
+         bolus:'3 UI', debit:'2 UI/h',
+         mainLabel:'Mise en route', mainValue:'Bolus 3 UI IVD → IVSE 2 UI/h',
+         mainDetail:'Puis adaptation du débit selon le tableau de suivi.'},
+        {lo:14,  hi:16.5,  zone:'high',
+         bolus:'4 UI', debit:'3 UI/h',
+         mainLabel:'Mise en route', mainValue:'Bolus 4 UI IVD → IVSE 3 UI/h',
+         mainDetail:'Puis adaptation du débit selon le tableau de suivi.'},
+        {lo:16.5, hi:INF,  zone:'high-severe',
+         bolus:'6 UI', debit:'4 UI/h', dr:true,
+         mainLabel:'Mise en route', mainValue:'Bolus 6 UI IVD → IVSE 4 UI/h',
+         mainDetail:'Puis adaptation du débit selon le tableau de suivi.'}
+      ]
+    },
+
+    ivse_adapt: {
+      title:'IVSE — Adaptation du débit',
+      hint:'Suivi d’une insulinothérapie IVSE déjà en cours.',
+      tableTitle:'IVSE — Adaptation du débit et fréquence des glycémies',
+      columns:[
+        {key:'freq',  label:'Fréquence des glycémies'},
+        {key:'adapt', label:'Adaptation du débit'},
+        {key:'g30',   label:'G30 %'}
+      ],
+      rules:[
+        'Après un <b>arrêt pour hypoglycémie</b> : reprise à la <b>moitié du débit</b> lorsque la glycémie repasse au-dessus de 7,5 mmol/L.',
+        'La zone cible est <b>7,5 – 10 mmol/L</b> : débit inchangé, contrôle toutes les 2 h.',
+        'Toute glycémie &lt; 2,2 mmol/L ou &gt; 16,5 mmol/L impose de <b>prévenir le médecin</b>.'
+      ],
+      bands:[
+        {lo:-INF, hi:2.2, zone:'hypo-severe', freq:'15 min', adapt:'Arrêt de l’IVSE', g30:'2 amp', stop:true, dr:true,
+         mainLabel:'Conduite à tenir', mainValue:'Arrêt de l’IVSE + G30 % 2 amp',
+         mainDetail:'Reprise à la moitié du débit quand la glycémie dépasse 7,5 mmol/L.'},
+        {lo:2.2, hi:3.3,  zone:'hypo', freq:'30 min', adapt:'Arrêt de l’IVSE', g30:'1 amp', stop:true,
+         mainLabel:'Conduite à tenir', mainValue:'Arrêt de l’IVSE + G30 % 1 amp',
+         mainDetail:'Reprise à la moitié du débit quand la glycémie dépasse 7,5 mmol/L.'},
+        {lo:3.3, hi:5.5,  zone:'low', freq:'1 h', adapt:'− 1 UI/h', g30:'0', delta:-1,
+         mainLabel:'Adaptation du débit', mainValue:'− 1 UI/h', mainDetail:'Contrôle glycémique dans 1 heure.'},
+        {lo:5.5, hi:7.5,  zone:'target', freq:'1 h', adapt:'− 1 UI/h', g30:'0', delta:-1,
+         mainLabel:'Adaptation du débit', mainValue:'− 1 UI/h', mainDetail:'Contrôle glycémique dans 1 heure.'},
+        {lo:7.5, hi:10,   zone:'target', freq:'2 h', adapt:'Débit inchangé', g30:'0', delta:0,
+         mainLabel:'Adaptation du débit', mainValue:'Débit inchangé', mainDetail:'Zone cible — contrôle glycémique dans 2 heures.'},
+        {lo:10,  hi:14,   zone:'high-mild', freq:'1 h', adapt:'+ 1 UI/h', g30:'0', delta:1,
+         mainLabel:'Adaptation du débit', mainValue:'+ 1 UI/h', mainDetail:'Contrôle glycémique dans 1 heure.'},
+        {lo:14,  hi:16.5, zone:'high', freq:'1 h', adapt:'+ 1 UI/h', g30:'0', delta:1,
+         mainLabel:'Adaptation du débit', mainValue:'+ 1 UI/h', mainDetail:'Contrôle glycémique dans 1 heure.'},
+        {lo:16.5, hi:INF, zone:'high-severe', freq:'1 h', adapt:'Bolus 6 UI + 1 UI/h', g30:'0', delta:1, bolus:'6 UI', dr:true,
+         mainLabel:'Adaptation du débit', mainValue:'Bolus 6 UI + 1 UI/h', mainDetail:'Contrôle glycémique dans 1 heure.'}
+      ]
+    },
+
+    sc_nopo: {
+      title:'SC — Sans alimentation orale',
+      hint:'Nutrition entérale ou parentérale continue. Surveillance × 6 / jour.',
+      tableTitle:'SC — En l’absence d’alimentation orale (bolus insuline rapide)',
+      ageDependent:true,
+      surveillance:'× 6 / jour',
+      columns:[
+        {key:'lt75', label:'< 75 ans'},
+        {key:'gt75', label:'> 75 ans'}
+      ],
+      rules:[
+        'Surveillance glycémique <b>× 6 / jour</b> en l’absence d’alimentation orale.',
+        'Respecter un délai de <b>4 heures</b> entre deux injections.',
+        'Bolus d’<b>insuline rapide</b> en sous-cutané.'
+      ],
+      bands:[
+        {lo:-INF, hi:3.3, zone:'hypo',       lt75:'G30 % — 1 amp', gt75:'G30 % — 1 amp', resucrage:true},
+        {lo:3.3,  hi:5.5, zone:'low',        lt75:'0',    gt75:'0'},
+        {lo:5.5,  hi:7.5, zone:'target',     lt75:'0',    gt75:'0'},
+        {lo:7.5,  hi:10,  zone:'target',     lt75:'4 UI', gt75:'0'},
+        {lo:10,   hi:14,  zone:'high-mild',  lt75:'8 UI', gt75:'4 UI'},
+        {lo:14,   hi:16.5,zone:'high',       lt75:'12 UI',gt75:'6 UI'},
+        {lo:16.5, hi:INF, zone:'high-severe',lt75:'16 UI',gt75:'8 UI'}
+      ]
+    },
+
+    sc_po: {
+      title:'SC — Alimentation orale (basal-bolus)',
+      hint:'Patient diabétique alimenté : insuline lente le soir + rapide avant les repas selon prescription.',
+      tableTitle:'SC — Alimentation orale : bolus correcteur en plus du basal-bolus',
+      surveillance:'Avant les repas ± la nuit',
+      columns:[
+        {key:'dose', label:'UI rapide SC en plus'}
+      ],
+      rules:[
+        'Schéma <b>basal-bolus</b> : insuline lente le soir + insuline rapide SC avant les repas <b>selon prescription</b>.',
+        'Les doses ci-dessus sont un <b>bolus correcteur en plus</b> du schéma prescrit.',
+        'Surveillance glycémique <b>avant les repas ± la nuit</b>.',
+        'Respecter un délai de <b>4 heures</b> entre deux injections.'
+      ],
+      bands:[
+        {lo:-INF, hi:3.3, zone:'hypo',       dose:'G30 % — 1 amp', resucrage:true},
+        {lo:3.3,  hi:5.5, zone:'low',        dose:'0'},
+        {lo:5.5,  hi:7.5, zone:'target',     dose:'0'},
+        {lo:7.5,  hi:10,  zone:'target',     dose:'0'},
+        {lo:10,   hi:14,  zone:'high-mild',  dose:'3 UI'},
+        {lo:14,   hi:16.5,zone:'high',       dose:'4 UI'},
+        {lo:16.5, hi:INF, zone:'high-severe',dose:'6 UI'}
+      ]
+    }
+  };
+
+  var ZONE_LABEL = {
+    'hypo-severe':'Hypoglycémie sévère',
+    'hypo':'Hypoglycémie',
+    'low':'Glycémie basse',
+    'target':'Zone cible',
+    'high-mild':'Hyperglycémie modérée',
+    'high':'Hyperglycémie',
+    'high-severe':'Hyperglycémie majeure'
+  };
+
+  /* ---------------------------- utilitaires ---------------------------- */
+
+  function num(n){
+    if(!isFinite(n)) return '∞';
+    return n.toLocaleString('fr-FR', {maximumFractionDigits:2});
+  }
+  function rangeLabel(b){
+    if(b.lo === -INF) return '< ' + num(b.hi) + ' mmol/L';
+    if(b.hi === INF)  return '≥ ' + num(b.lo) + ' mmol/L';
+    return num(b.lo) + ' – ' + num(b.hi) + ' mmol/L';
+  }
+  function shortRange(b){
+    if(b.lo === -INF) return '< ' + num(b.hi);
+    if(b.hi === INF)  return '≥ ' + num(b.lo);
+    return num(b.lo) + '–' + num(b.hi);
+  }
+  function findBand(proto, g){
+    for(var i=0;i<proto.bands.length;i++){
+      var b = proto.bands[i];
+      if(g >= b.lo && g < b.hi) return b;
+    }
+    return null;
+  }
+  function el(id){ return document.getElementById(id); }
+
+  /* ------------------------------ éléments ----------------------------- */
+
+  var voieEl = el('voie'), glcEl = el('glc'), debitEl = el('debit');
+  var ageField = el('ageField'), debitField = el('debitField');
+  var errBox = el('errBox'), voieHint = el('voieHint');
+  var age = 'lt75';
+
+  /* Chaque voie d'administration ouvre deux situations, présentées en onglets. */
+  var MODES = {
+    ivse:[
+      {key:'ivse_init',  tab:'Initiation du traitement', short:'Initiation',
+       full:'Initiation du traitement — mise en route de l’insulinothérapie IVSE'},
+      {key:'ivse_adapt', tab:'Poursuite du traitement',  short:'Poursuite',
+       full:'Poursuite du traitement — adaptation du débit de l’IVSE en cours'}
+    ],
+    sc:[
+      {key:'sc_nopo', tab:'NE / NP continue',   short:'NE / NP continue',
+       full:'Sans alimentation orale (nutrition entérale ou parentérale continue)'},
+      {key:'sc_po',   tab:'Alimentation orale', short:'Alimentation orale',
+       full:'Alimentation orale (basal-bolus)'}
+    ]
+  };
+  var narrow = window.matchMedia('(max-width:560px)');
+  var mode = 0;
+  function currentKey(){ return MODES[voieEl.value][mode].key; }
+  function currentProto(){ return PROTOCOLS[currentKey()]; }
+
+  /* -------------------------------- onglets ---------------------------- */
+
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabPanels = document.querySelectorAll('.tab-panel');
+  Array.prototype.forEach.call(tabBtns, function(btn){
+    btn.addEventListener('click', function(){
+      Array.prototype.forEach.call(tabBtns, function(b){
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', String(b===btn));
+      });
+      Array.prototype.forEach.call(tabPanels, function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      el('tab-'+btn.dataset.tab).classList.add('active');
+      if(btn.dataset.mode !== undefined){
+        mode = parseInt(btn.dataset.mode, 10);
+        el('tab-resultats').setAttribute('aria-labelledby', btn.id);
+        calc();
+        renderTables();
+      }
+    });
+  });
+
+  /* Les libellés des deux premiers onglets suivent la voie d'administration. */
+  function syncModeTabs(){
+    var list = MODES[voieEl.value];
+    [0,1].forEach(function(i){
+      var b = el('tab-btn-mode'+i);
+      b.textContent = narrow.matches ? list[i].short : list[i].tab;
+      b.title = list[i].full;
+      b.setAttribute('aria-label', list[i].full);
+      b.classList.toggle('active', i === mode && el('tab-resultats').classList.contains('active'));
+      b.setAttribute('aria-selected', String(i === mode && el('tab-resultats').classList.contains('active')));
+    });
+  }
+
+  /* --------------------------- toggle âge ------------------------------ */
+
+  var ageButtons = el('ageToggle').querySelectorAll('button');
+  Array.prototype.forEach.call(ageButtons, function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      age = btn.dataset.val;
+      Array.prototype.forEach.call(ageButtons, function(b){ b.classList.toggle('active', b===btn); });
+      calc();
+      renderTables();
+    });
+  });
+
+  /* --------------------------- tableaux ------------------------------- */
+
+  function renderTables(){
+    var stack = el('tablesStack');
+    stack.innerHTML = '';
+    var activeKey = currentKey();
+    var g = parseFloat(glcEl.value);
+    var hasG = glcEl.value.trim() !== '' && !isNaN(g) && g >= 0;
+
+    Object.keys(PROTOCOLS).forEach(function(key){
+      var proto = PROTOCOLS[key];
+      var section = document.createElement('section');
+      section.className = 'panel';
+
+      var h2 = document.createElement('h2');
+      h2.textContent = proto.tableTitle;
+      section.appendChild(h2);
+
+      var wrap = document.createElement('div');
+      wrap.className = 'table-wrap';
+      var table = document.createElement('table');
+      table.className = 'cols-' + (proto.columns.length + 1);
+
+      var thead = document.createElement('thead');
+      var trh = document.createElement('tr');
+      var thG = document.createElement('th');
+      thG.scope = 'col';
+      thG.textContent = 'Glycémie (mmol/L)';
+      trh.appendChild(thG);
+      proto.columns.forEach(function(c){
+        var th = document.createElement('th');
+        th.scope = 'col';
+        th.textContent = c.label;
+        trh.appendChild(th);
+      });
+      thead.appendChild(trh);
+      table.appendChild(thead);
+
+      var tbody = document.createElement('tbody');
+      var activeBand = (hasG && key === activeKey) ? findBand(proto, g) : null;
+      proto.bands.forEach(function(b){
+        var tr = document.createElement('tr');
+        if(b === activeBand) tr.className = 'row-on';
+        var tdG = document.createElement('td');
+        tdG.className = 'glc-col';
+        tdG.textContent = rangeLabel(b).replace(' mmol/L','');
+        tr.appendChild(tdG);
+        proto.columns.forEach(function(c){
+          var td = document.createElement('td');
+          td.className = 'dose';
+          td.textContent = b[c.key] !== undefined ? b[c.key] : '—';
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      wrap.appendChild(table);
+      section.appendChild(wrap);
+
+      var rules = document.createElement('div');
+      rules.className = 'rules';
+      rules.innerHTML = '<ul>' + proto.rules.map(function(r){ return '<li>'+r+'</li>'; }).join('') + '</ul>';
+      section.appendChild(rules);
+
+      stack.appendChild(section);
+    });
+  }
+
+  /* ------------------------------ calcul ------------------------------- */
+
+  function reset(){
+    el('outGlc').innerHTML = '—<span>mmol/L</span>';
+    el('outZone').textContent = 'Renseignez la glycémie';
+    el('outRange').innerHTML = '&nbsp;';
+    el('actionLabel').textContent = 'Action principale';
+    el('actionValue').textContent = '—';
+    el('actionDetail').textContent = 'Sélectionnez la situation et saisissez la glycémie capillaire.';
+    el('resGrid').innerHTML = '';
+    setAlert(false);
+    el('noteCallout').classList.add('hidden');
+    el('scale').innerHTML = '';
+  }
+
+  function setAlert(on, reason){
+    var banner = el('drBanner');
+    banner.classList.toggle('hidden', !on);
+    el('drReason').innerHTML = on && reason ? reason : '&nbsp;';
+  }
+
+  function addStat(label, value, sub){
+    var d = document.createElement('div');
+    d.className = 'stat';
+    var l = document.createElement('div'); l.className = 'label'; l.textContent = label;
+    var v = document.createElement('div'); v.className = 'value'; v.textContent = value;
+    d.appendChild(l); d.appendChild(v);
+    if(sub){ var s = document.createElement('div'); s.className = 'sub'; s.textContent = sub; d.appendChild(s); }
+    el('resGrid').appendChild(d);
+  }
+
+  function scaleCell(proto, band, activeBand){
+    var key;
+    if(proto.ageDependent) key = age;
+    else if(proto.columns.length === 1) key = proto.columns[0].key;
+    else if(proto === PROTOCOLS.ivse_init) key = 'debit';
+    else key = 'adapt';
+    var txt = band[key] !== undefined ? band[key] : '—';
+    if(txt.indexOf('G30') === 0) txt = 'G30 %';
+    if(txt === 'Ne pas débuter' || txt === 'Pas de mise en route') txt = '—';
+    if(txt === 'Arrêt de l’IVSE') txt = 'Arrêt';
+    if(txt === 'Débit inchangé') txt = 'idem';
+    if(txt === 'Bolus 6 UI + 1 UI/h') txt = '+1 UI/h';
+    return txt;
+  }
+
+  function renderScale(proto, activeBand){
+    var s = el('scale');
+    s.innerHTML = '';
+    proto.bands.forEach(function(b){
+      var d = document.createElement('div');
+      d.className = 'scale-seg' + (b === activeBand ? ' on' : '');
+      d.innerHTML = shortRange(b) + '<span class="seg-dose">' + scaleCell(proto, b, activeBand) + '</span>';
+      s.appendChild(d);
+    });
+  }
+
+  function calc(){
+    syncModeTabs();
+    var key = currentKey();
+    var proto = PROTOCOLS[key];
+
+    voieHint.textContent = proto.hint;
+    ageField.classList.toggle('hidden', !proto.ageDependent);
+    debitField.classList.toggle('hidden', key !== 'ivse_adapt');
+
+    el('rulesBox').innerHTML = '<ul>' + proto.rules.map(function(r){ return '<li>'+r+'</li>'; }).join('') + '</ul>';
+    el('resTitle').textContent = proto.title;
+
+    var raw = glcEl.value.trim();
+    var g = parseFloat(raw);
+
+    if(raw === ''){
+      errBox.classList.remove('show');
+      reset();
+      renderScale(proto, null);
+      return;
+    }
+    if(isNaN(g) || g < 0 || g > 60){
+      errBox.textContent = 'Glycémie invalide : saisissez une valeur en mmol/L (0 à 60).';
+      errBox.classList.add('show');
+      reset();
+      renderScale(proto, null);
+      return;
+    }
+    errBox.classList.remove('show');
+
+    var band = findBand(proto, g);
+
+    el('outGlc').innerHTML = num(g) + '<span>mmol/L</span>';
+    el('outZone').textContent = ZONE_LABEL[band.zone];
+    el('outRange').textContent = rangeLabel(band);
+
+    el('resGrid').innerHTML = '';
+    setAlert(!!band.dr, ZONE_LABEL[band.zone] + ' — ' + rangeLabel(band) + '.');
+    var note = el('noteCallout');
+    note.classList.add('hidden');
+    note.innerHTML = '';
+
+    if(key === 'ivse_init'){
+      el('actionLabel').textContent = band.mainLabel;
+      el('actionValue').textContent = band.mainValue;
+      el('actionDetail').textContent = band.mainDetail;
+      addStat('Bolus IVD', band.bolus);
+      addStat('Débit IVSE', band.debit);
+      if(band.zone === 'hypo-severe' || band.zone === 'hypo'){
+        addStat('Ensuite', 'Recontrôler', 'Glycémie de contrôle après resucrage.');
+      } else if(band.debit === 'Pas de mise en route'){
+        addStat('Ensuite', 'Surveillance', 'Recontrôler selon la prescription.');
+      } else {
+        addStat('Ensuite', 'Poursuite du ttt', 'Onglet « Poursuite du traitement » à chaque contrôle.');
+      }
+    }
+
+    else if(key === 'ivse_adapt'){
+      el('actionLabel').textContent = band.mainLabel;
+      el('actionValue').textContent = band.mainValue;
+      el('actionDetail').textContent = band.mainDetail;
+
+      var dRaw = debitEl.value.trim();
+      var d = parseFloat(dRaw);
+      var hasD = dRaw !== '' && !isNaN(d) && d >= 0;
+
+      if(band.stop){
+        addStat('Nouveau débit', '0 UI/h', hasD ? 'Reprise ultérieure à ' + num(d/2) + ' UI/h.' : 'Reprise à la moitié du débit.');
+      } else if(hasD){
+        var nd = Math.max(0, d + (band.delta || 0));
+        addStat('Nouveau débit', num(nd) + ' UI/h', 'Débit actuel ' + num(d) + ' UI/h ' + (band.delta > 0 ? '+ 1' : band.delta < 0 ? '− 1' : '± 0') + ' UI/h.');
+      } else {
+        addStat('Nouveau débit', band.adapt, 'Renseignez le débit en cours pour le chiffre exact.');
+      }
+      addStat('Prochaine glycémie', band.freq);
+      addStat('Resucrage G30 %', band.g30 === '0' ? 'Aucun' : band.g30);
+
+      if(band.stop){
+        note.innerHTML = '<strong>Reprise de l’IVSE :</strong> à la <strong>moitié du débit</strong> antérieur' +
+          (hasD ? ', soit <strong>' + num(d/2) + ' UI/h</strong>' : '') +
+          ', lorsque la glycémie repasse au-dessus de <strong>7,5 mmol/L</strong>.';
+        note.classList.remove('hidden');
+      } else if(band.bolus){
+        note.innerHTML = '<strong>Bolus associé :</strong> ' + band.bolus + ' en IVD, en plus de l’augmentation du débit.';
+        note.classList.remove('hidden');
+      }
+    }
+
+    else {
+      var dose = proto.ageDependent ? band[age] : band.dose;
+      var isSugar = dose.indexOf('G30') === 0;
+      el('actionLabel').textContent = isSugar ? 'Resucrage immédiat' : 'Bolus insuline rapide SC';
+      el('actionValue').textContent = isSugar ? 'G30 % — 1 ampoule IVD' : (dose === '0' ? 'Pas d’insuline' : dose);
+      el('actionDetail').textContent = isSugar
+        ? 'Pas d’injection d’insuline. Contrôler la glycémie après resucrage.'
+        : (dose === '0' ? 'Aucune injection dans cette zone glycémique.' : 'Insuline rapide en sous-cutané.');
+
+      addStat('Dose', isSugar ? '—' : (dose === '0' ? '0 UI' : dose), proto.ageDependent ? (age === 'lt75' ? 'Patient < 75 ans' : 'Patient > 75 ans') : 'Bolus correcteur');
+      addStat('Surveillance', proto.surveillance);
+      addStat('Délai minimal', '4 heures', 'Entre deux injections.');
+
+      if(!isSugar && dose !== '0'){
+        note.innerHTML = '<strong>Délai à respecter :</strong> au moins <strong>4 heures</strong> depuis la dernière injection d’insuline rapide.';
+        note.classList.remove('hidden');
+      }
+      if(isSugar){
+        setAlert(true, 'Hypoglycémie — glycémie < 3,3 mmol/L. Resucrage puis contrôle.');
+      }
+    }
+
+    renderScale(proto, band);
+  }
+
+  /* ------------------------------ écouteurs ---------------------------- */
+
+  voieEl.addEventListener('change', function(){
+    mode = 0;
+    calc();
+    renderTables();
+  });
+  if(narrow.addEventListener) narrow.addEventListener('change', syncModeTabs);
+  else if(narrow.addListener) narrow.addListener(syncModeTabs);
+  glcEl.addEventListener('input', function(){ calc(); renderTables(); });
+  debitEl.addEventListener('input', calc);
+  el('razBtn').addEventListener('click', function(){
+    glcEl.value = '';
+    debitEl.value = '';
+    calc();
+    renderTables();
+    glcEl.focus();
+  });
+
+  calc();
+  renderTables();
+  glcEl.focus();
+})();
+</script>
+</body>
+</html>
