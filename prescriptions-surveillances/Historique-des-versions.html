@@ -1,0 +1,1796 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Historique des versions — Feuille de prescription et de surveillance</title>
+<style>
+  body { margin: 0; background: #eef1f5; font-family: Arial, Helvetica, sans-serif; color: #111827; }
+  .enveloppe { max-width: 900px; margin: 0 auto; padding: 28px 20px 60px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sous-titre { color: #4b5563; font-size: 13.5px; margin: 0 0 20px; }
+  .avis { background: #f1f5f9; border-left: 4px solid #94a3b8; padding: 12px 16px;
+          border-radius: 0 6px 6px 0; font-size: 13px; line-height: 1.55; color: #374151;
+          margin-bottom: 24px; }
+  .version { background: #fff; border-radius: 10px; padding: 16px 22px; margin-bottom: 12px;
+             box-shadow: 0 2px 8px rgba(15,23,42,.07); }
+  .version h2 { font-size: 16px; margin: 0 0 8px; color: #111827; }
+  .version h2 .date { font-weight: 400; font-size: 13px; color: #6b7280; }
+  .version ul { margin: 0 0 0 18px; padding: 0; }
+  .version li { font-size: 13.5px; line-height: 1.55; color: #374151; margin-bottom: 6px; }
+  .aide-note { background: #f8fafc; border-left: 3px solid #cbd5e1; padding: 8px 12px;
+               border-radius: 0 4px 4px 0; font-size: 12.5px; color: #4b5563; }
+  code { background: #eef2f7; padding: 1px 5px; border-radius: 3px; font-size: 12.5px; }
+  kbd { background: #1f2937; color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 11.5px; }
+  footer { margin-top: 26px; font-size: 12.5px; color: #6b7280; text-align: center; }
+  .version li.reserve { color: #6b7280; }
+</style>
+</head>
+<body>
+<div class="enveloppe">
+  <h1>Historique des versions</h1>
+  <p class="sous-titre">Feuille de prescription et de surveillance — Réanimation / USC, Centre Hospitalier d'Auch</p>
+
+  <div class="avis">
+    Ce fichier tient l'historique des évolutions, que l'aide de l'application ne porte plus depuis la 1.9.9.
+    Il se lit dans n'importe quel navigateur et s'imprime.<br><br>
+    L'historique commence à la <strong>1.6.20</strong>, première version de la lignée en service. Les fichiers
+    antérieurs sont conservés dans le sous-dossier <code>Versions\</code>, à côté de l'application.
+  </div>
+
+      <section class="version">
+        <h2>2.9.5 <span class="date">— 27 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Aucun nouveau dossier patient sans rechargement préalable.</strong> Avant de créer le
+              dossier d'un patient dont on vient de saisir le nom et le prénom — <em>Ouvrir la feuille</em> ou
+              <em>Observation médicale</em> sur un box qui n'a pas encore de dossier —, l'application fait
+              d'elle-même ce que fait le bouton <strong>Réactiver / recharger</strong> : l'autorisation sur le
+              dossier des patients est réactivée, la saisie est écrite, puis la liste des box est relue.</li>
+          <li>Elle vérifie ensuite, et <strong>refuse la création</strong> en le disant si le dossier des
+              patients ne répond pas, si le box vient d'être attribué à un autre patient sur un autre poste
+              de travail, ou si ce patient est <strong>déjà admis dans un autre box</strong>.</li>
+          <li><strong>Le rechargement part dès le premier clic</strong> dans le nom ou le prénom d'un box
+              libre : on saisit sur la liste à jour, et le curseur revient dans le champ. Si le box a été
+              occupé entre-temps ailleurs, la barre d'état le dit.</li>
+          <li><strong>Deux admissions dans le même box libre, sur deux postes :</strong> celle qui n'a encore
+              ouvert aucun dossier cède la place à celle de l'autre poste, au lieu de l'effacer de la liste.
+              Un message l'annonce.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.9.4 <span class="date">— 27 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les feuilles sortent centrées sur le papier.</strong> Le document part toujours en A3,
+              paysage, recto verso bord court, à l'échelle 100 % — le centrage s'ajoute à ces réglages.
+              Aucune imprimante ne sait écrire jusqu'au bord de la feuille : elle garde une bande qu'elle ne
+              peut pas atteindre, <strong>2,8 mm</strong> sur l'appareil du service. L'imprimeur posait le
+              document dans le coin de ce que l'appareil sait imprimer : la feuille était donc décalée de
+              ces 2,8 mm vers le bas et la droite, et le double était perdu de l'autre côté. Il la pose
+              désormais <strong>au milieu du papier</strong> : la bande perdue se répartit également sur les
+              quatre bords.</li>
+          <li>Mesure faite sur la Brother du service, <strong>file d'impression suspendue</strong>, en
+              lisant ce que l'imprimeur remet au pilote : marge matérielle de 11 centièmes de pouce, document
+              posé à <code>-11,-11</code> sur une feuille de <code>1654 × 1169</code>. Aucune feuille n'a été
+              gâchée pour le vérifier.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.9.3 <span class="date">— 27 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Trois lignes de surveillance sous RASS.</strong> Les trois lignes de la colonne de
+              droite qui suivaient <em>RASS</em> étaient muettes : elles ont désormais chacune une
+              <strong>case à cocher</strong> et une <strong>zone de saisie</strong>. Cette zone puise dans
+              une base nouvelle, <strong>SURVEILLANCE</strong> — <em>TOF/BIS</em>, <em>FR</em>,
+              <em>VTe</em>, <em>Cushman</em> —, et l'on peut y écrire autre chose. <em>TOF/BIS</em> n'est
+              donc plus imprimé sur la troisième ligne : c'est une entrée de la base, à choisir comme les
+              autres, et la ligne sert à ce que l'on veut.</li>
+          <li><strong>La base SURVEILLANCE se gère dans l'Administration</strong>, comme les quinze autres :
+              on y ajoute une entrée, on la retire, on choisit son ordre. Elle est écrite dans le
+              <code>_listes.json</code> du service, donc vue de tous les postes de travail. Un dossier de
+              service qui ne la porte pas encore la reçoit au premier chargement.</li>
+          <li><strong>VVP, VVC, KT dialyse et KT art prennent du texte.</strong> Dans le bandeau
+              <em>Maintien et surveillance</em>, la place après les deux points est maintenant une zone de
+              saisie libre : site, calibre, date de pose, ce que le service veut y mettre.</li>
+          <li><strong>Le score de Braden a sa case à cocher</strong>, au verso, dans la colonne des cases de
+              la partie <em>soins</em>, en face de son intitulé.</li>
+          <li><strong>L'aide et les deux cartographies suivent.</strong> Les feuilles comptent désormais
+              <strong>168 zones de saisie</strong> et <strong>40 cases à cocher</strong> ; les cartes du
+              recto et du verso ont été refaites à partir de la feuille elle-même, et les sept nouvelles
+              zones y portent leur nom — <code>SURVEILLANCE-1</code> à <code>SURVEILLANCE-3</code>,
+              <code>VVP</code>, <code>VVC</code>, <code>KT-DIALYSE</code>, <code>KT-ARTERIEL</code>.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.9.2 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Plusieurs cases à la fois.</strong> Une case n'a qu'une graphie, et elle se mettait
+              en gras ou en italique une par une : toute une colonne de prescriptions demandait autant de
+              gestes qu'elle a de lignes. <kbd>Maj</kbd> + clic prend maintenant <strong>toutes les cases
+              comprises</strong> entre la dernière touchée et celle-ci, sur la même feuille ;
+              <kbd>Ctrl</kbd> + clic en <strong>ajoute ou en retire</strong> une ; <kbd>Maj</kbd> + glisser
+              étend le choix à la souris. Les cases choisies se reconnaissent à leur liseré bleu.</li>
+          <li><strong>Sur ce choix, d'un seul geste :</strong> <kbd>Ctrl</kbd> + <kbd>B</kbd> et
+              <kbd>Ctrl</kbd> + <kbd>I</kbd> posent le gras ou l'italique — ou le retirent, si toutes les
+              cases l'avaient déjà —, et <kbd>Suppr</kbd> en vide le contenu, après une question qui nomme
+              le nombre de cases : l'effacement ne se rattrape pas. Le gras et l'italique, eux, restent en
+              place. Dans l'application Windows, le clic droit <em>Gras</em> / <em>Italique</em> suit le
+              choix lui aussi.</li>
+          <li><strong>Le choix ne s'attarde jamais.</strong> <kbd>Échap</kbd> le relâche, comme toute autre
+              frappe — on ne tape jamais dans une case en croyant n'en viser qu'une —, comme un clic hors
+              des cases, <em>Tout effacer</em>, le retour au menu ou l'ouverture d'une archive. Il ne part
+              pas non plus à l'imprimante : le document envoyé ne porte ni fond ni liseré.</li>
+          <li>Les cases <strong>en lecture seule</strong> — reports, archive consultée — n'entrent jamais
+              dans un choix, et une plage ne traverse pas les deux feuilles.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.9.1 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong>« Tout effacer » n'efface plus que les deux feuilles.</strong> Le bouton de la barre
+              des feuilles vidait aussi l'observation médicale du patient, alors qu'elle est un document à
+              part, avec son propre Word et son propre PDF dans le dossier : rien ne l'aurait remise.
+              L'effacement s'arrête désormais aux champs et aux cases des deux feuilles, et la confirmation
+              le dit — <em>« L'observation médicale n'est pas touchée »</em>.</li>
+          <li><strong>Ce qui change de dossier continue, lui, de repartir d'une page blanche</strong> :
+              ouvrir un autre patient, consulter une archive, ou tomber sur un fichier vide ou illisible
+              remet l'observation à zéro comme avant. Sans quoi l'observation du dossier précédent
+              déborderait sur le suivant — les deux moitiés sont contrôlées par le banc.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.9.0 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong><kbd>Ctrl</kbd> + <kbd>P</kbd> et <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>P</kbd>
+              impriment ce qui est à l'écran.</strong> La page captait toute frappe
+              <kbd>Ctrl</kbd> + <kbd>P</kbd> — <kbd>Maj</kbd> comprise — et lançait les deux feuilles A3
+              sans regarder la vue affichée. Depuis l'observation médicale, la question
+              <em>« Qui signe cette prescription ? »</em> s'ouvrait donc par-dessus elle, en route vers
+              les feuilles de prescription ; depuis le menu, où aucun dossier n'est ouvert, deux feuilles
+              vierges partaient. Le menu <em>Fichier &gt; Impression…</em>, lui, suivait le bon chemin :
+              d'un même raccourci, deux résultats opposés. Les deux raccourcis suivent désormais la vue,
+              exactement comme les boutons — l'observation en A4 portrait, les feuilles en A3 paysage.</li>
+          <li><strong>Frappés dans l'observation elle-même, ils fonctionnent aussi.</strong> L'observation
+              vit dans un cadre, et un cadre garde ses touches pour lui : une fois le curseur posé dans un
+              champ de l'observation, <kbd>Ctrl</kbd> + <kbd>P</kbd> ne trouvait plus personne. Il fait
+              maintenant ce que font les boutons <strong>Imprimer</strong> et <strong>Aperçu</strong>.</li>
+          <li><strong>Sur le menu, l'aide ou l'Administration, l'application le dit</strong> — <em>« Il n'y
+              a rien à imprimer sur cet écran »</em> — au lieu de sortir deux feuilles vierges.</li>
+          <li><strong>Le menu et le raccourci ne répondent plus deux fois.</strong> Le menu
+              <em>Fichier &gt; Impression…</em> porte le même raccourci que la page : les deux pouvaient
+              répondre à la même frappe. Une seule demande aboutit.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.9 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La base du service est celle qui est livrée.</strong> Les vingt bases de
+              l'application sont reprises du <code>_listes.json</code> du service, entrée par entrée :
+              les libellés raccourcis sur place suivent désormais l'installateur — <em>Bullage drain
+              Thoracique</em>, <em>Traite de drain Thoracique</em>, <em>X 2</em> à <em>X 8</em>,
+              <em>TOUJEO SoloStar</em> et <em>DoubleStar</em>, <em>FRAGMINE 0,7 ml</em>. Les modes de tri
+              livrés suivent aussi, <em>MÉDECINS</em> compris. Un dossier déjà écrit garde son propre
+              contenu : ces bases ne valent que pour un dossier vierge.</li>
+          <li><strong>« NUTRITION-ENTERALE » est écrit au centre de sa case</strong>, comme les cinq
+              autres zones de produits — alimentation, voie rectale et vésicale, collyres, transcutané,
+              sous-cutané. À l'écran et sur le papier.</li>
+          <li><strong>La question d'impression ne peut plus se poser derrière l'aperçu.</strong> L'aperçu
+              avant impression est une fenêtre à part, et elle reste ouverte. Quand elle avait la main, la
+              boîte qui demande l'imprimante — ou, pour l'observation, ce qu'il faut imprimer — s'ouvrait
+              <em>derrière</em> elle : le bouton <strong>Imprimer</strong> semblait ne rien faire.
+              L'application se ramène maintenant au premier plan avant de poser sa question.</li>
+          <li><strong>L'aperçu ne peut plus rester sur le document précédent.</strong> La fenêtre est
+              réutilisée d'un aperçu à l'autre, et le visualiseur PDF abandonne parfois la navigation
+              quand on lui remet un autre document : on redemandait l'observation médicale et l'on
+              revoyait les feuilles de prescription. La fenêtre est vidée d'abord, un abandon n'est plus
+              pris pour un échec, et son titre dit ce qu'elle montre — <em>Aperçu — feuilles de
+              prescription</em> ou <em>Aperçu — observation médicale</em>.</li>
+          <li><strong>Une impression déclenchée par le système, l'observation ouverte, ne sort plus les
+              feuilles de prescription à sa place.</strong> L'observation vit dans un cadre, et un cadre
+              ne s'imprime pas : c'était la page d'accueil — donc les deux feuilles A3 — qui partait.
+              Elles ne partent plus ; une page explique qu'il faut passer par le bouton
+              <strong>Imprimer</strong> de l'observation, lui seul sachant l'imprimer en A4 portrait,
+              recto verso bord long, avec le choix des pages.</li>
+          <li><strong>L'impression de l'observation ne renonce plus en silence.</strong> Les deux seules
+              raisons de ne rien faire — observation non chargée, impression déjà en cours — sont
+              désormais nommées à l'écran.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.8 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Un audit extérieur, six remarques, six corrections.</strong> Toutes disaient la même
+              chose sous six formes : une écriture annoncée réussie avant de l'être, ou une suite d'écritures
+              traitée comme si elle n'en faisait qu'une. Chacune a d'abord été <em>reproduite</em> au banc,
+              puis corrigée, et le banc la vérifie désormais à chaque livraison — sept groupes d'essais, vingt
+              -neuf vérifications de plus.</li>
+          <li><strong>Sortie et réadmission ne s'annoncent plus réussies avant de l'être.</strong> Faire
+              sortir un patient, c'est copier son dossier dans <code>Archives\</code>, retirer l'original,
+              puis libérer le box dans <code>_service.json</code> : trois fichiers, et une coupure entre deux
+              laissait un box annoncé occupé dont le dossier n'existait plus — ou l'inverse. L'application
+              écrit maintenant, <em>avant</em> les gestes qui effacent, une note de ce qu'elle s'apprête à
+              faire. Tant que cette note est là, l'opération n'est pas finie : à la réouverture, l'application
+              regarde où en est le dossier — c'est lui qui fait foi — et remet la liste des box d'accord avec
+              lui. La réservation du dossier est tenue jusqu'au bout, et la copie de la réadmission est
+              relue avant que l'archive ne parte.</li>
+          <li><strong>La fermeture regarde ce qu'elle a écrit.</strong> Elle attendait les bases et la liste
+              des box sans jamais lire leur réponse, et pouvait annoncer « Tout est enregistré » alors que
+              rien n'était parti. Chaque résultat est désormais vérifié. Une <strong>saisie de patient</strong>
+              en attente interdit toujours la fermeture ; la liste des box et les bases, elles, la font
+              seulement poser une question — elles se réécrivent d'elles-mêmes à la prochaine ouverture et se
+              fusionnent avec ce que les autres postes de travail ont écrit.</li>
+          <li><strong>Une saisie mise de côté ne quitte plus sa réserve avant d'être écrite.</strong> La
+              reprise vidait d'abord la file, puis écrivait : une coupure de courant au milieu emportait ce
+              qui n'était pas encore parti. Chaque entrée reste maintenant dans le stockage du poste de
+              travail jusqu'à ce qu'elle soit écrite dans le dossier — ou copiée dans
+              <code>Service\Conflits\</code>. Et les bases, comme la liste des box, entrent dans cette même
+              réserve quand le dossier ne répond pas, au lieu de ne vivre que dans la mémoire de la
+              séance.</li>
+          <li><strong>Deux enregistrements d'un même dossier ne se croisent plus.</strong> Ils se suivent,
+              comme le faisaient déjà ceux du service, et chacun écrit dans le fichier qu'il a capté en
+              partant. Mesure au banc sur la version précédente : avec un réseau lent, la sauvegarde la plus
+              ancienne terminait après la plus récente et remettait l'ancien contenu — la saisie la plus
+              récente était perdue. Elle ne l'est plus. Une frappe survenue pendant l'écriture laisse en
+              outre la feuille « modifiée » : elle repartira.</li>
+          <li><strong>L'observation médicale n'annonce « Enregistré » qu'une fois le dossier d'accord.</strong>
+              Elle ne conserve rien elle-même : elle remet sa saisie à l'application, qui l'écrit sur le
+              réseau. Elle annonçait la réussite, effaçait son état modifié et figeait sa date de référence
+              sur le simple fait d'avoir appelé. Elle attend maintenant la réponse : <em>Enregistrement…</em>,
+              puis <em>Enregistré</em> — ou une erreur, et la saisie repart. On n'imprime plus une observation
+              qui n'a pas pu être enregistrée.</li>
+          <li><strong>Les réservations appartiennent à la séance qui les a posées.</strong> Le nom du poste
+              de travail ne suffisait pas : une application relancée après un arrêt brutal se reconnaissait
+              dans le verrou qu'elle venait d'abandonner. Chaque séance porte désormais son identifiant.
+              L'application ne recouvre ni ne retire le verrou d'un autre, et si un autre poste de travail
+              prend le dossier pendant la saisie, elle cesse de se signaler et le dit. Un verrou réduit à
+              <code>{}</code> n'est plus pris pour un verrou périmé, mais pour un verrou illisible ; un
+              dossier qui ne répond pas n'est plus confondu avec un dossier libre ; et une réservation qui
+              n'a pas pu être écrite est annoncée à l'écran.</li>
+          <li><strong>Rien n'est écrasé sans copie, y compris ce qu'on ne sait pas lire.</strong> Une version
+              trouvée sur le dossier sans sa date — fichier abîmé, remplacé par autre chose — passait pour
+              « inchangée » et était écrasée. Elle part maintenant dans <code>Service\Conflits\</code> comme
+              les autres. Et si le dossier ne peut pas être relu du tout, l'écriture est
+              <strong>suspendue</strong> plutôt que forcée.</li>
+          <li><strong>Le serveur interne de l'application ne tombe plus sur une adresse mal formée.</strong>
+              Une requête telle que <code>/%ZZ</code> levait une erreur hors de toute protection, dans le
+              processus principal : elle vaut maintenant une réponse 400. La vérification « ce fichier est-il
+              bien dans le dossier de l'application ? » ne se fait plus sur un préfixe de texte mais sur les
+              chemins eux-mêmes, et un incident sans rattrapage est consigné dans un journal au lieu de faire
+              disparaître la fenêtre.</li>
+          <li>Les deux aides suivent : la réserve d'écritures, les réservations de séance, la fermeture qui
+              distingue une saisie de patient d'une liste de box, et cinq messages de plus dans le tableau
+              « En cas de problème ».</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.7 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les deux aides sont remises d'aplomb.</strong> Depuis la 2.8.3 l'application impose
+              elle-même le format et la reliure, et depuis la 2.8.6 l'observation aussi, avec le choix de ce
+              qu'on imprime. Les aides, elles, décrivaient encore l'ancienne manœuvre : régler le papier dans
+              la boîte de dialogue de Windows, repérer une page dans l'aperçu, ressaisir une plage. Tout cela
+              disparaît. L'aide de l'<strong>observation</strong> — qui a sa propre table — décrit désormais
+              la boîte de choix : toute l'observation, à partir de « Évolution dans le service », ou des
+              pages choisies.</li>
+          <li><strong>Un piège nommé : l'aperçu est fait pour regarder.</strong> Son propre bouton
+              d'impression repasse par la boîte de dialogue de Windows, qui ignore le format et le bord de
+              retournement — la feuille sortirait au papier que l'imprimante applique d'elle-même. Les deux
+              aides le disent maintenant.</li>
+          <li>Trois tournures devenues fausses sont corrigées : les deux réglages de l'Administration qui
+              parlaient encore de « l'ouverture du dialogue d'impression » et de son « retour », et le
+              message affiché quand la clôture du dossier échoue après une impression réussie.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.6 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong>L'observation médicale s'imprime comme les feuilles.</strong> Même chemin : elle est
+              rendue en PDF exact, puis l'imprimeur pose le format, l'orientation et la reliure dans les
+              réglages du travail lui-même — <strong>A4, portrait, recto verso retourné sur le bord
+              long</strong>, échelle 100 %. Rien n'est modifié sur le poste de travail. Vérifié sur une
+              vraie imprimante, file suspendue : <code>format 9 (A4)</code>, <code>orientation 1
+              (portrait)</code>, <code>DMDUP_VERTICAL (bord long)</code>.</li>
+          <li><strong>On choisit ce qu'on imprime</strong>, dans la même boîte que l'imprimante :
+            <ul>
+              <li><strong>toute l'observation</strong>, dont le nombre de pages est annoncé ;</li>
+              <li><strong>à partir de « Évolution dans le service »</strong>, dont la page de début est
+                  annoncée elle aussi ;</li>
+              <li><strong>des pages choisies</strong> — <em>3-5</em>, <em>4</em>, <em>2,4-6</em>.</li>
+            </ul>
+          </li>
+          <li><strong>Le numéro de page n'est plus à deviner.</strong> L'observation se met en pages
+              elle-même, en JavaScript, et numérote ses feuilles : elle sait donc de source sûre sur laquelle
+              commence l'évolution. Elle le dit maintenant à l'application, qui n'a plus à relire le PDF ni à
+              demander au service de repérer la page dans l'aperçu. L'ancienne marche à suivre — ouvrir
+              l'aperçu, noter le numéro, ressaisir la plage — disparaît de l'aide avec elle.</li>
+          <li>L'imprimeur accepte désormais une plage de pages : <code>--pages 3-7</code>,
+              <code>2,4-6</code>, ou une borne ouverte comme <code>5-</code>. Les plages saisies sont
+              bornées au document, et une saisie vide ou absurde est refusée avant l'envoi.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.5 <span class="date">— 25 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les heures 22, 7 et 14 du verso rentrent dans le rang.</strong> Sur la rangée des
+              vingt-quatre heures, le fond imprimé porte ces trois-là <strong>en gras et 0,26 mm plus
+              bas</strong> que leurs vingt et un voisins. Le service les veut alignés et de même typologie :
+              chaque case reçoit un masque blanc, posé entre les filets sans les mordre, et le chiffre est
+              redessiné au corps et à la graisse des autres — 3,92 mm, graisse 400. Hauteur de chiffre
+              mesurée identique à celle des voisins, au pixel, et les dix lignes des deux filets qui bordent
+              la rangée sont intactes.</li>
+          <li>La <strong>trame dessinée</strong> de la 2.8.0, relevée sur ce même fond, avait fidèlement
+              reproduit le défaut : <code>3,4 mm graisse 700</code> pour ces trois chiffres contre
+              <code>3,74 mm graisse 400</code> pour les autres. Elle est corrigée aussi.</li>
+          <li>Le <strong>recto est indemne</strong> : sa propre rangée d'heures est régulière. Vérifié.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.4 <span class="date">— 24 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le nom du patient ne disparaît plus au moment d'imprimer.</strong> Le service l'a
+              signalé : l'étiquette se vidait dès qu'on lançait une impression, et le nom ne revenait
+              plus — la feuille repartait sans identité.</li>
+          <li><strong>D'où cela venait.</strong> L'étiquette du patient fait partie des dessins que
+              l'application redouble en SVG pour qu'ils s'impriment, car le dialogue d'impression de Windows
+              ne peint pas les fonds. Son fond blanc partait dans le calque <em>haut</em>, inséré
+              <em>après</em> elle dans la feuille : à profondeur égale, le dernier peint gagne, et le
+              rectangle blanc recouvrait le nom. Désormais, le fond d'un élément qui porte son propre texte
+              va dans le calque <em>bas</em> — il couvre toujours la trame, mais passe sous le texte.</li>
+          <li>Le banc mesure maintenant <strong>l'encre du nom</strong> avant et après la préparation d'une
+              impression : 945 pixels avant, 0 après sur la version fautive ; 945 avant, 945 après
+              maintenant. Il vérifie aussi que le document envoyé à l'imprimante porte bien le nom.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.3 <span class="date">— 24 septembre 2026</span></h2>
+        <ul>
+          <li><strong>L'impression ne passe plus par Electron.</strong> Elle passe par
+              <em>l'imprimeur</em>, un petit programme à nous — 14 Mo, autonome, rien à installer sur les
+              postes de travail. L'application rend ses deux feuilles en <strong>PDF exact</strong>, ce
+              qu'elle faisait déjà pour son aperçu, et l'imprimeur l'envoie au pilote avec le format,
+              l'orientation et la reliure <strong>dans les réglages du travail lui-même</strong>.</li>
+          <li><strong>Plus rien n'est modifié sur le poste de travail.</strong> La 2.8.2 écrivait les
+              réglages dans les préférences de l'imprimante juste avant le travail, puis les remettait :
+              un script PowerShell, une préférence du poste changée quelques secondes, et un marqueur pour
+              réparer si l'application était interrompue en plein envoi. Tout cela disparaît. La version
+              d'Electron n'entre plus en ligne de compte non plus.</li>
+          <li><strong>Vérifié sur une vraie imprimante</strong>, file d'impression suspendue — aucune
+              feuille n'est sortie —, en lisant les réglages du travail remis au spouleur :
+              <code>format 8 (A3)</code>, <code>orientation 2 (paysage)</code>,
+              <code>DMDUP_HORIZONTAL (bord court)</code>.</li>
+          <li>Un piège rencontré et évité : donner à l'imprimante un A3 « sur mesure » la fait retomber sur
+              <code>DMPAPER_USER</code> et lui <strong>fait perdre le recto verso</strong>. L'imprimeur
+              choisit l'A3 que le pilote propose, et retombe sur un format sur mesure seulement si le
+              pilote n'en offre aucun — en le disant.</li>
+          <li>Les pages sont <strong>tramées à 300 points par pouce</strong> avant d'être envoyées, soit
+              4961 pixels pour une A3 : exactement la définition du fond scanné que la feuille porte déjà.</li>
+          <li>Si l'imprimeur ne peut pas être lancé, l'application le dit <em>avant</em> d'imprimer et
+              propose d'annuler, plutôt que de laisser sortir un A3 réduit sur de l'A4.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.2 <span class="date">— 24 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le recto verso bord court arrive enfin à l'imprimante.</strong> Le service l'a signalé :
+              à l'essai, les feuilles sortaient en recto simple. La mesure a été faite sur un vrai matériel,
+              file d'impression suspendue — aucune feuille n'est sortie —, en lisant les réglages du travail
+              remis au spouleur. Verdict : l'orientation paysage passe, le <strong>format ne passe
+              jamais</strong>, et le <strong>recto verso ne passe plus depuis Electron 44</strong>, qui le
+              remplace par du recto simple. Electron ne charge pas les capacités de l'imprimante ; Chromium
+              n'a donc rien à quoi comparer la demande et garde les réglages par défaut de l'appareil.</li>
+          <li><strong>Deux mesures, vérifiées ensemble.</strong> L'application est revenue à
+              <strong>Electron 40</strong>, qui transmet correctement le bord court ; et elle écrit
+              maintenant le format, l'orientation et le recto verso dans les <strong>préférences
+              d'impression de l'imprimante choisie</strong> juste avant le travail, puis les remet comme
+              elles étaient. C'est la seule voie par laquelle le format A3 atteint le pilote. Les préférences
+              touchées sont celles de l'utilisateur, pour cette seule imprimante, le temps du travail ; si
+              l'application est interrompue en plein envoi, elle les remet au démarrage suivant.</li>
+          <li><strong>Rien ne part en aveugle.</strong> Si les réglages ne peuvent pas être posés — droits
+              manquants, pilote récalcitrant —, l'application le dit <em>avant</em> d'imprimer et propose
+              d'annuler : sans cela la feuille sortirait au format que l'imprimante applique d'elle-même, un
+              A3 réduit sur de l'A4.</li>
+          <li>Une précision sur la 2.8.1 : la preuve « 420 × 297 mm » y avait été obtenue sur
+              <em>Microsoft Print to PDF</em>, dont le pilote accepte n'importe quel format. Sur une vraie
+              imprimante, l'A3 n'était pas imposé non plus. Il l'est maintenant.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.1 <span class="date">— 24 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les feuilles partent en A3, paysage, recto verso retourné sur le bord court.</strong>
+              Le PDF d'essai remis par le service disait tout : deux pages <em>A4 portrait</em>, les feuilles
+              A3 couchées et réduites dedans. La boîte de dialogue d'impression de Windows part toujours des
+              réglages de l'imprimante, et il fallait les reprendre à chaque impression. Mesure faite :
+              en mode dialogue, elle n'a repris <em>ni</em> le format, <em>ni</em> l'orientation, <em>ni</em>
+              même l'imprimante demandée ; en impression directe, le document sort à
+              <strong>420 × 297 mm</strong> exactement. L'application imprime donc elle-même, avec ses
+              réglages. Il ne reste qu'à <strong>choisir l'imprimante</strong> — le choix est retenu pour les
+              suivantes, sur ce poste de travail —, et <kbd>Entrée</kbd> lance l'impression.</li>
+          <li><strong>« La prescription doit être signée » s'affiche deux fois moins longtemps</strong> :
+              une seconde et demie au lieu de trois. Le message se lit d'un coup d'œil et retardait
+              l'impression d'autant.</li>
+          <li><strong>L'impression a le temps de partir avant que la main soit rendue.</strong> Le document
+              reste en place pendant que le travail s'en va vers l'imprimante, au lieu d'être retiré dans la
+              seconde. Un défaut est corrigé au passage : le garde-fou de trente secondes couvrait toute
+              l'impression et non le seul chargement du document — rester plus longtemps dans la boîte de
+              dialogue faisait échouer une impression pourtant réussie, le minuteur se déclenchant en retard
+              dès la reprise.</li>
+          <li><strong>Deux demandes du service passent dans la feuille par défaut</strong>, et non plus
+              seulement dans la trame dessinée de la 2.8.0 : <strong>LAVEMENT EVACUATEUR</strong> justifié à
+              droite et sans graisse, comme les lignes voisines de sa colonne, et le bloc
+              <strong>« Examens 6 H »</strong> recentré et aéré — chaque examen détaché de ses voisins, pour
+              pouvoir en entourer un à la main. Les filets qui bordent ces deux zones sont vérifiés au pixel :
+              aucun n'est entamé.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.8.0 <span class="date">— 23 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La feuille dessinée, à la place du scan — disponible, pas encore activée.</strong>
+              Chaque feuille A3 était une image scannée que l'application corrigeait par-dessus :
+              masques blancs, traits de remplacement, libellés réécrits. Chaque correction avait ses
+              bords, ses raccords et ses restes. La trame est désormais <em>dessinée</em> : 224 filets au
+              recto, 155 au verso, 95 et 76 libellés, en millimètres, pour <strong>24 Ko de données</strong>
+              contre 1,77 Mo de scans. Le scan reste la trame par défaut : la version dessinée reprend
+              96,3 % de l'encre du recto et 92,3 % de celle du verso, ce qui ne suffit pas encore pour un
+              document clinique. On la regarde par <strong>Ctrl + Alt + T</strong>, qui retient le choix,
+              ou par <code>?trame=natif</code> dans l'adresse.</li>
+          <li><strong>Les cases à cocher du verso sont décalées d'une largeur vers la droite</strong>, à la
+              demande du service : elles mordaient sur le filet de leur colonne. Le décalage se fait au
+              moment de les poser — la table de coordonnées garde ses cotes d'origine, et les dossiers
+              déjà enregistrés s'y retrouvent par leur identifiant.</li>
+          <li>Deux sources ont rendu la trame possible. Les <strong>classeurs Excel d'origine</strong>
+              donnent la géométrie exacte : colonnes du recto à 0,03 mm près, verso entier à 0,05 mm,
+              et une typographie franche — quatre corps seulement au recto. Ils sont d'une génération
+              antérieure, aussi c'est la <strong>2.7.7 qui arbitre</strong> : un filet ou un libellé n'est
+              retenu que si son encre s'y trouve. C'est ainsi que le bloc « Examens 6 H » est revenu et
+              que NEURO, supprimé du service, s'est retiré.</li>
+          <li>Deux demandes du service sont déjà dans la trame dessinée :
+              <strong>LAVEMENT EVACUATEUR</strong> justifié à droite et sans graisse, et le bloc
+              <strong>« Examens 6 H »</strong> recentré et aéré — chaque examen détaché de ses voisins,
+              pour pouvoir en entourer un à la main.</li>
+          <li>Le banc vérifie que le scan reste la trame par défaut et que les cases du verso sont bien
+              décalées. La conformité à la 2.7.7 se mesure à chaque tour, carte des écarts à l'appui.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.7 <span class="date">— 23 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les trois marques qui restaient sur la ligne des glycémies.</strong> Deux d'entre
+              elles étaient des restes du pointillé vertical, non pas celui que l'application dessinait —
+              retiré en 2.7.5 — mais celui que porte le <em>fond scanné</em>. Il réapparaissait aux deux
+              seuls endroits qu'aucun masque de libellé ne couvre : juste sous le filet du haut et juste
+              au-dessus de celui du bas. Ils sont effacés.</li>
+          <li>La troisième était le <strong>raccord</strong> du filet complété en 2.7.5 avec celui du
+              fond : les deux moitiés ne tombaient pas sur la même rangée, d'où une marche de 0,09 mm.
+              On ne raccorde plus. Le filet du fond est effacé sur toute sa course et redessiné
+              <strong>d'un seul trait</strong>, d'un bord vertical à l'autre : une seule épaisseur,
+              aucune jonction. L'effacement s'arrête avant les deux seuls traits verticaux qu'il
+              croiserait, aux deux extrémités, que le trait neuf rejoint.</li>
+          <li>Le banc balaie désormais tout l'intervalle entre les filets, bords compris : les restes se
+              tenaient précisément dans les quelques dixièmes de millimètre que l'ancien contrôle ne
+              regardait pas. Il échoue sur la 2.7.6 et passe sur la 2.7.7.</li>
+          <li>Une note de méthode, pour les filets d'un seul pixel : une cote et sa voisine, à un demi-pixel
+              près, ne tombent pas sur la même rangée selon que la feuille est affichée dans la page ou
+              dans le document d'impression. Le trait garde donc la cote éprouvée de la 2.7.5, quitte à se
+              poser 0,09 mm plus bas que le filet du fond qu'il remplace — invisible, et identique des
+              deux côtés.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.6 <span class="date">— 22 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le papier porte enfin ce que l'écran montre.</strong> Le service a signalé cinq
+              défauts d'impression ; ils n'en font qu'un. L'impression passe par la fenêtre d'impression
+              du système, dont la case « Graphiques d'arrière-plan » est <em>décochée par défaut</em>.
+              Or tout ce qui corrige la trame scannée était dessiné avec un <em>fond</em> : les filets
+              que l'application redessine, les masques blancs qui effacent un filet imprimé, les
+              pointillés, les deux cadres de la ventilation. Rien de tout cela ne sortait sur le papier,
+              et là où un masque blanc aurait dû cacher un filet de la trame, ce filet réapparaissait.</li>
+          <li>Ces dessins sont désormais <strong>redoublés dans deux calques SVG</strong>, un sous les
+              cases de saisie et un au-dessus, aux mêmes places et dans le même ordre. Un rectangle SVG
+              est du <em>contenu</em> : il s'imprime quel que soit ce réglage. C'est le procédé retenu
+              pour le logo en 2.7.4 — et la preuve était sur le papier du service, où le logo sortait
+              quand tous les filets manquaient.</li>
+          <li>Les cinq points signalés, un par un : le cadre de la cellule <strong>Médecin</strong> se
+              ferme de nouveau à droite ; le filet qui apparaissait sous <strong>COLLYRE-01</strong> est
+              de nouveau masqué ; celui sous <strong>COLLYRE-03</strong> s'imprime ; les huit séparations
+              des cellules <strong>ventilation</strong> — interface, FiO2 / Débit, VT / Fréquence, aide
+              inspiratoire / PEP — s'impriment toutes ; et la portion de filet ajoutée en 2.7.5 entre
+              <strong>GLYCEMIES CAPILLAIRES</strong> et <strong>INSULINE</strong> s'imprime aussi.</li>
+          <li>Le banc avait certifié « 0 pixel de différence » entre l'écran et l'impression : il
+              comparait des <em>captures d'écran</em>, et une capture dessine toujours les fonds. Il ne
+              pouvait pas voir ce défaut. Un nouveau contrôle produit maintenant un vrai PDF
+              <strong>fonds non imprimés</strong>, le rend, et exige qu'il porte les mêmes filets que
+              l'écran — il échoue sur la 2.7.5 et passe sur la 2.7.6.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.5 <span class="date">— 22 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le pointillé vertical qui traversait les lignes <em>GLYCEMIES CAPILLAIRES</em> et
+              <em>INSULINE</em> est supprimé.</strong> Il ne venait pas du fond imprimé : c'est
+              l'application qui le dessinait, par deux rectangles posés là de longue date. Les deux
+              lignes se lisent maintenant d'un bord à l'autre. Le même pointillé continue, lui, de
+              séparer les lignes de prescription au-dessus : il n'a pas bougé.</li>
+          <li><strong>Le filet qui sépare ces deux lignes est plein sur toute sa course.</strong> Il
+              était plein à partir du libellé, mais pointillé le long de la case à cocher, alors que le
+              filet du dessus, lui, est plein de bout en bout. Le pointillé est effacé et le trait
+              redessiné à la même épaisseur — 0,26 mm — d'un bord vertical à l'autre.</li>
+          <li>Deux repères de méthode, notés au passage. D'abord, un rectangle posé par l'application se
+              place dans la boîte <em>intérieure</em> de la feuille, bordure déduite : une cote relevée
+              sur l'image rendue ne peut pas être recopiée telle quelle, elle tombe 0,07 % plus haut.
+              Ensuite, un effacement plus épais que le trait qu'il prépare doit s'arrêter avant les
+              traits qu'il croiserait, sous peine d'y ouvrir une encoche — celui-ci mordait le bord
+              vertical gauche de 0,26 mm avant d'être resserré.</li>
+          <li>Le banc contrôle désormais ces deux filets au pixel, sur la feuille grossie trois fois :
+              les deux vérifications échouent sur la 2.7.4 et passent sur la 2.7.5. Le garde-fou qui
+              interdisait tout masque blanc dans la bande 90–93 % de la feuille — posé en 2.7.2 pour
+              empêcher le retour du rectangle qui cachait le « /X » — visait trop large : il condamnait
+              aussi un filet retouché juste en dessous du libellé. Il compare maintenant les surfaces,
+              et n'interdit que ce qui passe réellement par-dessus le libellé.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.4 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La marque du logo s'imprime.</strong> En 2.7.3 elle ne sortait pas sur le papier : ses
+              neuf cases étaient colorées par un <em>fond</em>, et un navigateur n'imprime pas les fonds — la
+              case « Graphiques d'arrière-plan » de la fenêtre d'impression est décochée par défaut. Le texte
+              du logo, qui est une image, passait ; les carrés, non.</li>
+          <li>La marque est désormais dessinée en <strong>SVG</strong> : ses cases sont du contenu, pas du
+              fond, et s'impriment quel que soit ce réglage — tout en restant vectorielles, donc nettes à
+              n'importe quelle résolution. Le défaut avait échappé au banc parce qu'une capture d'écran, même
+              en mode impression, dessine toujours les fonds : la vérification se fait maintenant sur le
+              <strong>vrai PDF d'impression</strong>, celui que reçoit l'imprimante. Les quatre gris de la
+              marque y sont présents, là où la 2.7.3 n'avait que du noir et du blanc.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.3 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le logo du Centre Hospitalier retrouve ses proportions.</strong> Il était étiré sur la
+              feuille : la marque aux neuf cases mesurait 11,68 × 8,55 mm alors qu'elle est carrée dans la
+              charte — <strong>37 % de trop en largeur</strong> — et le texte l'était de 17 %. L'origine n'est
+              pas le formulaire : le fichier noir et blanc qui circule dans le service porte déjà l'étirement
+              (26 % sur la marque, 14 % sur le texte), et la feuille en a hérité. Comparaison faite avec le
+              fichier couleur de la charte, qui est juste.</li>
+          <li>Le logo imprimé est désormais <strong>effacé et redessiné</strong> : la marque est reconstruite
+              case par case — neuf cases dont deux restent blanches, leur vide dessinant le H —, carrée, dans
+              les gris de conversion des couleurs de la charte. Elle est nette à n'importe quel affichage et à
+              n'importe quelle résolution d'imprimante. Le texte, lui, reste une image de 8 Ko : sa linéale
+              géométrique n'est installée sur aucun poste de travail, et on ne recompose pas la marque d'un
+              établissement avec une fonte approchante. Il est resserré de 14 % pour retrouver le rapport de
+              la charte.</li>
+          <li>Deux fichiers corrigés sont déposés dans le dossier de l'application pour le reste des usages
+              du service : <code>logo nb CHAG corrige.png</code> et sa version quatre fois plus grande.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.2 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le « / » de la ligne des glycémies capillaires a disparu, pour de bon.</strong> Il ne
+              venait pas du fond imprimé : c'est l'application elle-même qui écrivait
+              <em>« GLYCEMIES CAPILLAIRES mmol/l /X »</em>, puis posait un rectangle blanc sur le
+              <em>X</em>. Le <em>/</em> restait donc affiché, et déplacer le rectangle — ce qui avait été
+              tenté deux fois — ne pouvait pas le faire disparaître. Les deux caractères sont retirés du
+              libellé, et le rectangle avec eux. La fréquence s'écrit dans la case qui suit, « X4 », et se
+              suffit à elle-même.</li>
+          <li><strong>L'impression est désormais contrôlée trait pour trait.</strong> Le banc photographie les
+              deux feuilles à l'écran et le document que l'application envoie à l'imprimante, puis les
+              compare : <strong>zéro pixel d'écart</strong> sur tout ce que l'application dessine — cadres,
+              filets, libellés, valeurs saisies, nom du signataire. Les deux seules différences voulues
+              restent la <em>flèche</em> des cases à liste et la <em>teinte</em> des zones de saisie, qui sont
+              des aides à la saisie et ne s'impriment jamais.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.1 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La date de la feuille se remet à jour à chaque ouverture du dossier.</strong> Depuis la
+              2.7.0 elle ne se saisit plus : c'est donc à l'application de la tenir. Un dossier enregistré la
+              veille et rouvert aujourd'hui reprend le jour et le lendemain, au recto comme au verso, et le
+              fichier du patient suit. Un dossier <strong>archivé</strong>, lui, garde les dates de son séjour :
+              on le relit tel qu'il a été fermé. La date de l'observation médicale, elle, ne change pas de
+              comportement.</li>
+          <li><strong>Les tableaux de l'aide se lisent de nouveau.</strong> La règle qui empêchait la seconde
+              colonne de revenir à la ligne ne valait que pour les deux cartes <em>bloc / lignes /
+              particularités</em> ; appliquée à tous les tableaux, elle étirait les phrases hors du cadre et
+              écrasait la colonne de gauche. Dans <em>En cas de problème</em>, la colonne des messages est
+              maintenant large d'un tiers du tableau — chaque message tient sur une ligne — et la colonne des
+              réponses revient à la ligne, alignée à gauche, dans le cadre. Les deux cartes des feuilles
+              gardent leur colonne de comptage, centrée sur une ligne.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.7.0 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La zone du médecin ne se montre plus.</strong> Elle ne se renseigne qu'avant
+              l'impression : sa cellule n'a donc plus de teinte, ne se tabule pas et ne se tape pas au
+              clavier. Le nom s'y inscrit <strong>« Dr BUYS : »</strong> — il reprend les deux points du mot
+              imprimé qu'il remplace — et la signature vient dessous.</li>
+          <li><strong>Un nom de médecin s'écrit en capitales dès la frappe</strong>, partout où on le saisit :
+              la boîte qui demande le signataire, la carte de la base dans l'Administration, et le menu
+              <em>Dr :</em> de l'observation. Seul le <em>Dr</em> garde sa casse.</li>
+          <li><strong>Après une impression réussie</strong>, l'application enregistre le dossier, vérifie qu'il
+              est bien écrit, relâche son verrou et revient au menu des box. Si l'enregistrement n'aboutit pas,
+              elle le dit et propose de réessayer : la feuille reste à l'écran. L'ordre est aussi plus juste
+              qu'en 2.6.5 : on ne demande plus qui signe une prescription que l'on ne saurait pas enregistrer.</li>
+          <li><strong>Les fréquences deviennent une base comme les autres</strong>, avec <strong>X2</strong> :
+              les sept cases concernées — glycémies capillaires, hémoglobine capillaire, cétonémie et les
+              quatre cadences d'aérosols — y puisent, et la base <em>FRÉQUENCES</em> se tient dans
+              l'Administration, où l'on ajoute, retire et ordonne à volonté.</li>
+          <li><strong>Les deux dates de la feuille ne se modifient plus</strong> : elles portent le jour et le
+              lendemain — la feuille couvre 24 heures — sont posées à l'ouverture et recopiées au verso. Étant
+              verrouillées, elles ne prennent plus le gras ni l'italique.</li>
+          <li><strong>L'aide a été entièrement revue.</strong> Treize chapitres au lieu de treize, mais chaque
+              sujet traité <strong>une seule fois</strong>, au bon endroit : l'observation médicale a son
+              chapitre, l'impression et la signature le leur, et tout ce qui touche à l'enregistrement, au
+              verrou et aux fichiers est réuni. Le chapitre <em>En cas de problème</em> est devenu un tableau
+              qui répond en une ligne et renvoie au chapitre. Le texte passe de 89 000 à 46 000 caractères,
+              sans rien perdre. L'aide de l'observation a suivi le même traitement, et son pied de page
+              indique désormais le numéro de l'application qui la porte.</li>
+          <li>Le <strong>reliquat de « / »</strong> qui subsistait après « mmol/l », sur la ligne des glycémies
+              capillaires, est effacé : la barre imprimée dépassait de deux pixels l'ancien masque.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.6.5 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le cadre de la cellule « Médecin » est unifié.</strong> Ses filets du haut, du bas et de
+              gauche font 0,6 mm — l'épaisseur des traits imprimés — quand celui de droite n'en faisait que la
+              moitié : il est redessiné à la même épaisseur, du filet du haut à celui du bas.</li>
+          <li><strong>Une base MÉDECINS</strong> rejoint les autres, reprise du menu <em>Dr :</em> de
+              l'observation médicale : BIROT-JAULIN, BUYS, SEINGER, SEMENT. Elle se tient dans l'Administration
+              comme les treize autres — ajout, correction, retrait, ordre, recherche — et un dossier de service
+              qui ne la possède pas encore la reçoit à l'ouverture.</li>
+          <li><strong>Imprimer commence par demander qui signe.</strong> Le bouton <em>Imprimer</em> comme le
+              menu <em>Impression…</em> ouvrent la question : un nom de la base, ou un nom libre par
+              <em>Autre nom…</em>. Un nom libre peut rejoindre la base, après confirmation ; refusée, il sert
+              quand même pour cette prescription. Renoncer annule l'impression ; une archive, relue en lecture
+              seule, ne demande rien.</li>
+          <li><strong>Le nom s'inscrit en haut de la cellule</strong>, précédé de <em>Dr</em> et à la place du
+              mot « Médecin : » imprimé sur le fond, qu'il masque : la place qui reste, dessous, est celle de
+              la signature. Le nom est enregistré avec le dossier — c'est la cent-soixante-et-unième cellule,
+              nommée <code>MEDECIN</code> dans la cartographie — et suit le document à l'impression.</li>
+          <li><strong>Un rappel de trois secondes</strong> — <em>la prescription doit être signée</em> —
+              s'affiche une fois le nom choisi, avant que le document ne parte à l'imprimante ou à l'aperçu.</li>
+          <li><strong>Le menu « Dr : » de l'observation</strong> puise dans cette même base au lieu de ses
+              quatre noms figés. <em>Dr Remplaçant :</em> reste en queue pour un nom libre, et ce nom peut
+              lui aussi rejoindre la base après confirmation ; il devient alors le médecin choisi. Une
+              observation ancienne portant un nom disparu de la base le conserve.</li>
+          <li>Une version antérieure qui relirait un dossier écrit par la 2.6.5 conserve le nom du signataire
+              et le réécrit : les deux versions peuvent se croiser sans rien perdre.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.6.4 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les bases intégrées à l'application sont désormais celles du service</strong> :
+              les 18 rubriques et leurs 900 entrées ont été relevées le 20 septembre 2026 sur
+              <code>Service\BDD\_listes.json</code> du dossier réseau, avec l'ordre choisi pour chacune —
+              alphabétique pour les médicaments, la nutrition entérale et les interfaces de ventilation,
+              manuel pour l'alimentation, l'isolement et les soins de drain.</li>
+          <li>Jusqu'ici, une installation neuve démarrait sur des listes d'origine plus anciennes : il fallait
+              qu'elle trouve le dossier du service pour recevoir les vraies. Un poste de travail neuf, ou un
+              dossier encore vide, propose maintenant d'emblée les mêmes médicaments et les mêmes soins que
+              les autres.</li>
+          <li><strong>Rien ne change pour un dossier déjà en service.</strong> Son <code>_listes.json</code>
+              continue de faire foi, rubrique par rubrique : aucune entrée n'y est ajoutée, aucune n'y est
+              remplacée, et l'ordre qu'il porte est respecté. Un dossier qui n'a jamais choisi d'ordre garde
+              le sien : l'ordre livré avec l'application ne vaut que pour un dossier vierge.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.6.3 <span class="date">— 21 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Un bouton « Quitter »</strong> en haut à droite du menu des box, à côté
+              d'<em>Administration</em> : il enregistre tout ce qui est en cours — la feuille ouverte, son
+              observation, les bases modifiées, la liste des box —, relâche le verrou, puis ferme
+              l'application.</li>
+          <li><strong>La croix de la fenêtre ne ferme plus l'application d'elle-même</strong>, pas plus
+              qu'<kbd>Alt</kbd>+<kbd>F4</kbd> ou le menu <em>Fichier &gt; Quitter</em>, et cela depuis
+              n'importe quelle page : feuilles, observation, Administration. Tous passent par le même
+              enregistrement. Une fenêtre fermée d'un clic pendant une coupure réseau emportait jusqu'ici la
+              dernière saisie avec elle.</li>
+          <li><strong>Quand rien ne peut être écrit, l'application refuse de se fermer</strong> : un message
+              dit combien d'enregistrements restent en attente et où en est le dossier des patients, et la
+              fenêtre reste ouverte. Rien n'est perdu ; il suffit de rétablir l'accès, puis de réessayer. Un
+              dossier ouvert dont l'enregistrement échoue arrête aussi la fermeture, avec la même proposition
+              de réessayer que le retour au menu.</li>
+          <li>Si la page elle-même ne répondait plus — script figé —, Windows propose au bout de cinq
+              secondes de fermer quand même, en prévenant du risque : une application médicale ne doit pas
+              obliger à passer par le gestionnaire des tâches.</li>
+          <li>Le pont de l'application compte trois fonctions de plus, et l'aide décrit la fermeture au
+              chapitre <em>En cas de problème</em>.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.6.2 <span class="date">— 20 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La page a maigri d'un tiers</strong> — 3,1 Mo à 2,1 Mo — sans qu'une seule ligne de code
+              change. Les deux tiers de son poids étaient des images incrustées ; elles sont désormais
+              encodées en WebP, le format d'images du moteur qui fait tourner l'application.</li>
+          <li><strong>Les deux fonds de feuille</strong>, ceux qui s'impriment en A3, passent de 1,25 Mo à
+              870 Ko <strong>sans perdre un seul pixel</strong> : même définition — 4961 × 3508, soit 300
+              points par pouce en A3 —, compression sans perte. Les deux rendus, avant et après, ont été
+              comparés point par point : aucune différence.</li>
+          <li><strong>Les deux captures d'écran de l'aide</strong> passent de 844 Ko à 330 Ko. Elles sont
+              affichées à 1022 pixels de large et conservées à 1400 : l'écart moyen avec l'original est de
+              1,6 sur 255, invisible à l'œil.</li>
+          <li>Les logos ne sont pas touchés : le gain se comptait en kilo-octets, et ils portent du texte
+              imprimé. L'observation médicale, elle, garde ses images d'origine.</li>
+          <li>Conséquence pratique : page et installateur plus rapides à copier, à sauvegarder et à
+              synchroniser. À l'écran comme à l'impression, la recette complète donne le même résultat qu'en
+              2.6.1, étape par étape.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.6.1 <span class="date">— 20 septembre 2026</span></h2>
+        <ul>
+          <li><strong>L'observation médicale est devenue un fichier à part entière.</strong> Elle a toujours été
+              un document séparé — sa propre mise en pages, son propre script —, mais elle voyageait dans la
+              page sous forme de texte encodé caractère par caractère, où la moindre correction demandait de
+              tout ré-encoder. Elle s'appelle désormais
+              <code>Prescriptions-Surveillances_V2.6.1-observation.html</code> et se range <em>à côté</em> de
+              la page ; dans l'application Windows, <code>index.html</code> va avec
+              <code>index-observation.html</code>. Rien ne change à l'écran ni à l'impression : la recette
+              complète donne exactement le même résultat qu'en 2.6.0, étape par étape.</li>
+          <li>La page trouve ce fichier par son propre nom, sans rien savoir de l'endroit où elle est
+              installée. S'il manque — page copiée seule, ou renommée —, l'application le <strong>dit</strong>
+              et revient en arrière, au lieu de laisser un cadre vide ; les feuilles de prescription, elles,
+              continuent de fonctionner.</li>
+          <li>La page passe de 3,3 à 3,1 Mo, l'observation pesant 207 Ko à côté. Le script de construction
+              emporte les deux fichiers dans l'installateur et refuse de fabriquer une version où
+              l'observation manquerait.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.6.0 <span class="date">— 20 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Une feuille ne se referme plus sur un enregistrement manqué.</strong> Revenir au menu,
+              changer de box, consulter une archive ou faire sortir un patient commence par enregistrer ; si
+              le dossier des patients ne répond pas, la feuille <em>reste ouverte</em>, avec son verrou, et
+              l'on propose de réessayer. Jusque-là, elle se refermait en silence et la dernière saisie
+              n'existait plus que sur ce poste de travail.</li>
+          <li><strong>Une saisie gardée en attente ne réécrit plus le dossier à l'aveugle.</strong> Avant de la
+              réécrire — quinze secondes plus tard ou au lancement du lendemain —, l'application relit le
+              fichier : s'il porte toujours la date qu'elle lui connaissait, elle écrit ; s'il a changé
+              entre-temps, ou si le patient est sorti, la saisie part dans <code>Service\Conflits</code> et un
+              message le dit. Une saisie d'hier ne peut plus effacer le travail d'aujourd'hui, ni faire
+              réapparaître un dossier archivé.</li>
+          <li><strong>Deux versions du même dossier ne s'écrasent plus.</strong> Chaque enregistrement relit le
+              fichier juste avant d'écrire : s'il a été modifié sur un autre poste de travail, cette version
+              est copiée dans <code>Service\Conflits</code>, la vôtre est écrite, et l'écran l'annonce. Le
+              verrou rendait ce croisement rare ; il ne le supprimait pas.</li>
+          <li><strong>La sortie d'un patient est devenue entière.</strong> Le dossier est copié dans
+              <code>Archives</code>, la copie est relue et comparée, et seulement ensuite l'original est
+              retiré. Au moindre échec, la sortie s'arrête : le box <em>reste occupé</em> et le dossier est
+              intact. Auparavant, un dossier d'archives inaccessible libérait quand même le box, en annonçant
+              « aucun fichier JSON à archiver » — le patient disparaissait du menu, son fichier restant en
+              place. Une copie déjà écrite par une tentative interrompue est reconnue et reprise, sans
+              doublon.</li>
+          <li><strong>Un dossier déjà enregistré au même nom se signale à l'admission</strong> — homonyme, ou
+              séjour précédent dont la sortie ne s'était pas terminée. L'application demande de le
+              <em>reprendre</em> ou d'ouvrir un <em>nouveau séjour</em>, l'ancien partant alors aux archives.
+              Sans cette question, d'anciennes prescriptions revenaient dans un séjour neuf.</li>
+          <li><strong>Renommer un dossier ne peut plus rien perdre</strong> : la copie est relue avant que
+              l'ancien nom ne parte, un dossier déjà présent sous le nouveau nom n'est jamais écrasé, et si le
+              renommage échoue, le box garde le nom de fichier qu'il connaît au lieu d'ouvrir une feuille
+              vierge.</li>
+          <li><strong>Un verrou illisible ne vaut plus permission d'ouvrir.</strong> S'il vient d'être écrit,
+              le dossier ne s'ouvre pas ; comme tout verrou, il ne compte plus au bout de deux minutes. Le nom
+              du poste de travail reste celui de la machine : un poste ne se prend jamais lui-même pour un
+              autre.</li>
+          <li>La reprise des écritures en attente s'arme dès l'ouverture de l'application, une écriture
+              réussie efface la copie devenue caduque, et l'aide décrit ces situations au chapitre
+              <em>En cas de problème</em>.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2 style="color:#991b1b">2.5.1 et 2.5.2 — versions retirées <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li>Ces deux versions, produites par un outil extérieur, <strong>n'ont jamais été mises en
+              service</strong> : elles refusaient d'ouvrir les dossiers, anciens comme nouveaux, en annonçant
+              qu'ils étaient tenus par un autre poste de travail — ce qui était faux. Leurs fichiers ont été
+              détruits ; la 2.5.0 est restée en place jusqu'à la 2.6.0, qui reprend les corrections visées en
+              partant de la 2.5.0.</li>
+          <li>Ce qu'elles annonçaient est conservé ci-dessous à titre de trace.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.5.2 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li>Réautorisation du dossier lors de l’ouverture d’une prescription, d’une observation ou de la sortie d’un patient.</li>
+          <li>Un accès refusé ou un verrou illisible bloque l’opération avec un message adapté, sans annoncer un autre poste fictif. La protection contre les écritures concurrentes est conservée.</li>
+          <li>Les messages de diagnostic distinguent la mémoire locale des fichiers patients enregistrés sur le NAS.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>2.5.1 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li>Un échec d’enregistrement bloque le retour au menu, le changement de patient et la consultation d’archives. L’observation est enregistrée avant ses exports.</li>
+          <li>La sortie conserve le box en cas d’échec. La copie JSON archivée est relue et vérifiée ; la source n’est retirée qu’après confirmation de la liste des box. Une panne de nettoyage laisse une copie et affiche un avertissement.</li>
+          <li>Les verrous illisibles ou inaccessibles interdisent l’ouverture. Chaque session possède un identifiant distinct ; l’écriture contrôle le propriétaire du verrou et une session ne retire plus le verrou d’une autre.</li>
+          <li>Une sauvegarde réussie retire la copie obsolète de la file d’attente. Les copies des dossiers fermés ne sont plus rejouées automatiquement au risque d’écraser un autre poste.</li>
+          <li>Les appels Electron vérifient leur origine. L’ouverture de documents est limitée aux PDF et DOCX ; les permissions, les liens externes et les chemins du serveur local sont filtrés. Une politique de sécurité limite le chargement de ressources.</li>
+          <li>Version de l’observation alignée sur 2.5.1 ; tests de non-régression et construction PowerShell reproductible ajoutés. L’installateur reste non signé en l’absence de certificat de signature.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.5.0 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Un outil pour gérer les bases de données.</strong> Dans l'Administration, chaque base a sa
+              carte : ajout d'une entrée, correction sur place, retrait, déplacement par les flèches ou en faisant
+              glisser sa poignée ☰, classement A → Z, recherche, saisie en bloc pour coller une liste entière, et
+              <em>Annuler</em> pour revenir sur la dernière modification. Chaque base a son <strong>ordre</strong> —
+              alphabétique, refait à chaque ajout et à chaque chargement, ou manuel —, enregistré avec elle dans
+              <code>_listes.json</code>. Une entrée en double est refusée.</li>
+          <li><strong>Les cellules ont un nom</strong> — <code>PO-03</code>, <code>VOIE-12</code>, <code>RESPI-2</code>… —,
+              en tête de leur bulle, et sur une <strong>cartographie des cellules</strong> en bas de l'Administration :
+              une copie de chaque feuille, sans aucune donnée de patient, où chaque nom est à sa place, et un tableau
+              des 160 cellules — nature, base ou choix, repère — qui se parcourt et se cherche.</li>
+          <li><strong>Les quatre lignes RESPIRATION</strong>, au-dessus des aérosols, proposent la base DRAIN
+              THORACIQUE. Le report des paramètres ventilatoires y reste <strong>prioritaire</strong> : dès qu'un
+              paramètre doit occuper une ligne, un soin de drain qui s'y trouvait descend dans la première case libre
+              du cadre ; s'il n'en reste aucune, il garde sa place, le paramètre restant lisible dans le cadre de
+              gauche. Le texte du report ne se verse pas dans une base.</li>
+          <li><strong>La voie des perfusions</strong>, sous « heures », perd <em>IV</em> et écrit <em>PERF</em> en
+              capitales ; toute la voie s'écrit désormais en capitales, et un « Perf » d'un dossier antérieur
+              s'affiche « PERF ».</li>
+          <li><strong>Les boutons de la barre d'outils ne bougent plus.</strong> La case d'état s'allongeait avec son
+              message et poussait les boutons voisins, jusqu'à 60 pixels : un clic lancé au moment où le message
+              changeait tombait à côté. Elle a désormais une taille fixe, sur deux lignes au plus, dans les feuilles
+              comme dans l'observation ; le message entier reste dans la bulle.</li>
+          <li><strong>L'observation utilise la table d'abréviations du service</strong>, la même que les feuilles :
+              elle avait sa propre table, vide au départ, et la palette s'ouvrait sans rien proposer. Son bouton
+              <em>Abréviations</em> ouvre la table du service dans l'Administration ; une touche non attribuée referme
+              la palette et s'écrit normalement ; la touche <kbd>µ</kbd> ne s'y affiche plus comme un M grec.</li>
+          <li><strong>Plus de doublon dans les bases</strong> : au chargement, une entrée écrite deux fois — le second
+              <em>INSULATARD</em> d'INSULINES — est retirée, la première gardée, sans égard aux capitales, aux accents
+              ni aux espaces, et <code>_listes.json</code> est réécrit pour tous les postes de travail.</li>
+          <li><strong>L'aide ne parle plus que de l'application Windows</strong> : plus de fichier HTML ouvert dans un
+              navigateur. Le chapitre <em>Impression</em> de l'Administration a rejoint l'aide — son chapitre 6 pour
+              les feuilles et l'observation, l'aide de l'observation pour sa part A4 — et l'Administration perd le
+              bouton <em>Télécharger une copie JSON</em>. Dans l'aide, et dans les messages qu'elle cite, « poste »
+              devient « poste de travail ».</li>
+          <li><strong>Un nom tapé dans une carte de box pouvait disparaître</strong> : en revenant de l'observation
+              — ou d'une autre fenêtre — par un clic dans une carte, l'application relisait le dossier du service et
+              redessinait la carte pendant la frappe ; sur un réseau lent, le nom et le prénom tout juste tapés
+              s'effaçaient. Ce clic ne déclenche plus de relecture : la carte écrit elle-même, en fusionnant avec le
+              fichier, dès qu'on la quitte.</li>
+          <li>Une base modifiée dans l'Administration est écrite avant toute relecture du fichier des listes : une
+              modification encore en attente ne peut plus être effacée par un rechargement. Ouverte depuis
+              l'observation, l'Administration y revient par <em>Retour au menu</em> comme « Enregistrer et revenir au
+              menu » : le Word et le PDF de l'observation sont mis à jour.</li>
+          <li>Fermer l'Administration rend à la page l'état de défilement qu'elle avait trouvé. Le dossier
+              <code>Build\apk</code> et les APK archivés, de la 2.4.2 à la 2.4.8, ont quitté le projet.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.9 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La version Android est abandonnée : seule l'application Windows est exploitée.</strong>
+              Plus aucun APK n'est fabriqué ni livré. La page perd tout ce que les versions 2.4.0 à 2.4.2 lui
+              avaient ajouté pour la tablette : sa reconnaissance, le pont vers le système de fichiers d'Android,
+              le dossier privé de l'application et le bouton <em>Rester dans l'application</em> de l'accueil, le
+              refus d'imprimer, la section 12 bis de l'aide et les mentions de la tablette. Le choix du dossier
+              des patients revient exactement à celui de la 2.3.1 : le sélecteur de dossiers de Windows,
+              mémorisé d'une fois sur l'autre.</li>
+          <li>Rien ne change pour les postes. Une recette complète l'a vérifié : le même parcours — choix du
+              dossier, admission, saisie des 160 cases, enregistrement, impression, clavier, rechargement,
+              observation et document Word, sortie, archives, réadmission, administration, deux postes sur un même
+              dossier, coupure du réseau — joué sur la 2.4.2, la 2.4.8 et la 2.4.9, donne en 2.4.9 exactement les
+              fichiers, les impressions et les documents Word de la 2.4.8, et ne s'écarte de la 2.4.2 que par les
+              évolutions voulues depuis.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.8 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Dans l'observation, le gras et l'italique portent sur le texte sélectionné</strong>, comme
+              dans Word : <kbd>Ctrl</kbd> + <kbd>B</kbd>, <kbd>Ctrl</kbd> + <kbd>I</kbd>, ou les entrées
+              <em>Gras</em> et <em>Italique</em> du clic droit dans l'application Windows, cochées quand la
+              sélection l'est déjà. Les treize zones de texte — motif, antécédents, histoire de la maladie,
+              examens, conclusion, conduite tenue, projet thérapeutique, évolution — sont devenues des zones
+              riches, comme l'était déjà la biologie. La mise en forme passe à l'impression, dans le PDF et dans le
+              document Word.</li>
+          <li>Ces zones gardent leurs habitudes : <kbd>Entrée</kbd> passe à la ligne, les espaces restent tels
+              quels, les abréviations (<kbd>Ctrl</kbd> + <kbd>Espace</kbd>) s'insèrent au curseur. Un texte collé
+              arrive en texte simple, sans la mise en forme ni les tableaux venus d'ailleurs ; <kbd>Ctrl</kbd> +
+              <kbd>U</kbd> n'y souligne pas, puisque ni l'impression ni le Word ne le reprendraient.</li>
+          <li>Le texte brut de chaque zone reste enregistré sous sa clé, exactement tel qu'une zone de texte simple
+              l'aurait donné ; la mise en forme est rangée à part. Une version antérieure lit donc le texte sans
+              erreur, mais perd la mise en forme si elle enregistre : <strong>mettre tous les postes à jour
+              ensemble</strong>. La mise en forme d'une zone entière posée avec la 2.4.7 est reprise ; les champs
+              d'une ligne, eux, n'ont plus de mise en forme.</li>
+          <li><strong>Défaut grave corrigé : après la consultation d'une archive, l'observation du patient
+              suivant affichait la biologie du patient archivé</strong> — et c'est elle qui était enregistrée à la
+              première sauvegarde. En lecture seule, la zone Biologie n'était plus reconnue : elle n'était plus
+              écrite, ni lue, ni imprimée, et l'archive elle-même sortait sans sa biologie. Les zones se
+              reconnaissent désormais par leur nature, et non par leur état modifiable.</li>
+          <li><strong>Les bases du service deviennent les bases natives</strong> : les listes de
+              <code>_listes.json</code> — DRAIN THORACIQUE gagne « Aspiration à -10 cm H2O » et « Drain en
+              déclive », RESPIRATOIRE et INSULINES sont rangées dans l'ordre alphabétique, et un « INSULATARD »
+              en double disparaît — et la table d'abréviations de <code>_service.json</code>, vingt-quatre
+              entrées : <kbd>m</kbd> écrit désormais « + MgSO4 », « µg » passe sur la touche <kbd>µ</kbd>,
+              <kbd>d</kbd> écrit « / 6h », et <kbd>h</kbd>, <kbd>i</kbd>, <kbd>l</kbd>, <kbd>µ</kbd>,
+              <kbd>g</kbd> sont nouvelles. Les box et les réglages natifs étaient déjà les mêmes. Un dossier de
+              service existant garde ses propres fichiers ; seuls un service neuf et le bouton <em>Rétablir la
+              table livrée</em> partent de ces bases.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.7 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le gras rejoint l'italique</strong> dans les feuilles : entrée <strong>Gras</strong> du clic
+              droit dans l'application Windows, <kbd>Ctrl</kbd> + <kbd>B</kbd> partout. Les deux se cumulent, et se
+              retirent par le même geste. Même traitement que l'italique : cellule entière, enregistré avec le
+              dossier, imprimé, repris dans les reports au verso, refusé sur les cases en lecture seule.</li>
+          <li><strong>L'observation médicale reçoit le gras et l'italique</strong>, champ par champ : clic droit,
+              <kbd>Ctrl</kbd> + <kbd>B</kbd>, <kbd>Ctrl</kbd> + <kbd>I</kbd>. La mise en forme est enregistrée avec
+              l'observation, et reprise à l'impression, dans le PDF et dans le <strong>document Word</strong> — là,
+              seule la valeur est mise en forme, jamais le libellé qui la précède. Nom et prénom, qui viennent du
+              dossier patient, et les cases à cocher n'en ont pas.</li>
+          <li>Dans la <strong>zone Biologie</strong>, zone riche, <kbd>Ctrl</kbd> + <kbd>B</kbd> et
+              <kbd>Ctrl</kbd> + <kbd>I</kbd> mettaient déjà en forme le texte sélectionné ; le clic droit fait
+              désormais de même. Ce texte mis en forme s'imprime maintenant avec sa mise en forme — il sortait à
+              plat. Un tableau collé reste mis à plat à l'impression, comme avant.</li>
+          <li>Le clic droit dans l'observation passe par la page, seule à parler au menu de l'application
+              Windows : l'observation lui dit quel champ est visé, la page relaie l'ordre.</li>
+          <li><strong>Mettre tous les postes à jour ensemble.</strong> Une version antérieure ouvre sans erreur
+              un dossier qui porte du gras, mais l'ignore — et l'efface si elle l'enregistre.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.6 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Une cellule peut passer en italique</strong>, et revenir au romain par le même geste :
+              l'entrée <strong>Italique</strong> du clic droit dans l'application Windows, cochée quand la cellule
+              l'est déjà, ou <kbd>Ctrl</kbd> + <kbd>I</kbd> dans la cellule, partout — le navigateur gardant son
+              propre clic droit. C'est la cellule entière qui change : une case de saisie n'a qu'une graphie.</li>
+          <li>L'italique est enregistré avec le dossier, s'imprime, se retrouve à la consultation d'une archive, et
+              suit la cellule dans ses reports au verso. Les cases en lecture seule — reports, archives consultées —
+              ne se basculent pas. <em>Tout effacer</em> et un nouveau patient repartent en romain.</li>
+          <li><strong>Mettre tous les postes à jour ensemble.</strong> Une version antérieure ouvre sans erreur un
+              dossier qui porte de l'italique, mais l'ignore — et l'efface si elle l'enregistre.</li>
+          <li><strong>La table d'abréviations livrée est celle du service</strong> : <kbd>c</kbd> écrit désormais
+              « +Cernevit+Tracutil+B1 500mg +B6 250mg », <kbd>e</kbd> une barre « EN ATTENTE » plus longue, décrite
+              comme la séparation des traitements per os, et <kbd>a</kbd> écrit « / 3h ». La touche <kbd>l</kbd>
+              (« Furosémide ») disparaît. Dix-neuf entrées, comme avant.</li>
+          <li>La table d'un dossier de service existant n'est pas touchée : elle vit dans <code>_service.json</code>.
+              Le bouton <strong>Rétablir la table livrée</strong>, dans l'Administration, la remplace par celle-ci
+              pour tous les postes.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.5 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li><strong>L'aide décrivait une table d'abréviations qui n'est plus celle livrée.</strong> Elle
+              annonçait que <kbd>k</kbd> écrit « µg/kg/min », que <kbd>q</kbd> écrit « 250 ml » et que la table
+              compte seize entrées. Dans la table livrée, <kbd>k</kbd> écrit « + KCl », aucune ligne n'a la
+              touche <kbd>q</kbd>, et elle compte dix-neuf entrées. Les exemples sont désormais pris dans cette
+              table, et l'aide ne donne plus de compte, qui se périmerait à la prochaine retouche.</li>
+          <li>Elle affirmait aussi que la touche <kbd>D</kbd> insère la date du jour. Seules les versions 1.7.6
+              et 1.7.7, d'une branche abandonnée, remplaçaient le texte <code>{{date}}</code> par la date ;
+              aucune version de la lignée en service ne l'a fait. Dans la table livrée, <kbd>d</kbd> écrit
+              « /12h ».</li>
+          <li>L'aide précise désormais que le texte est inséré <strong>tel qu'il est écrit</strong> dans la table,
+              que c'est la table du service qui fait foi, et que <kbd>F1</kbd>, dans les feuilles, l'affiche
+              telle qu'elle est réglée.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.4 <span class="date">— 19 septembre 2026</span></h2>
+        <ul>
+          <li><strong><kbd>F1</kbd> affiche un aide-mémoire des raccourcis clavier</strong> par-dessus le recto et
+              le verso : se déplacer, saisir, enregistrer, imprimer, zoomer. <kbd>F1</kbd>, <kbd>Échap</kbd>, un
+              clic à côté ou le bouton × le referment.</li>
+          <li>Il présente aussi la <strong>table des abréviations du service</strong> — <kbd>Ctrl</kbd> +
+              <kbd>Espace</kbd> puis la touche —, relue à chaque ouverture : c'est celle que l'Administration a
+              réglée, et non la table livrée avec l'application.</li>
+          <li>La saisie reprend dans la case, <strong>curseur en place</strong>. Le retour dans la case n'est pas
+              compté comme une arrivée : <kbd>Échap</kbd> y annule toujours la frappe commencée avant
+              l'ouverture, au lieu de s'en tenir à ce qui avait été tapé au moment d'appuyer sur <kbd>F1</kbd>.</li>
+          <li>Fenêtre ouverte, rien ne peut s'écrire dans la case cachée dessous : ni les touches, ni un clavier
+              tactile ou une dictée, qui écrivent sans passer par les touches et que la seule sortie du focus
+              n'arrêtait pas.</li>
+          <li><kbd>F1</kbd> n'agit que sur les feuilles. Sur le menu, l'aide ou l'Administration, il garde son sens
+              ordinaire ; il ne s'ouvre pas non plus par-dessus une demande de confirmation. La ligne
+              <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>P</kbd> ne figure que dans l'application Windows, seule à
+              connaître ce raccourci.</li>
+          <li>Le bouton <strong>?</strong> de la barre des feuilles mentionne <kbd>F1</kbd> dans son info-bulle, et
+              l'aide lui consacre un paragraphe au chapitre <em>Se déplacer au clavier</em>.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.3 <span class="date">— 14 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les dossiers archivés apparaissaient en double</strong> à l'ouverture de
+              l'application : deux lignes pour un même patient, portant jusqu'au même nom de fichier.
+              Rien n'était dupliqué sur le disque — deux fichiers de même nom ne peuvent pas y coexister —
+              et un clic sur <em>Actualiser</em> rétablissait la liste.</li>
+          <li>L'ouverture lançait le listage des archives <strong>deux fois</strong>, sans attendre la fin
+              de l'un ni de l'autre : une fois au chargement du dossier du service, une fois à l'affichage
+              du menu. Les deux parcours vidaient la même liste, puis y déversaient chacun le contenu du
+              dossier <code>Archives\</code> — d'où le doublement.</li>
+          <li>Le listage construit désormais sa liste <strong>à part</strong> et ne la publie qu'une fois
+              terminée ; un parcours déjà lancé est réutilisé plutôt que doublé, et quand deux parcours se
+              suivent, seul le plus récent a le droit d'écrire. Le dossier des archives n'est plus lu
+              qu'une seule fois à l'ouverture.</li>
+          <li>Le bouton <em>Actualiser</em> continue de partir sans attendre un parcours en cours : c'est à
+              cette condition que Chromium accepte de redemander l'autorisation du dossier, dans le geste
+              même de l'utilisateur.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.2 <span class="date">— 13 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La tablette n'était pas reconnue</strong>, et l'accueil y demandait un dossier avec
+              le sélecteur des postes — que rien ne pouvait ouvrir. Le WebView d'Android
+              <em>déclare</em> l'API des dossiers du bureau : elle existe, elle échoue seulement quand on
+              l'appelle. La reconnaissance reposait dessus et concluait « poste ».</li>
+          <li>L'application Android se signale désormais elle-même, de deux façons indépendantes : le pont
+              de fichiers qu'elle installe dans la page, et un mot ajouté à la signature de son navigateur.
+              On ne devine plus.</li>
+          <li>La ligne de version de l'écran d'accueil porte la mention <strong>tablette Android</strong>
+              quand l'application s'est reconnue : de quoi le voir d'un coup d'œil.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.1 <span class="date">— 13 septembre 2026</span></h2>
+        <ul>
+          <li>Sur tablette, le dossier des patients <strong>se choisit dans le système de fichiers
+              d'Android</strong>, par le sélecteur habituel : mémoire interne, carte, clé USB, ou tout
+              dossier qu'un service de stockage présente à l'appareil. L'autorisation est conservée d'une
+              fois sur l'autre.</li>
+          <li>Android ne rend ni chemin ni descripteur de fichier, mais un « arbre de documents » :
+              l'application le traduit en ce que la page sait manipuler, de sorte que rien, au-dessus, ne
+              distingue une tablette d'un poste — même arborescence
+              <code>Service/BDD</code>, mêmes verrous, mêmes archives.</li>
+          <li><strong>Rester dans l'application</strong> reste offert à l'accueil : les dossiers vivent
+              alors dans l'espace privé, invisible ailleurs et effacé avec l'application. On passe de l'un
+              à l'autre par <em>Choisir le dossier</em> ; les dossiers déjà saisis ne suivent pas.</li>
+          <li>Le rangement automatique d'un ancien dossier de travail ne se déclenche plus qu'à la vue du
+              fichier du service à la racine. Sans cela, un dossier choisi sur une tablette —
+              <em>Documents</em>, par exemple — aurait vu ses propres fichiers déplacés.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.4.0 <span class="date">— 13 septembre 2026</span></h2>
+        <ul>
+          <li>Une <strong>version Android</strong>, en bac à sable : l'application s'installe sur une
+              tablette par un fichier <code>.apk</code>. Les deux feuilles, le menu des box, l'observation et
+              les bases y sont les mêmes.</li>
+          <li><strong>Le dossier des patients y est celui de l'application</strong>, et de personne d'autre.
+              Android ne permet pas de désigner un dossier du réseau comme le font Edge et Chrome sur un
+              poste : la tablette tient son dossier dans son espace privé. Il n'est <strong>pas
+              partagé</strong> avec les postes, n'apparaît pas dans le gestionnaire de fichiers et s'en va
+              avec l'application.</li>
+          <li>L'écran d'accueil s'y adapte — <em>Ouvrir le dossier de la tablette</em>, il n'y a rien à
+              choisir — et le dossier se retrouve seul au lancement suivant. L'arborescence est la même :
+              <code>Service/BDD</code>, <code>Archives</code>, <code>Observations</code>.</li>
+          <li><strong>L'impression n'est pas disponible sur la tablette</strong> : Android ne fournit pas de
+              dialogue d'impression à l'application. Le bouton le dit, et le dossier reste ouvert.</li>
+          <li>Rien ne change sur Windows : tout est derrière un drapeau posé par l'emballage Android.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.3.1 <span class="date">— 13 septembre 2026</span></h2>
+        <ul>
+          <li>Les soins de drain thoracique ont <strong>leur base a eux</strong> :
+              <strong>DRAIN THORACIQUE</strong>, avec sa carte dans l'Administration, entre RESPIRATOIRE et
+              Nutrition Entérale. <em>Bullage drain thoracique</em> et <em>Traite de drain thoracique</em> ne
+              figurent plus dans la liste des aérosols.</li>
+          <li>Ils se prescrivent au même endroit : la liste déroulée des quatre lignes de la colonne
+              RESPIRATION montre les <strong>deux bases</strong>, séparées par un filet, les soins de drain en
+              bas. Ce qu'on ajoute à la carte DRAIN THORACIQUE y apparaît aussitôt.</li>
+          <li>Un fichier de service qui les porte encore dans RESPIRATOIRE est corrigé au chargement, une
+              fois, et réécrit : le rangement vaut alors pour tous les postes.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.3.0 <span class="date">— 13 septembre 2026</span></h2>
+        <ul>
+          <li>La <strong>base du service</strong> du 13 septembre devient la base livrée : listes
+              respiratoire, collyres et insulines telles qu'elles sont en usage — <em>Ipratropium</em> sans
+              son « bromure », <em>INNOVAIR</em> et <em>SYMBICORT</em> ajoutés, doublons ôtés.</li>
+          <li><strong>Les soins de drain thoracique quittent le classement alphabétique.</strong>
+              <em>Bullage drain thoracique</em> et <em>Traite de drain thoracique</em> sont tenus en bas de la
+              liste RESPIRATOIRE, sous un filet. Le filet manquait au fichier du service : le tri les remêlait
+              aux aérosols à chaque chargement. Il est rétabli à la lecture et le fichier réécrit — le
+              classement vaut alors pour tous les postes.</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> <strong>verse la saisie d'une cellule dans la base qui
+              l'alimente</strong>, après confirmation nommant la base visée. Plus besoin de passer par
+              l'Administration pour enrichir une liste au fil de la prescription.</li>
+          <li>Le menu du <strong>clic droit</strong> de l'application Windows porte la même commande —
+              <strong>Ajouter à la base MÉDICAMENTS PER OS</strong> — sous <em>Annuler</em>,
+              <em>Rétablir</em>, <em>Couper</em>, <em>Copier</em>, <em>Coller</em> et
+              <em>Tout sélectionner</em>, qui ne bougent pas. Elle n'apparaît que là où elle a un sens :
+              cellule non vide, alimentée par une base.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.2.1 <span class="date">— 13 septembre 2026</span></h2>
+        <ul>
+          <li>Les <strong>huit box du service sont fixes</strong> : ils n'ont pas de croix et ne se retirent
+              pas. Seuls les box <strong>ajoutés ensuite</strong> peuvent être retirés, et seulement
+              lorsqu'ils sont libres.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.2.0 <span class="date">— 12 septembre 2026</span></h2>
+        <ul>
+          <li>Le menu <strong>n'est plus fige a huit box</strong>. La carte en pointillés
+              <strong>+ Ajouter un box</strong>, à la fin de la grille, en ajoute un : il arrive nommé
+              <em>Box 9</em>, le nom déjà sélectionné pour être remplacé — <em>Plan blanc</em>,
+              <em>USC 3</em>, <em>Lit d'appoint</em>. Jusqu'à quarante box.</li>
+          <li>La <strong>croix</strong> en haut d'une carte retire le box, après confirmation. Elle
+              n'apparaît que sur un <strong>box libre</strong> : un box qui porte un patient ne se retire
+              pas. Le menu garde au moins un box.</li>
+          <li>Le nombre de box est celui du <strong>service</strong> : il est écrit dans
+              <code>_service.json</code> et suit donc tous les postes, comme les noms de box et les
+              réglages.</li>
+          <li>La fusion des box entre postes se fait désormais <strong>par identifiant</strong> et non par
+              rang : ajouter ou retirer un box décale tous les suivants, et le rang ne désignait plus le
+              même box d'un fichier à l'autre. Deux postes qui ajoutent un box en même temps les gardent
+              tous les deux ; un box retiré ici pendant qu'un patient y était admis ailleurs revient, avec
+              son patient, et le bandeau le dit.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.1.3 <span class="date">— 12 septembre 2026</span></h2>
+        <ul>
+          <li>Un <strong>second double-clic referme</strong> la liste déroulée : la même gâchette ouvre et
+              ferme, à la souris comme au clavier où <kbd>Entrée</kbd> le faisait déjà. La saisie en cours
+              n'en est pas touchée.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.1.2 <span class="date">— 12 septembre 2026</span></h2>
+        <ul>
+          <li>La liste de choix ne s'ouvre plus qu'au <strong>double-clic</strong> : elle ne se déroule plus
+              à l'arrivée dans la case ni à la frappe, et le clavier traverse désormais la feuille sans
+              qu'un menu s'ouvre à chaque case. Au clavier, <kbd>Entrée</kbd> la déroule et la referme, de
+              même que <kbd>Alt</kbd> + <kbd>↓</kbd> ; une fois déroulée, elle suit la frappe comme avant,
+              et <kbd>Entrée</kbd> valide la ligne surlignée.</li>
+          <li>Les deux feuilles se parcourent entièrement au clavier, <strong>dans l'ordre de lecture</strong> :
+              ligne par ligne, de gauche à droite, le recto puis le verso. Les cases étant posées colonne
+              par colonne, la tabulation sautait jusqu'ici d'une colonne et d'une feuille à l'autre.</li>
+          <li><kbd>Tab</kbd> et <kbd>Maj</kbd>+<kbd>Tab</kbd> vont à la case suivante ou précédente ;
+              <kbd>↓</kbd> <kbd>↑</kbd> restent dans la colonne ; <kbd>Page↓</kbd> <kbd>Page↑</kbd>
+              sautent dix lignes ; <kbd>Ctrl</kbd>+<kbd>Début</kbd> et <kbd>Ctrl</kbd>+<kbd>Fin</kbd> vont
+              aux deux bouts de la feuille.</li>
+          <li><kbd>→</kbd> <kbd>←</kbd> <kbd>Début</kbd> et <kbd>Fin</kbd> gardent leur rôle dans le
+              texte et ne changent de case qu'une fois le curseur au bout. Les cases de report sont sautées,
+              les cases à cocher sont sur le chemin.</li>
+          <li><kbd>Échap</kbd> <strong>annule la frappe en cours</strong> : la cellule retrouve ce qu'elle
+              portait à l'arrivée. Une prescription déjà écrite n'est jamais détruite — seule la saisie en
+              cours l'est. Une liste déroulée se referme d'abord.</li>
+          <li>Quatre <strong>cases à cocher</strong> de plus au verso, dans la marge à gauche du cadre
+              <em>RESPIRATION</em>, en regard des quatre lignes de report — les quatre lignes de
+              prescription en dessous en avaient déjà une.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>2.0.0 <span class="date">— 12 septembre 2026</span></h2>
+        <ul>
+          <li>Le report respiratoire écrit <strong>« AI&nbsp;&nbsp;12 »</strong> au lieu de « Ai:&nbsp;12 ».
+              La ligne se lit « AI&nbsp;&nbsp;12 / PEP +7 ».</li>
+          <li>Cinq entrées quittent les bases : <em>Diatrizoique acide 370 mg</em>,
+              <em>Metronidazole 500 mg</em>, <em>Povidone iodee 10%</em> et <em>Povidone iodee 250 mg</em> de
+              la voie rectale ; <em>Otipax</em> des collyres.</li>
+          <li>Elles sont retirées de la base livrée <strong>et du fichier du service</strong> à son prochain
+              chargement, qui est alors réécrit sans elles : le retrait vaut pour tous les postes. Sans cela,
+              le <code>_listes.json</code> du service aurait ramené les anciennes entrées à chaque
+              ouverture.</li>
+          <li>Passage en <strong>2.0.0</strong>, sur demande.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.15.2 <span class="date">— 12 septembre 2026</span></h2>
+        <ul>
+          <li>Le « / » qui précédait le « X » effacé de la ligne des glycémies part avec lui : il ne
+              séparait plus rien. La ligne se lit désormais
+              « GLYCEMIES CAPILLAIRES mmol/l&nbsp;&nbsp;&nbsp;X4&nbsp;&nbsp;&nbsp;/24 h ».</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.15.1 <span class="date">— 12 septembre 2026</span></h2>
+        <ul>
+          <li>La ligne des <strong>glycémies capillaires</strong> s'aligne sur les deux du dessus : sa
+              fréquence offre <strong>X3, X4, X6, X8, X12, X24</strong>, et le blanc.</li>
+          <li>Le <strong>« X » imprimé</strong> juste avant la case est effacé : la fréquence portant
+              désormais le sien, il ferait double emploi. Le « / » qui le précède reste, il sépare l'unité
+              de la fréquence. La ligne se lit « GLYCEMIES CAPILLAIRES mmol/l / X4 /24 h ».</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.15.0 <span class="date">— 12 septembre 2026</span></h2>
+        <ul>
+          <li><strong>La base du service est celle qui s'installe.</strong> L'application est livrée avec les
+              listes en usage en réanimation — 406 médicaments per os, 360 injectables IV, 38 sous-cutanés,
+              22 collyres, 13 insulines, la voie rectale, le respiratoire, l'alimentation, la nutrition
+              entérale, les interfaces de ventilation, l'isolement — ainsi que ses <strong>19
+              abréviations</strong> et ses <strong>réglages</strong>. Un poste neuf est utilisable sans rien
+              recopier.</li>
+          <li>La liste <strong>sous-cutanée</strong> passe à la dénomination en usage : <em>ENOXAPARINE
+              4000 UI/0,4 ml</em>, <em>INNOHEP 2500UI</em>, au lieu des volumes.</li>
+          <li>La table d'abréviations livrée ne porte plus de <strong>doublon</strong> : la touche « s » avait
+              deux textes, le second étant inatteignable.</li>
+          <li><strong>Recto.</strong> La cellule « Hémoglobine capillaire&nbsp;&nbsp;&nbsp;X » devient
+              <strong>HÉMOGLOBINE CAPILLAIRE</strong> et « Cétonémie&nbsp;&nbsp;&nbsp;X » devient
+              <strong>CÉTONÉMIE</strong> : le « X » quitte l'intitulé pour rejoindre la fréquence. Ces deux
+              cellules suivent la règle des capitales, unités exceptées.</li>
+          <li>Les deux cases de fréquence à leur droite offrent désormais <strong>X3, X4, X6, X8, X12,
+              X24</strong> — et le blanc, pour une ligne prescrite sans nombre.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.14.3 <span class="date">— 11 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les listes INSULINES, COLLYRES et RESPIRATOIRE reviennent dans l'administration.</strong>
+              Leur carte pointait vers une clé en capitales — <code>ListeINSULINES</code>,
+              <code>ListeCOLLYRES</code>, <code>ListeRESPIRATOIRE</code> — qui ne désignait aucune liste : le
+              libellé avait été mis en capitales, et la clé avec lui. La carte paraissait vide, ce qu'on y
+              tapait n'allait nulle part, et les entrées enregistrées dans <code>_listes.json</code>
+              n'étaient jamais relues — elles n'avaient pas disparu du fichier, elles n'en sortaient plus.
+              Elles reviennent d'elles-mêmes.</li>
+          <li>Ce qui a pu être saisi sous ces clés mortes est <strong>récupéré</strong> et fondu dans la
+              bonne liste, sans doublon.</li>
+          <li><strong>Les unités gardent leur casse.</strong> Dans les huit zones de prescription mises en
+              capitales, le nom du produit s'écrit en majuscules et l'unité reste telle quelle :
+              <em>ACAMPROSATE 333 mg</em>, <em>CALCIPARINE 5 000 UI/0,2 ml</em>,
+              <em>SONDALIS ISO 500 ml/J</em>. Les capitales ne viennent plus d'une règle de style — qui ne
+              sait pas distinguer le produit de son unité et écrivait « 333 MG » — mais sont posées dans la
+              valeur, mot à mot.</li>
+          <li>Un mot n'est tenu pour une unité que s'il figure dans la liste usuelle — mg, g, kg, ml, l, µl,
+              ug, UI, mmol, mEq, kcal, amp, cp, mn, min, h, J, % — <em>et</em> qu'il porte un nombre ou suit
+              un nombre : le « G » de <em>SÉRUM G</em> reste une capitale.</li>
+          <li>Les dossiers enregistrés auparavant se remettent à cette casse à leur ouverture.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.14.2 <span class="date">— 11 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le report des paramètres respiratoires est rétabli.</strong> Ce qui est prescrit dans
+              <em>Interface / mode de ventilation</em> se recopie de nouveau dans les quatre premières lignes
+              de la colonne <strong>RESPIRATION</strong> : l'interface, la FiO2 ou le débit avec son unité, le
+              volume courant et la fréquence, l'aide inspiratoire et la PEP.</li>
+          <li><strong>La panne datait de la 1.9.6</strong>, quand la colonne RESPIRATION a été libérée en
+              lignes de saisie : les quatre cases calculées ont été remplacées par des champs libres, et plus
+              rien n'écrivait dedans. Le calcul, lui, n'avait jamais cessé de tourner — il n'avait simplement
+              plus de destination.</li>
+          <li>Ces quatre lignes <strong>restent des champs</strong> : le report les remplit, on peut les
+              corriger à la main sans que la correction soit recouverte, et <strong>vider une case la rend au
+              report</strong>. Les lignes libres suivantes de la colonne ne sont pas touchées.</li>
+          <li>Le partage fonctionne aussi après avoir fermé et rouvert un dossier : le report reprend la main
+              sur ce qu'il avait écrit, et laisse ce qui a été saisi.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.14.1 <span class="date">— 11 septembre 2026</span></h2>
+        <ul>
+          <li>Le <strong>cadre de l'étiquette patient</strong> revient à l'impression de l'observation : c'est
+              un emplacement, pas une décoration. Les autres encadrés — IMC, poids idéal théorique, total de
+              Glasgow, boîte Biologie — restent sans cadre ni fond.</li>
+          <li><strong>Le bouton « Dossier des observations » ouvre désormais une liste</strong>, et non plus
+              l'explorateur de Windows. L'API des fichiers ne divulgue pas toujours le chemin réel du dossier
+              choisi : le bouton ne pouvait alors que donner ce chemin par écrit, ce qui ne servait à rien.</li>
+          <li>Cette liste montre <strong>toutes les observations enregistrées</strong>, se
+              <strong>classe</strong> par nom, par prénom ou par date, se <strong>cherche</strong> — un nom, un
+              prénom, une date, au format <code>2026-09-05</code> comme <code>05/09/2026</code> — et chaque
+              ligne s'ouvre d'un clic : le PDF part au lecteur habituel de Windows. Un bouton
+              <strong>Retour au menu</strong> la referme.</li>
+          <li>Quand le chemin réel du dossier <em>est</em> connu, un bouton <strong>Ouvrir dans Windows</strong>
+              apparaît en plus, en haut de la liste.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.14.0 <span class="date">— 11 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le dossier de travail se range.</strong> Tout ce qui est donnée passe sous
+              <code>Service\</code> : les bases dans <code>Service\BDD\</code> — <code>_service.json</code>,
+              <code>_listes.json</code>, un <code>.json</code> par patient et les verrous qui les accompagnent —
+              et les dossiers <strong>Archives</strong> et <strong>Observations</strong> à côté. Les dossiers
+              de <strong>box</strong> restent à la racine : on va les ouvrir à la main pour verser le Word dans
+              DxCare, ils doivent tomber sous les yeux.</li>
+          <li>Un dossier écrit par une version antérieure <strong>se range tout seul</strong> au premier
+              chargement. Chaque fichier est copié à sa nouvelle place <em>avant</em> d'être retiré de
+              l'ancienne — rien ne peut se perdre en route — et un message dit ce qui a été déplacé.
+              L'opération n'a lieu qu'une fois.</li>
+          <li>Le menu gagne un bouton <strong>Dossier des observations</strong>, qui ouvre
+              <code>Service\Observations\</code> dans l'explorateur de Windows : c'est là qu'on va rechercher
+              le PDF d'un patient sorti pour le réimprimer.</li>
+          <li>Les <strong>PDF des observations sont permanents</strong> : la sortie du patient ne les emporte
+              pas. Seuls les documents Word suivent le patient, du dossier de son box vers les archives.</li>
+          <li><strong>L'observation imprimée</strong> gagne une <strong>marge de 20 mm à gauche</strong> sur
+              toutes les pages : la place des trous de perforatrice, pour la ranger dans un classeur.</li>
+          <li>Et elle perd ses <strong>cadres et fonds de couleur</strong> : l'étiquette du patient, l'IMC, le
+              poids idéal théorique, le total de Glasgow et la boîte Biologie ne s'impriment plus encadrés.
+              Ces encadrés montrent à l'écran une zone à remplir ou un résultat calculé ; sur le papier,
+              seules les valeurs comptent.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.13.3 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li><strong>L'aperçu avant impression est retiré.</strong> <strong>Imprimer</strong> ouvre
+              directement la <strong>boîte d'impression de Windows</strong>, comme avant la 1.13 : c'est là
+              que se choisissent l'imprimante, les copies, le papier et le recto-verso.</li>
+          <li>Le bouton <em>Aperçu</em> disparaît aussi des deux barres d'outils — celle des feuilles et celle
+              de l'observation. La barre ne porte plus que : <em>Sauvegarder</em>, <em>Tout effacer</em>,
+              <em>Imprimer</em>, <em>MENU</em>, <em>?</em>, <em>Administration</em>.</li>
+          <li>Avec l'aperçu s'en vont le choix des pages et du papier qu'il portait : la boîte de Windows
+              offre l'un et l'autre.</li>
+          <li>L'aide dit, au chapitre 6, ce qu'il faut y régler : <strong>A3 paysage, recto-verso bord
+              court</strong> pour les feuilles, <strong>A4 portrait, bord long</strong> pour l'observation,
+              marges nulles et aucune mise à l'échelle dans les deux cas.</li>
+          <li>Le moteur d'impression isolé est inchangé : le document remis à Windows reste une copie
+              autonome des feuilles, que ni la barre d'outils, ni le zoom, ni les vues ouvertes n'atteignent.</li>
+          <li class="reserve">La page est repartie du fichier de la 1.12.0 plutôt que de défaire l'aperçu
+              pièce à pièce : c'était le seul moyen sûr de n'en laisser aucun reste. Le verrou de dossier, la
+              fusion de la liste des box et la réparation du pont vers Windows sont intacts.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.13.2 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Retour au simple pour l'impression.</strong> L'envoi direct de la 1.13.1, qui devait
+              porter les réglages jusqu'au pilote, ne donnait pas un résultat fiable. <strong>Imprimer</strong>
+              ouvre de nouveau la <strong>boîte d'impression de Windows</strong>, où l'on choisit soi-même
+              l'imprimante, les copies, le papier et le recto-verso — le chemin éprouvé, celui d'avant
+              la 1.13.</li>
+          <li>Disparaissent donc de l'aperçu : le choix de l'<strong>imprimante</strong>, les
+              <strong>copies</strong>, la <strong>reliure</strong> et le bouton <em>Réglages Windows…</em>.
+              Ne restent que les réglages qui agissent réellement sur le document : les
+              <strong>pages</strong> et le <strong>papier</strong>.</li>
+          <li>Un <strong>rappel</strong> ambre s'affiche en tête de l'aperçu — « À choisir dans la boîte de
+              Windows : A3 paysage, recto-verso bord court · marges nulles, aucune mise à l'échelle » — et
+              suit le papier et le nombre de pages, de sorte qu'il n'y ait rien à deviner.</li>
+          <li>Le pont d'impression directe est retiré de l'application : moins de surface, moins de choses
+              à casser.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.13.1 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Les réglages préparés atteignent enfin le pilote.</strong> Ils lui étaient bien transmis,
+              mais la <strong>boîte de dialogue de Windows les ignore</strong> : elle repart toujours des
+              réglages mémorisés du pilote. Le papier et la reliure préparés dans l'aperçu s'y perdaient donc
+              en silence.</li>
+          <li>L'application <strong>envoie désormais le travail elle-même</strong>, déjà réglé : format,
+              orientation et recto-verso partent au pilote tels qu'ils sont affichés. Il n'y a plus de boîte à
+              remplir — l'aperçu a montré ce qui sortira.</li>
+          <li>L'aperçu porte donc aussi le choix de l'<strong>imprimante</strong> et le nombre de
+              <strong>copies</strong>. L'imprimante choisie est retenue sur le poste ; un message confirme
+              l'envoi et rappelle les réglages.</li>
+          <li>L'imprimante <strong>par défaut de Windows</strong> est reconnue : aucune des neuf installées ne
+              se déclarait comme telle à Electron, et la première de la liste — OneNote — était proposée.
+              Elle est maintenant lue dans le registre de l'utilisateur.</li>
+          <li>Le bouton <strong>Réglages Windows…</strong> ouvre malgré tout la boîte native, pour ce que ces
+              réglages ne couvrent pas : bac d'alimentation, agrafage, imprimante absente de la liste. Le
+              papier et la reliure sont alors à y refaire à la main.</li>
+          <li>La confirmation d'envoi n'est plus effacée par le message de clôture du dossier.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.13.0 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Un aperçu avant impression.</strong> <em>Imprimer</em> n'ouvre plus la boîte de Windows
+              à l'aveugle : il montre d'abord le document — le vrai, celui qui partira à l'imprimante, produit
+              par le même moteur. Rien n'est reconstitué pour l'occasion.</li>
+          <li><strong>Choix des pages.</strong> Pour les feuilles : <em>recto et verso</em>, <em>recto
+              seul</em> ou <em>verso seul</em> — plus besoin de sortir les deux faces quand une seule a changé.
+              Pour l'observation, qui se pagine selon sa longueur : toutes les pages, ou celles que l'on
+              nomme — <code>1-3</code>, <code>2</code>, <code>1,3-4</code>.</li>
+          <li><strong>Choix du papier</strong> — A3 ou A4 — et de la <strong>reliure</strong> — recto seul,
+              recto-verso bord long ou bord court. Changer de format ne refait pas la mise en page : la page
+              entière est réduite ou agrandie, et l'aperçu le montre aussitôt.</li>
+          <li><strong>Réglages préparés selon le document</strong> : les feuilles en A3 paysage,
+              <em>recto-verso bord court</em> — une feuille en paysage tourne comme un livre par ses bords
+              courts ; l'observation en A4 portrait, <em>bord long</em>. Dans l'application Windows ces
+              réglages sont transmis à la boîte d'impression, qui s'ouvre déjà réglée.</li>
+          <li>Le recto-verso se désactive tout seul quand il n'y a qu'une page, et revient dès qu'il y en a de
+              nouveau plusieurs.</li>
+          <li>Zoom <kbd>−</kbd> <kbd>+</kbd> et <strong>Ajuster</strong> ; <kbd>Échap</kbd> ferme sans rien
+              imprimer ; un dialogue annulé ne clôture plus le dossier. Le bouton <strong>PDF</strong>
+              (application Windows) ouvre le même document en PDF.</li>
+          <li>Le bouton <em>Aperçu</em> séparé disparaît, des deux barres d'outils : l'aperçu est désormais le
+              passage obligé de l'impression.</li>
+          <li><strong>Correctif important.</strong> Le pont vers Windows était <strong>entièrement rompu
+              depuis la 1.11.0</strong> : le nom de machine y était lu par <code>require('os')</code>, or les
+              préchargements d'Electron s'exécutent en bac à sable, où ce module n'existe pas — et l'erreur
+              emportait tout le pont, sans un mot. En conséquence, depuis la 1.11.0 : le <strong>PDF de
+              l'observation n'était plus écrit</strong> dans <code>Observations\</code>, l'aperçu PDF et le
+              menu <em>Fichier &gt; Aperçu</em> ne répondaient plus, le chemin réel du dossier n'était plus
+              affiché, et le verrou signalait un identifiant tiré au sort au lieu du nom du poste. Le nom de
+              machine vient désormais du processus principal.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.12.0 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Plusieurs postes peuvent travailler en même temps, chacun sur son patient.</strong>
+              C'est ce que la liste des box empêchait : <code>_service.json</code> était réécrit en entier à
+              chaque enregistrement, si bien qu'un box admis sur un poste <strong>disparaissait</strong> dès
+              qu'un autre poste enregistrait quoi que ce soit — et disparaissait sur tous les postes, le
+              dossier du patient restant sur le disque sans qu'aucun box ne le désigne.</li>
+          <li>La liste des box se <strong>fusionne</strong> désormais au lieu de s'écraser. Chaque poste garde
+              l'empreinte de la liste telle qu'il l'a lue, relit le fichier avant d'écrire, et ne repose que
+              <strong>les box qu'il a lui-même modifiés</strong> ; tout le reste vient du disque. Le nombre de
+              postes n'y change rien.</li>
+          <li>Une admission, un renommage ou une sortie faits ailleurs <strong>remontent à l'écran</strong> au
+              premier enregistrement, avec un message : « Liste des box actualisée depuis un autre poste :
+              Box 3 et Box 5. »</li>
+          <li>Si deux postes modifient <strong>le même</strong> box, la version du poste qui enregistre est
+              conservée et <strong>un message le signale</strong> plutôt que de laisser la modification
+              disparaître en silence. Le box tenu ouvert ne peut pas changer d'identité sous les pieds de
+              celui qui y travaille.</li>
+          <li>Les enregistrements s'<strong>enchaînent</strong> : deux fusions menées en parallèle reliraient
+              le même fichier et la seconde écraserait la première.</li>
+          <li>Le champ <strong>nom du box</strong> ne suivait la frappe qu'à la validation : si le menu était
+              redessiné pendant qu'on renommait un box, le champ gardait le texte tapé mais la liste ne
+              l'apprenait jamais, et le nom se perdait au redessin suivant. Il suit désormais la frappe.</li>
+          <li>L'aide gagne une section « Travailler à plusieurs postes en même temps ».</li>
+          <li class="reserve">Les <strong>listes de médicaments</strong> et les <strong>réglages</strong>
+              restent au dernier qui écrit : ils se modifient dans l'Administration, rarement et
+              délibérément.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.11.1 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Un dossier tenu par un autre poste ne s'ouvre plus du tout.</strong> La 1.11.0
+              l'affichait en lecture seule, derrière un bandeau, avec un bouton pour passer outre. Le second
+              poste est désormais <strong>prévenu, et rien de plus</strong> : un message dit quel poste tient
+              le dossier et depuis combien de temps, et l'on reste au menu.</li>
+          <li>Le bouton <strong>Reprendre la main</strong> a disparu, avec le bandeau et le mode lecture seule.
+              <strong>Aucun moyen, depuis ce poste, de forcer l'écriture</strong> — c'est ce qui garantit
+              qu'une prescription ne peut pas en effacer une autre. Pour ouvrir le dossier, il faut le faire
+              refermer sur le poste qui le tient.</li>
+          <li>Le refus vaut pour les <strong>feuilles</strong> comme pour l'<strong>observation médicale</strong>,
+              et il est vérifié <em>avant</em> de refermer le dossier en cours : un poste qui essuie un refus
+              garde son patient ouvert et son propre verrou.</li>
+          <li>Inchangé : le verrou périme au bout de <strong>deux minutes</strong> sans signe de vie, donc un
+              poste éteint ne condamne jamais un dossier ; la sortie d'un patient reste refusée tant qu'un
+              autre poste le tient.</li>
+          <li>L'aide est réécrite en conséquence.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.11.0 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Un dossier ouvert sur un poste ne peut plus être écrit depuis un autre.</strong> Jusqu'ici,
+              deux postes qui ouvraient le même patient s'écrasaient l'un l'autre en silence : chaque
+              enregistrement réécrit le fichier entier, donc le dernier à enregistrer gagnait et la
+              prescription de l'autre disparaissait — y compris les lignes qu'il n'avait pas touchées.</li>
+          <li>Le poste qui ouvre un patient dépose désormais un fichier <code>NOM_Prenom.lock</code> à côté de
+              son dossier et le <strong>rafraîchit toutes les 30 secondes</strong> tant qu'il l'a ouvert. Il le
+              retire en revenant au menu, à la sortie du patient et à la fermeture de l'application.</li>
+          <li>Un second poste qui ouvre le même patient <strong>voit la feuille</strong> — une prescription en
+              cours doit rester lisible — mais un bandeau ambre s'affiche, « <em>Ce dossier est ouvert sur le
+              poste REA-PC3 depuis 12 minutes</em> », et <strong>la saisie est bloquée</strong> : cases,
+              cases à cocher et observation médicale deviennent inertes, et tout enregistrement est refusé.</li>
+          <li>Un bouton <strong>Reprendre la main</strong> force le déblocage, après confirmation, pour le cas
+              où l'on est certain que personne ne tient plus le dossier.</li>
+          <li>Un verrou <strong>sans signe de vie depuis deux minutes</strong> — poste éteint, application
+              fermée de force — est tenu pour abandonné et repris automatiquement.</li>
+          <li>La <strong>sortie d'un patient</strong> est refusée tant qu'un autre poste a son dossier ouvert :
+              l'archiver le lui retirerait en pleine saisie.</li>
+          <li>L'aide décrit ce comportement dans le chapitre des dépannages, et les fichiers
+              <code>.lock</code> dans celui du dossier de travail.</li>
+          <li class="reserve">Ce n'est pas un verrou au sens strict : l'API des fichiers ne sait pas « lire et
+              poser » d'un seul geste, et deux postes qui ouvrent le même dossier dans la même seconde peuvent
+              encore se croiser. Le verrou protège les <strong>dossiers patients</strong> ; la liste des box,
+              les listes de médicaments et les réglages restent au dernier qui écrit.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.10.1 <span class="date">— 10 septembre 2026</span></h2>
+        <ul>
+          <li>L'ajustement de police mesurait le texte <strong>tel qu'il est enregistré</strong>, alors que
+              neuf listes s'affichent <strong>en capitales</strong> — un cinquième plus larges. Les noms y
+              débordaient sans que la police ne se réduise : « TRAITE DE DRAIN THORACIQUE » demandait 211 px
+              pour 172 disponibles. C'est désormais le texte <em>tel qu'il s'affiche</em> qui est mesuré.</li>
+          <li>La descente se fait en <strong>pixels entiers</strong> : la mesure étant quantifiée, une règle
+              de trois tournait à vide entre 3,13 et 3,05 mm sans jamais faire tenir le texte.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.10.0 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Une liste de médicaments peut porter un <strong>trait de séparation</strong> : une entrée faite
+              de tirets seuls. Ce qui la suit sort du classement alphabétique et <strong>reste en bas de la
+              liste</strong> ; la liste déroulante trace un filet à cet endroit, qui ne se sélectionne pas et
+              que les flèches enjambent.</li>
+          <li>La liste <strong>Respiratoire</strong> range ainsi en fin les deux soins de drain thoracique —
+              <em>Bullage</em> et <em>Traité</em> —, qui ne sont pas des médicaments.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.9.11 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Le chapitre <strong>Cartographie des zones à remplir</strong> passe en
+              <strong>5<sup>e</sup> position</strong>, juste après « Remplir les feuilles » ; les chapitres
+              suivants reculent d'un rang.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.9.10 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Chapitre <em>Où sont les fichiers</em> : les <strong>deux copies de l'observation</strong> sont expliquées — le
+              <strong>Word</strong> déposé dans le dossier du box, à verser dans <strong>DxCare</strong> ; le
+              <strong>PDF</strong> dans <code>Observations\</code>, pour réimpression et sauvegarde.</li>
+          <li>Le <strong>mode de dénomination des fichiers</strong> y est détaillé :
+              <code>NOM_Prenom_AAAA-MM-JJ</code>, accents retirés, date de l'observation et non du jour.</li>
+        </ul>
+      </section>
+
+      <section class="version">
+        <h2>1.9.9 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Le chapitre <strong>Version et copyright</strong> passe en fin d'aide.</li>
+          <li>Les notes de version quittent l'aide : elles sont désormais tenues dans ce fichier.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.8 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Nouveau chapitre <a href="#aide-carto"><strong>Cartographie des zones à remplir</strong></a> :
+              les quatre natures de zone, une carte coloriée de chaque feuille, le détail bloc par bloc, ce que
+              l'application fait toute seule, et ce qui ne se remplit qu'à la main sur le papier.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.7 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Les filets des deux cadres du verso — ventilation et RESPIRATION — retrouvent leur place sur la
+              trame imprimée. Ils dérivaient d'un demi-millimètre, vers le bas en haut du cadre et vers le haut
+              en bas.</li>
+          <li>Le <strong>trait double</strong> sous « Soins Intubation / Trachéotomie » disparaît : le cadre
+              n'ajoute plus son propre filet au pointillé déjà imprimé juste au-dessus.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.6 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Dans le cadre <strong>RESPIRATION</strong>, la bande centrale devient <strong>quatre lignes de
+              saisie libre</strong>, ferrées à droite comme les lignes de prescription du même cadre.</li>
+          <li>Les <strong>filets de ce cadre</strong> passent au pointillé, le même que celui du cadre
+              ALIMENT. — trait de 0,18 mm, période de 0,53 mm.</li>
+          <li class="aide-note">Ces quatre lignes portaient le <strong>report automatique</strong> de
+              l'interface, de la FiO2, du VT × fréquence et de l'Ai/PEP, recopiés du cadre ventilation. Ce
+              report disparaît ; la prescription elle-même reste saisie dans le cadre de gauche.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.5 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li><em>Pression ballonnet intubation x4</em> passe en <strong>romain</strong> : les six lignes de la
+              colonne des soins ont désormais la même fonte, la même taille et la même graisse.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.4 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Dans la colonne des soins du verso, six lignes prennent l'écriture du texte imprimé voisin —
+              <strong>3,72 mm, Calibri</strong> — et se <strong>justifient à droite</strong> comme lui :
+              <em>Pression ballonnet intubation x4</em>, <em>Aspirations trachéales, buccales</em>,
+              <em>Al.autonome…</em>, <em>Quantité repas…</em>, <em>Alimentat° Normale/légère/Collat°</em> et
+              <em>Boissons</em>.</li>
+          <li class="aide-note">Les deux premières étaient dessinées à 3,05 mm ; les quatre suivantes sont
+              imprimées sur le fond et alignées à gauche — elles sont désormais masquées et redessinées.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.3 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>Deux titres raccourcis : « Collyres et/ou gouttes auriculaires » devient
+              <strong>Collyres</strong>, « Traitement par voie rectale et/ou vésicale » devient
+              <strong>Traitement par voie rectale</strong>.</li>
+          <li>Les cinq titres de la colonne de gauche du verso — <strong>Isolement</strong>,
+              <strong>Collyres</strong>, <strong>Traitement par voie rectale</strong>,
+              <strong>Interface / mode de ventilation</strong>, <strong>Alimentation</strong> — sont ramenés à
+              une seule écriture : <strong>3,9 mm, Calibri gras, initiale majuscule</strong>. Ils étaient
+              jusqu'ici de trois tailles et deux polices différentes, les deux plus longs étant rapetissés
+              à 2,9 mm sur deux lignes pour tenir dans leur bandeau.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.2 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>La <strong>police d'une case se réduit d'elle-même</strong> quand le texte est trop long, juste
+              assez pour qu'il tienne en entier. Les noms de médicaments dépassant la largeur de leur case
+              étaient coupés net, à l'écran comme sur le papier. La taille revient à la normale dès que le
+              texte raccourcit, et la réduction s'arrête à 60 % — au-delà le texte serait illisible.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.1 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>La bande restée vide sous <strong>Aide Inspiratoire / PEP</strong> devient une
+              <strong>zone de saisie libre de trois lignes</strong>, sur toute la largeur du cadre
+              ventilation. Trois lignes plutôt qu'une seule haute : une case de saisie ne revient pas à la
+              ligne toute seule, et au-delà d'une quarantaine de caractères la fin du texte aurait été perdue,
+              à l'écran comme au papier.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.9.0 <span class="date">— 9 septembre 2026</span></h2>
+        <ul>
+          <li>La bande restée vide sous <strong>Aide Inspiratoire / PEP</strong> devient une zone de saisie
+              libre, d'un seul tenant sur 17,2 mm de haut.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.9 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Case <strong>FiO2 / Débit</strong> : le suffixe suit la valeur. <strong>En dessous de
+              21</strong>, elle est comprise comme un <strong>débit d'oxygène</strong> et devient « 3 l/mn » ;
+              <strong>à partir de 21</strong>, comme une <strong>FiO2</strong> et devient « 21 % », « 40 % ».
+              La colonne RESPIRATION reprend l'unité <em>et</em> l'intitulé qui va avec —
+              « Débit : 3 l/mn » ou « FiO2 : 40 % » —, à l'écran comme à l'impression. Un texte sans
+              chiffre, « AA » par exemple, reste tel quel.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.8 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Le seuil bascule <strong>à 21 inclus</strong> : 21 s'affiche désormais « 21 % » et non
+              « 21 l/mn ».</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.7 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Case <strong>FiO2 / Débit</strong> : premier état de la règle d'unité — jusqu'à 21 inclus la
+              valeur devient « 3 l/mn », au-delà « 40 % ».</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.6 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Cadre <strong>Alimentation</strong> : les deux lignes libres hautes sont partagées en deux. Le
+              cadre offre désormais une zone de choix, <strong>quatre lignes libres</strong> puis la ligne
+              libre du bas. Sa hauteur ne change pas.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.5 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Une seule taille de police pour toutes les zones de saisie : 3,64 mm.</strong> Les
+              feuilles en comptaient quatre — 5,00 mm pour Alimentation et Isolement, 3,35 mm pour le corps
+              des prescriptions au recto, 3,20 mm pour la colonne de gauche du verso, 3,64 mm pour les dates.
+              La hauteur des cases ne change pas.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.4 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Cadre <strong>Alimentation</strong> : une seule <strong>zone de choix</strong> sous le titre —
+              elle garde la liste des régimes — et les <strong>trois lignes suivantes en saisie libre</strong>.
+              Les hauteurs et le centrage ne changent pas.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.3 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Cadre <strong>Alimentation</strong> : la ligne libre passe en <strong>dernière</strong>, les
+              trois lignes de la liste remontant sous le titre.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.2 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Le cadre <strong>Alimentation</strong> du verso remonte d'une ligne et s'aligne sur le bloc
+              <strong>ALIMENT.</strong> imprimé en face. L'espace gagné devient une <strong>ligne libre de
+              saisie</strong> qui s'ajoute aux trois lignes de la liste.</li>
+          <li>Ajout du chapitre <a href="#aide-securite">Sécurité et confidentialité</a>.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.1 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Le dossier de travail est demandé à la première ouverture.</strong> Tant qu'il n'est pas
+              désigné, le menu reste inaccessible : on pouvait jusqu'ici remplir une feuille entière sans que
+              rien ne soit écrit nulle part. Le choix est mémorisé et n'est plus redemandé.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.8.0 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li><strong>Plus aucun dialogue du système.</strong> Les messages et les demandes de confirmation
+              sont dessinés dans la page. Les dialogues de Windows arrêtaient tout le fonctionnement de
+              l'application le temps qu'on y réponde — et ils ne s'affichaient pas toujours : l'écran restait
+              intact et plus rien ne répondait, ni la frappe, ni les boutons. C'était le blocage constaté après
+              « Tout effacer » ou au retour au menu. Un message se ferme par <kbd>Entrée</kbd>, une question se
+              refuse par <kbd>Échap</kbd>, et le champ en cours de saisie retrouve le curseur.</li>
+          <li><strong>La saisie n'est plus interrompue au menu.</strong> Le redessin des box conserve le champ
+              visé, le texte tapé et la position du curseur ; un clic dans une carte de box ou une frappe en
+              cours ne déclenche plus de rechargement du dossier.</li>
+        </ul>
+      </section>
+      <section class="version">
+        <h2>1.6.20 <span class="date">— 8 septembre 2026</span></h2>
+        <ul>
+          <li>Ajout de l'<a href="#aide-avertissement">avertissement d'usage</a>, en tête de cette aide et
+              rappelé dans l'Administration.</li>
+          <li>Ajout de ces notes de version.</li>
+          <li>Bases de données vérifiées, rien n'a été remplacé : les listes embarquées contiennent
+              l'intégralité du <code>_listes.json</code> du service, et la liste <strong>RESPIRATOIRE</strong>
+              de cette version est conservée telle quelle — elle porte deux entrées que le service n'a pas
+              encore (<em>Bullage drain thoracique</em>, <em>Traité de drain thoracique</em>).</li>
+        </ul>
+      </section>
+
+  <footer>© 2026 Gabriel THOMAS — dernière mise à jour : version 1.10.1</footer>
+</div>
+</body>
+</html>

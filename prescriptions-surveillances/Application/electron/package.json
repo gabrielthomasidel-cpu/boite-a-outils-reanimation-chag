@@ -1,0 +1,64 @@
+{
+  "name": "prescription-reanimation",
+  "version": "2.9.5",
+  "description": "Feuille de Prescription et de Surveillance de reanimation",
+  "main": "main.js",
+  "author": "Gabriel Thomas",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "40.10.6",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "fr.prescription.reanimation",
+    "productName": "Prescription Reanimation",
+    "copyright": "Gabriel Thomas",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app/**/*",
+      "build/icon.png"
+    ],
+    "extraResources": [
+      {
+        "from": "imprimeur",
+        "to": "imprimeur"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "Prescriptions-Surveillances_V${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Prescription Réanimation",
+      "installerLanguages": [
+        "fr_FR"
+      ],
+      "language": "1036",
+      "deleteAppDataOnUninstall": false
+    },
+    "compression": "maximum"
+  }
+}
