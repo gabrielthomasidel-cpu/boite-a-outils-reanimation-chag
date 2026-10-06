@@ -16,7 +16,7 @@ let locFilterVal = '';
 let vueListe = 'tous';
 let lastArchive = null; // dernier instantané avant réinitialisation
 /* Affichage simplifié (smartphone, édition Android) : pas de filtres de
-   zone, de type ni de dotation, ni de rangée de zones, ni de sélecteur
+   zone, de type ni de dotation, ni de sélecteur
    Tous / À compter / À commander ; toutes les références sont proposées
    d'emblée, dans la vue « Tous ». */
 const AFFICHAGE_SIMPLIFIE = Boolean(window.AndroidBridge);
@@ -389,48 +389,9 @@ function updateSummary(){
   document.getElementById('vueCountACompter').textContent = c.aCompter;
   document.getElementById('vueCountACommander').textContent = c.aCommander;
   document.getElementById('btnNextUncounted').disabled = c.aCompter === 0;
-  if(!AFFICHAGE_SIMPLIFIE) renderZoneNav();
   majSignatureRequise();
   ecrireResume(c);
 }
-
-let zoneNavSignature = '';
-function renderZoneNav(){
-  const nav = document.getElementById('zoneNav');
-  const stats = statsZones();
-  const zones = [...stats.keys()].sort(cmp);
-  const signature = zones.map(z=>{ const s = stats.get(z); return `${z}:${s.comptes}/${s.total}`; }).join('|');
-  if(signature === zoneNavSignature) return;
-  zoneNavSignature = signature;
-  if(zones.length <= 1){ nav.innerHTML = ''; nav.hidden = true; return; }
-  nav.hidden = false;
-  nav.innerHTML = zones.map(z=>{
-    const s = stats.get(z);
-    const fini = s.comptes === s.total;
-    return `<button type="button" class="zone-chip${fini ? ' is-done' : ''}${isHorsStockStr(z) ? ' hors-stock' : ''}" data-zone="${escapeHtml(z)}" title="Aller à la zone ${escapeHtml(z || 'Sans localisation')}">`
-      + `${fini ? '✓ ' : ''}${escapeHtml(z || 'Sans localisation')} <span class="zone-count">${s.comptes}/${s.total}</span></button>`;
-  }).join('');
-}
-
-function allerAZone(zone){
-  let cible = document.getElementById(idZone(zone));
-  if(!cible){
-    // La zone est masquée par un filtre : on revient sur toutes les zones.
-    locFilterVal = ''; locFilterEl.value = '';
-    if(searchTerm){ searchTerm = ''; document.getElementById('search').value = ''; }
-    refScannee = null; erreurScan = null;
-    renderList();
-    cible = document.getElementById(idZone(zone));
-  }
-  if(!cible) { toast('Aucun article de cette zone dans la vue actuelle.'); return; }
-  const marge = (document.querySelector('.masthead').offsetHeight || 0) + (document.querySelector('.filter-row').offsetHeight || 0) + 8;
-  window.scrollTo({ top: cible.getBoundingClientRect().top + window.scrollY - marge, behavior: 'smooth' });
-}
-
-document.getElementById('zoneNav').addEventListener('click', e=>{
-  const btn = e.target.closest('button[data-zone]');
-  if(btn) allerAZone(btn.dataset.zone);
-});
 
 /* Prochain article non compté, dans l'ordre du parcours, après l'article
    actuellement sélectionné (ou depuis le début). */

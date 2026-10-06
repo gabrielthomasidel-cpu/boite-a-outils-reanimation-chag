@@ -72,7 +72,6 @@ test('Android : affichage simplifié, toutes les références d’emblée', asyn
   await ouvrir(page, 'materiel_reanimation');
   await expect(page.locator('#filterSelectRow')).toBeHidden();
   await expect(page.locator('#btnSansDotation')).toBeHidden();
-  await expect(page.locator('#zoneNav')).toBeHidden();
   await expect(page.locator('#vueSelecteur')).toBeHidden();
   await expect(page.locator('#vueCountTous')).toHaveText('319');
   await expect(page.locator('#list .item')).toHaveCount(319);

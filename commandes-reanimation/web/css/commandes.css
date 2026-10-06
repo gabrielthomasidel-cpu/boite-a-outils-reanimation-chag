@@ -158,15 +158,6 @@ header.masthead{
 .summary-bar .to-order{ color:var(--warn); font-weight:700; white-space:nowrap; }
 .summary-bar .to-order.none{ color:var(--ok); }
 
-.zone-nav{ grid-column:1 / -1; display:flex; gap:6px; overflow-x:auto; scrollbar-width:thin; padding-bottom:2px; }
-.zone-chip{
-  flex:none; display:inline-flex; align-items:center; gap:6px; padding:4px 10px; min-height:30px;
-  border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--ink-soft); font-size:12.5px; font-weight:600;
-}
-.zone-chip:hover{ border-color:var(--accent); color:var(--ink); }
-.zone-chip .zone-count{ font-size:11px; color:var(--ink-faint); font-variant-numeric:tabular-nums; }
-.zone-chip.is-done{ border-color:var(--ok-line); color:var(--ok); }
-.zone-chip.hors-stock{ color:var(--hs); }
 
 /* ============ Liste des articles ============ */
 main#list{ padding:14px var(--gutter) 24px; max-width:none; }
@@ -503,10 +494,9 @@ body.panel-open{ overflow:hidden; }
   .stepper button{ width:46px; height:46px; }
   .stepper input{ height:46px; width:62px; }
   .tool-btn{ width:44px; height:44px; }
-  .zone-chip{ min-height:38px; }
 }
 @media (forced-colors:active){
-  .item, .chip, .commande-badge, .zone-chip, .segmented button[aria-checked="true"]{ border:1px solid; }
+  .item, .chip, .commande-badge, .segmented button[aria-checked="true"]{ border:1px solid; }
   .summary-bar .fill, .app-status .fill{ background:Highlight; }
 }
 @media (prefers-reduced-motion:reduce){
@@ -543,5 +533,4 @@ body.panel-open{ overflow:hidden; }
 /* Affichage simplifié (édition Android) : recherche et avancement seulement. */
 .affichage-simplifie #vueSelecteur,
 .affichage-simplifie #filterSelectRow,
-.affichage-simplifie #btnSansDotation,
-.affichage-simplifie #zoneNav{ display:none !important; }
+.affichage-simplifie #btnSansDotation{ display:none !important; }

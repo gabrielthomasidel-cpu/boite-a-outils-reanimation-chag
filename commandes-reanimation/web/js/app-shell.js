@@ -109,7 +109,6 @@
     <span class="track"><span class="fill" id="sumFill"></span></span>
     <span class="to-order none" id="sumOrder">0 à commander</span>
   </div>
-  <nav class="zone-nav" id="zoneNav" aria-label="Aller à une zone"></nav>
 </div>`;
   }
 
@@ -338,7 +337,7 @@ ${postImpression}
     ${horsStock}
 
     <h3>5. Se repérer</h3>
-    <p>La barre d'avancement indique les articles comptés et le nombre à commander. Le sélecteur <b>Tous / À compter / À commander</b> filtre la liste ; les compteurs indiquent combien d'articles chaque vue contient. La rangée de <b>zones</b> sous les filtres permet de sauter directement à une zone ; une zone terminée est cochée. Le bouton <b>Prochain à compter</b> amène au premier article non compté.</p>
+    <p>La barre d'avancement indique les articles comptés et le nombre à commander. Le sélecteur <b>Tous / À compter / À commander</b> filtre la liste ; les compteurs indiquent combien d'articles chaque vue contient. Dans la liste, chaque zone indique combien de ses articles sont comptés ; une zone terminée est cochée. Le bouton <b>Prochain à compter</b> amène au premier article non compté.</p>
     ${sansDotation}
     <p>Un scan reste prioritaire : l'article recherché s'affiche même s'il ne fait pas partie de la vue en cours.</p>
 

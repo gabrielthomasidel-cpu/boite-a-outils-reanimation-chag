@@ -90,14 +90,10 @@ test.describe('Comptage', () => {
     await expect(page.locator('#list .item')).toHaveCount(24);
   });
 
-  test('navigation par zone et prochain article à compter', async ({ page }) => {
+  test('pas de rangée de zones ; prochain article à compter', async ({ page }) => {
     await ouvrir(page, 'solutes');
-    const chips = page.locator('#zoneNav .zone-chip');
-    await expect(chips).toHaveCount(2);
-    await chips.filter({ hasText: 'Salle Matériel' }).click();
-    await page.waitForTimeout(600);
-    const top = await page.locator('#list .group-title[data-loc="Salle Matériel"]').evaluate(e => e.getBoundingClientRect().top);
-    expect(top).toBeLessThan(400);
+    await expect(page.locator('#zoneNav, .zone-chip')).toHaveCount(0);
+    await expect(page.locator('#list .group-title[data-loc]')).toHaveCount(2);
     await page.click('#btnNextUncounted');
     const actif = await page.evaluate(() => document.activeElement.closest('.item') && document.activeElement.closest('.item').querySelector('.item-name').title);
     expect(actif).toBeTruthy();
