@@ -75,11 +75,16 @@ Section "Application principale" SecApplication
   ; avant la copie, pour qu'aucun ancien script ne subsiste.
   RMDir /r "$INSTDIR\web"
   Delete "$INSTDIR\CommandesReanimation_*.exe"
+  RMDir /r "$INSTDIR\android"
 
   File "app.ico"
   File "INSTALLATION.txt"
   File "${EXE}"
-  File /r "../web"
+  ; Contenu de web/ uniquement (« File /r ../web » reprenait aussi tout
+  ; autre dossier nommé « web », comme la copie de construction Android).
+  SetOutPath "$INSTDIR\web"
+  File /r "../web/*.*"
+  SetOutPath "$INSTDIR"
 
   WriteUninstaller "$INSTDIR\uninstall.exe"
 
