@@ -21,7 +21,7 @@
   const chemin = decodeURIComponent(global.location.pathname || '');
   const module = chemin.includes('Commande_Solutes') ? 'Solutés'
     : chemin.includes('Commande_Aide_Soignant') ? 'Magasin'
-    : chemin.includes('Commande_Materiel') ? 'Pharmacie' : '';
+    : chemin.includes('Commande_Materiel') ? 'DM_Pharmacie' : '';
 
   /* ---------- dossier de l'application ---------- */
   function dossierChoisi(){ try { return pont.getDirectory() || ''; } catch (e) { return ''; } }
@@ -41,7 +41,7 @@
     if (dossierChoisi()) return true;
     const ok = typeof global.confirmDialog === 'function'
       ? await global.confirmDialog('Choisir le dossier Commandes',
-          'Choisissez une seule fois le dossier où ranger les commandes, PDF, étiquettes et données publiées (par exemple « Documents/Commandes »). Les sous-dossiers Pharmacie, Solutés et Magasin y seront créés.',
+          'Choisissez une seule fois le dossier où ranger les commandes, PDF, étiquettes et données publiées (par exemple « Documents/Commandes »). Les sous-dossiers DM_Pharmacie, Solutés et Magasin y seront créés.',
           'Choisir le dossier')
       : true;
     if (!ok) return false;

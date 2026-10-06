@@ -238,7 +238,7 @@ function enregistrerCatalogue(){
 }
 
 /* ============ Publication des données sur le poste ============
-   Écrit C:\commandes\<module>\Application\donnees-<module>.js via le lanceur
+   Écrit C:\commandes\<module>\Application\Donnees_<Module>.js via le lanceur
    Windows. Le lanceur copie la version précédente dans Archives : les
    publications sont donc regroupées (délai, fermeture du panneau, fin
    d'impression) pour ne pas multiplier les copies. */

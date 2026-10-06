@@ -216,3 +216,49 @@ test.describe('Échanges de fichiers', () => {
     await expect(page.locator('#adminPanel .admin-panel-footer')).not.toContainText('la commande');
   });
 });
+
+test.describe('Noms de dossiers et de fichiers', () => {
+  test('convention Nature_Module_horodatage pour chaque module', async ({ page }) => {
+    const attendu = {
+      solutes: ['Solutés', 'Commande_Solutes', 'Catalogue_Solutes', 'Donnees_Solutes.js'],
+      materiel_reanimation: ['DM_Pharmacie', 'Commande_DM_Pharmacie', 'Catalogue_DM_Pharmacie', 'Donnees_DM_Pharmacie.js'],
+      aide_soignant: ['Magasin', 'Commande_Magasin', 'Catalogue_Magasin', 'Donnees_Magasin.js'],
+    };
+    for (const [module, [dossier, commande, catalogue, donnees]] of Object.entries(attendu)) {
+      await ouvrir(page, module);
+      const r = await page.evaluate(() => [MODULE.dossierWindows, MODULE.racineFichiers, PORTABLE_MODULE_CONFIG.catalogStem, window.CommandesModules.fichierPoste(CSV_MODULE)]);
+      expect(r).toEqual([dossier, commande, catalogue, donnees]);
+    }
+  });
+
+  test('Matériel : enregistrements dans DM_Pharmacie avec les nouveaux noms', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.__fichiers = [];
+      window.AndroidBridge = {
+        getDirectory: () => 'Commandes', chooseDirectory(){}, openFile: () => 'ok', close(){},
+        writeFile: (m, c, n) => { window.__fichiers.push(`${m}/${c}/${n}`); return n; },
+        printPage: t => setTimeout(() => dispatchEvent(new CustomEvent('androidprintfinished')), 20),
+      };
+    });
+    await ouvrir(page, 'materiel_reanimation');
+    await page.evaluate(async () => { await exportCatalogue('json'); await publierDonneesPoste(); });
+    const f = await page.evaluate(() => window.__fichiers.map(x => x.replace(/_\d{8}_\d{6}/, '_HORODATAGE')));
+    expect(f).toEqual(['DM_Pharmacie/Application/Catalogue_DM_Pharmacie_HORODATAGE.json', 'DM_Pharmacie/Application/Donnees_DM_Pharmacie.js']);
+  });
+
+  test('données publiées : nouveau nom prioritaire, ancien nom toujours relu', async ({ page }) => {
+    const dossier = dossierTemporaire();
+    const rep = path.join(dossier, 'Magasin', 'Application');
+    fs.mkdirSync(rep, { recursive: true });
+    const ecrire = (nom, signature) => fs.writeFileSync(path.join(rep, nom),
+      `window.CommandesDonneesPoste=window.CommandesDonneesPoste||{};window.CommandesDonneesPoste.aide_soignant=${JSON.stringify({ module: 'aide_soignant', historique: [{ id: signature, date: '2026-09-01T08:00:00.000Z', signature, lignes: [] }] })};`);
+    ecrire('donnees-aide_soignant.js', 'Ancien nom');
+    await ouvrir(page, 'aide_soignant', { dossierPoste: 'file://' + dossier + '/' });
+    expect(await page.evaluate(() => historiqueCommandes().map(h => h.signature))).toEqual(['Ancien nom']);
+    ecrire('Donnees_Magasin.js', 'Nouveau nom');
+    const p2 = await page.context().newPage();
+    await p2.addInitScript(() => localStorage.clear());
+    await ouvrir(p2, 'aide_soignant', { dossierPoste: 'file://' + dossier + '/' });
+    expect(await p2.evaluate(() => DONNEES_POSTE.historique[0].signature)).toBe('Nouveau nom');
+  });
+});

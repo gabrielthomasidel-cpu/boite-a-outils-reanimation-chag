@@ -18,7 +18,7 @@ Nouveautés de la version 2.7.0
 - Code commun aux trois modules : une correction s'applique partout.
 - Catalogues livrés séparés des pages ; catalogue modifié, historique et mot
   de passe publiés automatiquement dans C:\commandes\<module>\Application
-  (fichier donnees-<module>.js) et repris automatiquement à l'ouverture,
+  (fichier Donnees_<Module>.js) et repris automatiquement à l'ouverture,
   y compris après réinstallation, changement de profil ou de compte Windows.
 - Cases « non comptées » distinctes d'un stock compté à 0.
 - Vues Tous / À compter / À commander avec compteurs, navigation par zone,
@@ -31,9 +31,13 @@ Nouveautés de la version 2.7.0
 - Nouvelle présentation : onglets entre modules, couleurs à trois états,
   icônes vectorielles, affichage mobile, noms en casse adaptée (bouton Aa).
 - Installateur allégé (icônes vectorielles, composants inutilisés retirés).
+- Noms harmonisés : le dossier C:\commandes\Pharmacie devient
+  C:\commandes\DM_Pharmacie (renommé automatiquement au premier lancement) ;
+  les fichiers suivent la règle Nature_Module_horodatage, par exemple
+  Catalogue_DM_Pharmacie_…json, Commande_Magasin_…pdf, Historique_Solutes_…csv.
 
 Dossiers C:\commandes
-Les dossiers C:\commandes\Pharmacie, C:\commandes\Solutés et
+Les dossiers C:\commandes\DM_Pharmacie, C:\commandes\Solutés et
 C:\commandes\Magasin sont créés au lancement. Chacun contient Application
 (données publiées et exports de catalogue), Sauvegardes (commandes et
 historiques exportés), Etiquettes (planches) et Archives (PDF de commande et

@@ -4,3 +4,6 @@ tests/playwright-report/
 dist/
 android/build/
 android/signature/
+windows/build-lanceur/
+windows/lanceur/bin/
+windows/lanceur/obj/

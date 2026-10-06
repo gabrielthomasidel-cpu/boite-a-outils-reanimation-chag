@@ -29,7 +29,8 @@ android/                 édition Android (APK autonome)
   construire-apk.sh          construction de dist/Commandes_Reanimation_<version>.apk
 windows/
   CommandesReanimation.exe   lanceur (.NET Framework) : ouvre Edge et sert l'écriture dans C:\commandes
-  Launcher.decompile.cs      code du lanceur reconstitué, pour référence
+  lanceur/                   source C# du lanceur (Lanceur.cs, Lanceur.csproj)
+  construire-lanceur.sh      construction de CommandesReanimation.exe (dotnet SDK)
   installateur.nsi           script de l'installateur NSIS
   construire-installateur.sh construction de dist/Commandes_Reanimation_Setup_<version>.exe
 tests/                   tests automatisés (Playwright)
@@ -39,13 +40,15 @@ Toute différence de comportement entre modules passe par `js/modules.js` : le c
 
 ## Données
 
+Dossiers des modules : `DM_Pharmacie`, `Solutés`, `Magasin` (l'ancien dossier `Pharmacie` est renommé automatiquement par le lanceur Windows et par l'APK). Fichiers produits : `Nature_Module_horodatage` — `Catalogue_DM_Pharmacie_…`, `Commande_Magasin_….pdf`, `Historique_Solutes_….csv`, `Etiquettes_DM_Pharmacie_…pdf`, `Donnees_Magasin.js`.
+
 | Donnée | Emplacement |
 |---|---|
 | Comptage en cours, résumé pour l'accueil, signataires | stockage local du profil Edge (`%LOCALAPPDATA%\CommandesReanimationWin64\Profil`) |
-| Catalogue modifié, historique (100 dernières commandes), mot de passe | stockage local **et** `C:\commandes\<module>\Application\donnees-<module>.js` |
+| Catalogue modifié, historique (100 dernières commandes), mot de passe | stockage local **et** `C:\commandes\<Module>\Application\Donnees_<Module>.js` |
 | PDF de commande, exports, étiquettes | `C:\commandes\<module>\{Archives, Sauvegardes, Etiquettes, Application}` |
 
-Le fichier `donnees-<module>.js` est publié automatiquement par l'application (via le lanceur) et relu à chaque ouverture : la version la plus récente du catalogue l'emporte. Les données sont ainsi reprises sans manipulation après une réinstallation, un nouveau profil Edge ou sur un autre compte Windows du même poste. Un catalogue publié pour un ancien catalogue livré est ignoré, comme en 2.6.
+Le fichier `Donnees_<Module>.js` (ancien nom `donnees-<id>.js`, toujours relu) est publié automatiquement par l'application (via le lanceur) et relu à chaque ouverture : la version la plus récente du catalogue l'emporte. Les données sont ainsi reprises sans manipulation après une réinstallation, un nouveau profil Edge ou sur un autre compte Windows du même poste. Un catalogue publié pour un ancien catalogue livré est ignoré, comme en 2.6.
 
 Les clés de stockage, empreintes de catalogue et de mot de passe de la 2.6 sont inchangées : une mise à jour conserve les comptages et catalogues existants.
 
@@ -58,13 +61,13 @@ npx playwright install chromium   # ou CHROMIUM_PATH=/chemin/vers/chrome
 npm test
 ```
 
-Les 39 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle d'impression et historique, commandes d'essai, remise à zéro des statistiques, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges du catalogue JSON/CSV, PDF, étiquettes et listes papier, et l'adaptation Android (pont natif simulé).
+Les 42 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle d'impression et historique, commandes d'essai, remise à zéro des statistiques, noms de dossiers et de fichiers, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges du catalogue JSON/CSV, PDF, étiquettes et listes papier, et l'adaptation Android (pont natif simulé).
 
 ## Édition Android
 
 Les mêmes pages web sont embarquées dans l'APK et servies à l'adresse sécurisée `https://appassets.androidplatform.net/web/` (stockage persistant, caméra autorisée, aucune sortie réseau). `web/js/android.js` adapte l'application au pont natif :
 
-- un dossier choisi une fois sur l'appareil remplace `C:\commandes` (même arborescence `Pharmacie|Solutés|Magasin/Application|Sauvegardes|Etiquettes|Archives`) ; les données publiées y sont relues à l'ouverture ;
+- un dossier choisi une fois sur l'appareil remplace `C:\commandes` (même arborescence `DM_Pharmacie|Solutés|Magasin/Application|Sauvegardes|Etiquettes|Archives`) ; les données publiées y sont relues à l'ouverture ;
 - impression par le service d'impression Android (PDF ou imprimante) ;
 - scan par la caméra (bouton à côté de la recherche et dans la fiche article), en plus de la douchette ;
 - Édition de secours ouverte dans le lecteur PDF ; listes papier affichées dans `papier.html` ;

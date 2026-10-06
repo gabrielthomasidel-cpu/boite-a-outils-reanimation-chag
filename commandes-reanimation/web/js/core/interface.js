@@ -805,7 +805,7 @@ document.getElementById('histExport').addEventListener('click', async ()=>{
     quantite_commandee: l.commande
   })));
   try{
-    const res = await saveFile('Sauvegardes', `Historique_${MODULE.racineFichiers}_${horodatage()}.csv`, new Blob([csvDocument(headers, rows)], { type: CSV_MIME }));
+    const res = await saveFile('Sauvegardes', `Historique_${MODULE.nomFichier}_${horodatage()}.csv`, new Blob([csvDocument(headers, rows)], { type: CSV_MIME }));
     toast(res.downloaded ? 'Historique exporté.' : `Historique exporté dans ${res.path}`);
   }catch(err){ toast('Export de l’historique impossible.'); }
 });
@@ -916,8 +916,7 @@ document.getElementById('etiqGenerate').addEventListener('click', async ()=>{
   try{
     await attendreAffichage();
     const blob = await generateLabelsPdfBlob(liste, labelFormat);
-    const nature = MODULE.codeBarres ? 'Code_Barres' : 'QR';
-    const res = await saveFile('Etiquettes', `Etiquettes_${nature}_${labelFormat.fileSlug}_${horodatage()}.pdf`, blob);
+    const res = await saveFile('Etiquettes', `Etiquettes_${MODULE.nomFichier}_${labelFormat.fileSlug}_${horodatage()}.pdf`, blob);
     toast(res.downloaded ? `Planche de ${liste.length} étiquette(s) téléchargée.` : `Étiquettes enregistrées dans ${res.path}`);
   }catch(err){
     console.error(err);

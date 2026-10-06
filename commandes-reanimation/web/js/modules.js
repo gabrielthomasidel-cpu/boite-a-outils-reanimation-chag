@@ -24,6 +24,7 @@
       description: 'Comptage et commande des solutés de perfusion.',
       icone: 'img/icone-solutes.svg',
       dossierWindows: 'Solutés',
+      nomFichier: 'Solutes',
       cleStockage: 'commande-solutes:v1',
       baseDossier: 'commande-solutes-fs',
       prefixeReference: 'sol',
@@ -50,7 +51,8 @@
       court: 'Matériel',
       description: 'Comptage du matériel ; les articles sans dotation sont masqués par défaut et affichables au besoin.',
       icone: 'img/icone-materiel.svg',
-      dossierWindows: 'Pharmacie',
+      dossierWindows: 'DM_Pharmacie',
+      nomFichier: 'DM_Pharmacie',
       cleStockage: 'commande-materiel-reanimation:v1',
       baseDossier: 'commande-materiel-fs',
       prefixeReference: '',
@@ -65,8 +67,8 @@
       regroupementImpression: 'type',
       titreImpression: 'Commande de dispositifs médicaux',
       titreImpressionHorsStock: 'Commande de Matériel Pharmacie — Hors Stock',
-      racineFichiers: 'Commande_Materiel_Reanimation',
-      racineCatalogue: 'Catalogue_Materiel_Reanimation',
+      racineFichiers: 'Commande_DM_Pharmacie',
+      racineCatalogue: 'Catalogue_DM_Pharmacie',
       selMotDePasse: 'cmr32',
       empreinteMotDePasse: '8a8077b3',
       couleur: '#b03a48'
@@ -79,6 +81,7 @@
       description: 'Comptage et commande des produits d’hôtellerie, de lingerie et de soins.',
       icone: 'img/icone-aide-soignant.svg',
       dossierWindows: 'Magasin',
+      nomFichier: 'Magasin',
       cleStockage: 'commande-aide-soignant:v1',
       baseDossier: 'commande-aide-soignant-fs',
       prefixeReference: '',
@@ -92,8 +95,8 @@
       rappelApresImpression: false,
       regroupementImpression: 'localisation',
       titreImpression: 'Commande Magasin',
-      racineFichiers: 'Commande_Aide_Soignant',
-      racineCatalogue: 'Catalogue_Aide_Soignant',
+      racineFichiers: 'Commande_Magasin',
+      racineCatalogue: 'Catalogue_Magasin',
       selMotDePasse: 'cmr32',
       empreinteMotDePasse: '8a8077b3',
       couleur: '#2f8a5b'
@@ -113,7 +116,11 @@
     return base + encodeURIComponent(module.dossierWindows) + '/Application/';
   }
 
-  function fichierPoste(id) { return 'donnees-' + id + '.js'; }
+  /* Noms des fichiers produits : Nature_Module[_horodatage], le module
+     portant le nom de son dossier (DM_Pharmacie, Solutes, Magasin). */
+  function fichierPoste(id) { return 'Donnees_' + MODULES[id].nomFichier + '.js'; }
+  /* Nom utilisé jusqu'à la version 2.7.0 initiale, relu pour la reprise. */
+  function ancienFichierPoste(id) { return 'donnees-' + id + '.js'; }
 
   /* Charge, s'il existe, le fichier de données publié sur le poste
      (catalogue modifié, historique, mot de passe). Un fichier absent ne
@@ -124,8 +131,12 @@
     const module = MODULES[id];
     if (!module) return;
     if (global.location.protocol !== 'file:' && !global.COMMANDES_DOSSIER_POSTE && !global.AndroidBridge) return;
-    const url = dossierPoste(module) + fichierPoste(id) + '?t=' + Date.now();
-    global.document.write('<script src="' + url + '" onerror="void 0"><\/script>');
+    /* L'ancien nom d'abord, le nouveau ensuite : s'ils existent tous deux,
+       le fichier au nom actuel l'emporte. */
+    const t = '?t=' + Date.now();
+    [ancienFichierPoste(id), fichierPoste(id)].forEach(nom => {
+      global.document.write('<script src="' + dossierPoste(module) + nom + t + '" onerror="void 0"><\/script>');
+    });
   }
 
   /* Libellé du dossier de données affiché à l'utilisateur. */
@@ -149,6 +160,7 @@
     get: id => MODULES[id],
     dossierPoste,
     fichierPoste,
+    ancienFichierPoste,
     chargerDonneesPoste,
     lienModule,
     libelleDossier,

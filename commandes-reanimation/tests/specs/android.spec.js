@@ -31,7 +31,7 @@ test('Android : impression, archivage, publication et édition de secours', asyn
   expect(await page.evaluate(() => window.__impressions.length)).toBe(1);
   await page.waitForTimeout(2000);
   const fichiers = await page.evaluate(() => window.__fichiers.map(f => `${f.module}/${f.categorie}/${f.nom.replace(/_\d{8}_\d{6}/, '')}`));
-  expect(fichiers).toEqual(expect.arrayContaining(['Solutés/PDF/Commande_Solutes.pdf', 'Solutés/Application/donnees-solutes.js']));
+  expect(fichiers).toEqual(expect.arrayContaining(['Solutés/PDF/Commande_Solutes.pdf', 'Solutés/Application/Donnees_Solutes.js']));
   await page.click('#btnEditionSecours');
   await expect.poll(() => page.evaluate(() => window.__ouverts)).toEqual(['Commande_Solutes_Edition_secours.pdf']);
   expect(erreurs).toEqual([]);

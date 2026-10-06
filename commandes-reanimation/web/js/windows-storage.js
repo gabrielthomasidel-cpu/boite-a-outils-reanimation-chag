@@ -3,7 +3,7 @@
  const connection=match?match[1]+':'+match[2]:sessionStorage.getItem('windows-storage');
  if(match){sessionStorage.setItem('windows-storage',connection);history.replaceState(null,'',location.pathname);}
  const parts=(connection||'').split(':');
- const module=location.pathname.includes('Commande_Solutes')?'Solutés':location.pathname.includes('Commande_Aide_Soignant')?'Magasin':'Pharmacie';
+ const module=location.pathname.includes('Commande_Solutes')?'Solutés':location.pathname.includes('Commande_Aide_Soignant')?'Magasin':'DM_Pharmacie';
  async function request(path,data){
   if(!connection)throw new Error('Ouvrez l’application depuis le raccourci Windows pour enregistrer dans C:\\commandes.');
   const body=JSON.stringify(data||{}).replace(/[\u007f-\uffff]/g,c=>'\\u'+c.charCodeAt(0).toString(16).padStart(4,'0'));

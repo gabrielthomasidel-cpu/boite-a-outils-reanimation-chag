@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
     private static final int DEMANDE_DOSSIER = 41;
     private static final int DEMANDE_FICHIER = 42;
     private static final int DEMANDE_CAMERA = 43;
-    private static final String[] MODULES = { "Pharmacie", "Solutés", "Magasin" };
+    private static final String[] MODULES = { "DM_Pharmacie", "Solutés", "Magasin" };
 
     private WebView webView;
     private final Handler principal = new Handler(Looper.getMainLooper());
@@ -101,6 +101,7 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(new ClientWeb());
         webView.setWebChromeClient(new ClientChrome());
 
+        migrerAncienDossier();
         if (etat != null) webView.restoreState(etat);
         else webView.loadUrl(ACCUEIL);
     }
@@ -253,6 +254,7 @@ public class MainActivity extends Activity {
                     getContentResolver().takePersistableUriPermission(arbre,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getSharedPreferences(PREFS, MODE_PRIVATE).edit().putString(CLE_DOSSIER, arbre.toString()).apply();
+                    migrerAncienDossier();
                     for (String module : MODULES) {
                         for (String categorie : new String[] { "Application", "Sauvegardes", "Etiquettes", "Archives" }) {
                             dossier(arbre, module, categorie, true);
@@ -310,6 +312,24 @@ public class MainActivity extends Activity {
         return "";
     }
 
+    /**
+     * Version 2.7 : le sous-dossier « Pharmacie » devient « DM_Pharmacie ».
+     * Un dossier existant est renommé, sauf si le nouveau existe déjà.
+     */
+    private void migrerAncienDossier() {
+        Uri a = arbre();
+        if (a == null) return;
+        try {
+            String racine = DocumentsContract.getTreeDocumentId(a);
+            String ancien = enfant(a, racine, "Pharmacie");
+            if (ancien != null && enfant(a, racine, "DM_Pharmacie") == null) {
+                DocumentsContract.renameDocument(getContentResolver(), DocumentsContract.buildDocumentUriUsingTree(a, ancien), "DM_Pharmacie");
+            }
+        } catch (Exception e) {
+            // Dossier en lecture seule ou indisponible : DM_Pharmacie sera créé à côté.
+        }
+    }
+
     /** Recherche un enfant par son nom ; renvoie son identifiant de document ou null. */
     private String enfant(Uri arbre, String parentId, String nom) {
         Uri enfants = DocumentsContract.buildChildDocumentsUriUsingTree(arbre, parentId);
@@ -354,6 +374,11 @@ public class MainActivity extends Activity {
         return "Archives";
     }
 
+    /** L'ancien nom « Pharmacie » reste accepté et désigne DM_Pharmacie. */
+    private static String module(String module) {
+        return "Pharmacie".equals(module) ? "DM_Pharmacie" : module;
+    }
+
     private static boolean moduleValide(String module) {
         for (String m : MODULES) if (m.equals(module)) return true;
         return false;
@@ -365,6 +390,7 @@ public class MainActivity extends Activity {
     }
 
     private byte[] lireFichier(String module, String categorie, String nom) {
+        module = module(module);
         Uri a = arbre();
         if (a == null || !moduleValide(module) || !nomValide(nom)) return null;
         InputStream entree = null;
@@ -388,6 +414,7 @@ public class MainActivity extends Activity {
     }
 
     private String ecrireFichier(String module, String categorieDemandee, String nom, byte[] contenu) throws IOException {
+        module = module(module);
         Uri a = arbre();
         if (a == null) throw new IOException("aucun-dossier");
         if (!moduleValide(module)) throw new IOException("Module inconnu");

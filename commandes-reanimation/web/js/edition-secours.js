@@ -9,7 +9,8 @@ window.secoursCommande = (() => {
   const db=await open();
   try { await new Promise((resolve,reject)=>{
    const tx=db.transaction('pdfs','readwrite');
-   tx.objectStore('pdfs').put({blob,date:new Date().toISOString(),filename:'Commande_'+module+'_Secours_'+new Date().toISOString().replace(/[:.]/g,'-')+'.pdf'},module);
+   const m=window.CommandesModules&&window.CommandesModules.get(module);
+   tx.objectStore('pdfs').put({blob,date:new Date().toISOString(),filename:'Commande_'+(m?m.nomFichier:module)+'_Edition_secours_'+new Date().toISOString().replace(/[:.]/g,'-')+'.pdf'},module);
    tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error); tx.onabort=()=>reject(tx.error || new Error('Sauvegarde interrompue'));
   }); } finally {db.close();}
  }
