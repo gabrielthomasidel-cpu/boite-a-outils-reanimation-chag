@@ -614,6 +614,18 @@ document.getElementById('adminCheck').addEventListener('click', ()=>{
 });
 document.getElementById('integriteClose').addEventListener('click', ()=> document.getElementById('integriteDlg').close());
 
+/* ---------- remise à zéro des statistiques ---------- */
+document.getElementById('adminRazHistorique').addEventListener('click', async ()=>{
+  const n = historiqueCommandes().length;
+  if(!n){ toast('L’historique de ce module est déjà vide.'); return; }
+  const ok = await confirmDialog('Remettre à zéro les statistiques',
+    `<p>Les <b>${n}</b> commande(s) de l’historique « ${escapeHtml(MODULE.court)} » seront effacées, ainsi que la synthèse par article et la dernière commande affichée sur l’accueil. Cette action est définitive.</p><p>Exportez d’abord l’historique en CSV (bouton Historique) si vous souhaitez en garder une trace. Le comptage en cours et le catalogue ne sont pas modifiés.</p>`,
+    'Tout effacer', { html: true, danger: true });
+  if(!ok) return;
+  remettreAZeroHistorique();
+  toast('Statistiques de commande remises à zéro.');
+});
+
 /* ---------- publication, import et export ---------- */
 document.getElementById('adminPublish').addEventListener('click', async ()=>{
   try{

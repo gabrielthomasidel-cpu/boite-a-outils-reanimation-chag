@@ -349,6 +349,7 @@ ${postImpression}
 
     <h3>7. Historique</h3>
     <p>Le bouton <b>Historique</b> de l'en-tête liste les commandes imprimées (date, auteur, articles et quantités) et propose une <b>synthèse</b> : articles commandés le plus souvent, quantité moyenne, et signalement des articles commandés à presque chaque cycle — un indice pour revoir leur dotation. L'historique peut être exporté en CSV.</p>
+    <p><b>Commandes d'essai</b> — pour un essai ou une formation, indiquez <b>essai</b> dans « Rempli par » (par exemple « Essai Martin »). La commande s'imprime normalement mais n'est enregistrée ni dans l'historique ni dans les statistiques, et n'apparaît pas sur l'accueil.</p>
 
     <h3>8. Interrompre et reprendre</h3>
     <p>Le comptage est conservé automatiquement. À la réouverture, un bandeau propose <b>Continuer</b> ou <b>Repartir de zéro</b>. L'écran d'accueil affiche l'état de chaque commande en cours. Le bouton <b>Réinitialiser</b> efface tous les comptages pour un nouveau cycle.</p>
@@ -386,6 +387,9 @@ ${postImpression}
         ${M.type ? '<tr><td><b>Sinon, articles Hors Stock</b></td><td>La dotation entière, quel que soit le stock restant.</td></tr>' : ''}
       </tbody></table>
       <p><i>Article courant, dotation 4, seuil 2 : à 3 en stock, rien ; à 2 en stock, commande de 2 ; à 1 en stock, commande de 3.</i></p>
+
+      <h3>Remettre à zéro les statistiques</h3>
+      <p>Le bouton <b>Remettre à zéro les statistiques</b> de la gestion du catalogue efface l'historique des commandes de ce module, donc la synthèse par article et la « dernière commande » de l'accueil. Exportez l'historique en CSV avant si vous souhaitez en garder une trace. La remise à zéro est publiée sur le poste : les commandes effacées ne reviennent pas depuis un autre compte Windows.</p>
 
       <h3>Contrôle du catalogue</h3>
       <p>Le bouton <b>Contrôler le catalogue</b> détecte les références ou codes-barres en double, les dénominations vides, les seuils incohérents et les champs manquants. Le même contrôle est présenté avant chaque import : un catalogue comportant des erreurs ne s'importe qu'après confirmation explicite.</p>
@@ -534,6 +538,7 @@ ${postImpression}
     <button type="button" id="btnSave" title="Sauvegarder la commande en JSON, CSV ou XLSX">Enregistrer la commande</button>
     <button type="button" id="adminExport" title="Exporter le catalogue en JSON, CSV ou XLSX">Exporter la base</button>
     <button type="button" id="adminImportBtn" title="Importer le catalogue depuis JSON, CSV ou XLSX">Importer la base</button>
+    <button type="button" id="adminRazHistorique" class="danger" title="Effacer l'historique et les statistiques de commande de ce module">Remettre à zéro les statistiques</button>
     <input type="file" id="adminImportFile" accept=".json,application/json">
   </div>
 </div>

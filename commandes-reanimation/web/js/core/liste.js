@@ -595,7 +595,7 @@ function signataires(){
 }
 function retenirSignataire(nom){
   const propre = String(nom || '').trim().replace(/\s+/g, ' ');
-  if(!propre) return;
+  if(!propre || estCommandeEssai(propre)) return;
   const liste = [propre, ...signataires().filter(n=>n.toLocaleLowerCase('fr') !== propre.toLocaleLowerCase('fr'))].slice(0, 10);
   ecrireJsonLocal(window.CommandesModules.CLE_SIGNATAIRES, liste);
   remplirSignataires();

@@ -397,12 +397,34 @@ async function generateLabelsPdfBlob(list, labelFormat){
    poste dans C:\commandes, ce qui le rend commun aux comptes Windows. */
 const HISTORIQUE_MAX = 100;
 const CLE_HISTORIQUE = window.CommandesModules.cleHistorique(CSV_MODULE);
+const CLE_HISTORIQUE_RAZ = CLE_HISTORIQUE + ':remis-a-zero';
+
+/* Commande d'essai : « Rempli par » contenant le mot « essai » (casse et
+   accents indifférents). Elle s'imprime normalement mais n'entre ni dans
+   l'historique ni dans les statistiques. */
+function estCommandeEssai(signature){
+  return /(^|[^a-z0-9])essais?([^a-z0-9]|$)/.test(normaliserRecherche(signature));
+}
+
+/* Remise à zéro de l'historique (administrateur) : la date est conservée
+   sur le poste et publiée dans C:\commandes, pour que les commandes
+   antérieures ne reviennent pas par la fusion avec un autre compte Windows
+   ou une ancienne publication. */
+function dateRemiseAZeroHistorique(){
+  const dates = [lireJsonLocal(CLE_HISTORIQUE_RAZ, null), DONNEES_POSTE && DONNEES_POSTE.historiqueRemisAZeroLe]
+    .map(d=> Date.parse(d)).filter(Number.isFinite);
+  return dates.length ? new Date(Math.max(...dates)).toISOString() : null;
+}
 
 function fusionnerHistoriques(...sources){
   const parId = new Map();
+  const raz = dateRemiseAZeroHistorique();
   sources.forEach(liste=>{
     (Array.isArray(liste) ? liste : []).forEach(entree=>{
-      if(entree && entree.id && Array.isArray(entree.lignes)) parId.set(entree.id, entree);
+      if(!entree || !entree.id || !Array.isArray(entree.lignes)) return;
+      if(estCommandeEssai(entree.signature)) return;
+      if(raz && String(entree.date) <= raz) return;
+      parId.set(entree.id, entree);
     });
   });
   return [...parId.values()].sort((a,b)=> String(b.date).localeCompare(String(a.date))).slice(0, HISTORIQUE_MAX);
@@ -413,7 +435,19 @@ ecrireJsonLocal(CLE_HISTORIQUE, historiqueMemoire);
 
 function historiqueCommandes(){ return historiqueMemoire.slice(); }
 
+function remettreAZeroHistorique(){
+  const maintenant = new Date().toISOString();
+  ecrireJsonLocal(CLE_HISTORIQUE_RAZ, maintenant);
+  historiqueMemoire = [];
+  ecrireJsonLocal(CLE_HISTORIQUE, historiqueMemoire);
+  const resume = lireJsonLocal(window.CommandesModules.cleResume(CSV_MODULE), {}) || {};
+  resume.derniereCommande = null;
+  ecrireJsonLocal(window.CommandesModules.cleResume(CSV_MODULE), resume);
+  planifierPublicationPoste(500);
+}
+
 function enregistrerCommandeHistorique(){
+  if(estCommandeEssai(signatureEl.value)) return null;
   const lignes = items.filter(it=>commandeOf(it) > 0).sort(trierImpression).map(it=>({
     ref: referenceSansPrefixe(it.ref),
     uid: it.uid,
@@ -462,7 +496,9 @@ function recapitulatifImpressionHtml(){
   }else{
     html += `<p>${MODULE.regroupementImpression === 'localisation' ? 'La liste sera classée par localisation.' : 'La liste sera triée par type (ordre du classeur d’origine).'}</p>`;
   }
-  html += '<p>Une fois l’impression terminée, la commande est ajoutée à l’historique et <b>les compteurs sont remis à zéro</b>.</p>';
+  html += estCommandeEssai(signatureEl.value)
+    ? '<p class="recap-alerte">Commande d’<b>essai</b> (« Rempli par » contient « essai ») : elle sera imprimée mais <b>ni enregistrée dans l’historique ni comptée dans les statistiques</b>. Les compteurs seront remis à zéro.</p>'
+    : '<p>Une fois l’impression terminée, la commande est ajoutée à l’historique et <b>les compteurs sont remis à zéro</b>.</p>';
   return html;
 }
 
@@ -527,12 +563,12 @@ function cloreCycleImpression(){
   }
   const nombreLots = lotsImpression.length;
   restaurerContexteImpression();
-  retenirSignataire(signatureEl.value);
+  const essai = estCommandeEssai(signatureEl.value);
+  if(!essai) retenirSignataire(signatureEl.value);
   enregistrerCommandeHistorique();
   remettreAZero();
-  toast(nombreLots > 1
-    ? 'Les deux commandes ont été imprimées séparément et ajoutées à l’historique. Les compteurs sont remis à zéro.'
-    : 'Commande imprimée et ajoutée à l’historique. Les compteurs sont remis à zéro.');
+  const suite = essai ? 'Commande d’essai : non enregistrée dans l’historique.' : 'Ajoutée à l’historique.';
+  toast(`${nombreLots > 1 ? 'Les deux commandes ont été imprimées séparément.' : 'Commande imprimée.'} ${suite} Les compteurs sont remis à zéro.`);
   if(MODULE.rappelApresImpression) ouvrirRappelPostImpression();
 }
 window.addEventListener('afterprint', ()=>{

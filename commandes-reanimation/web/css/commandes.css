@@ -340,6 +340,8 @@ body.panel-open{ overflow:hidden; }
 }
 .admin-panel-footer button{ min-height:42px; padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:var(--surface-2); font-weight:600; font-size:13px; }
 .admin-panel-footer button:hover:not(:disabled){ border-color:var(--accent); }
+.admin-panel-footer button.danger{ color:var(--danger); border-color:var(--danger-line); }
+.admin-panel-footer button.danger:hover:not(:disabled){ background:var(--danger-bg); border-color:var(--danger); }
 .admin-panel-footer button.primary-wide{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
 .admin-panel-footer input[type=file], .action-bar input[type=file]{ display:none; }
 

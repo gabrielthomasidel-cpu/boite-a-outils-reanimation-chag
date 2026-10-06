@@ -58,7 +58,7 @@ npx playwright install chromium   # ou CHROMIUM_PATH=/chemin/vers/chrome
 npm test
 ```
 
-Les 34 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle d'impression et historique, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges JSON/CSV, PDF, étiquettes et listes papier, et l'adaptation Android (pont natif simulé).
+Les 38 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle d'impression et historique, commandes d'essai, remise à zéro des statistiques, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges JSON/CSV, PDF, étiquettes et listes papier, et l'adaptation Android (pont natif simulé).
 
 ## Édition Android
 

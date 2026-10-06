@@ -263,7 +263,8 @@ function donneesPoste(){
     enregistreLe: new Date().toISOString(),
     catalogue: catalogueValide(local) && local.empreinteEmbarquee === EMPREINTE_LIVREE ? local : null,
     motDePasse: empreinteMotDePassePersonnalisee(),
-    historique: typeof historiqueCommandes === 'function' ? historiqueCommandes() : []
+    historique: typeof historiqueCommandes === 'function' ? historiqueCommandes() : [],
+    historiqueRemisAZeroLe: typeof dateRemiseAZeroHistorique === 'function' ? dateRemiseAZeroHistorique() : null
   };
 }
 
