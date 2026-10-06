@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr" data-commandes-shell>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B6E6E">
+<title>Commandes Réanimation</title>
+<style>
+  html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#10171d}
+  #commandesAppFrame{display:block;width:100%;height:100%;border:0;background:#10171d}
+  #shellFallback{position:fixed;inset:0;display:grid;place-items:center;color:#d0d9dd;
+    font:600 16px/1.4 'Segoe UI',Arial,sans-serif;background:#10171d}
+</style>
+<script>
+(function(){
+  const params = new URLSearchParams(location.hash.slice(1));
+  const connection = params.get('storage');
+  if(connection && /^\d+:[a-f0-9]{64}$/i.test(connection)) sessionStorage.setItem('windows-storage', connection);
+  window.__commandesWindowedSession = params.get('windowed') === '1';
+  window.CommandesNativeApplication = { close: function(){ window.close(); return true; } };
+  history.replaceState(null, '', location.pathname);
+})();
+</script>
+<script src="app-controls.js"></script>
+
+</head>
+<body>
+  <div id="shellFallback">Ouverture de Commandes Réanimation…</div>
+  <iframe id="commandesAppFrame" title="Commandes Réanimation" allow="fullscreen"></iframe>
+<script>
+(function(){
+  const frame = document.getElementById('commandesAppFrame');
+  const connection = sessionStorage.getItem('windows-storage');
+  frame.src = 'Commandes_Reanimation_Windows.html' + (connection ? '#storage=' + connection : '');
+  frame.addEventListener('load', function(){
+    document.getElementById('shellFallback').hidden = true;
+    if(window.CommandesDisplayMode) window.CommandesDisplayMode.syncChildren();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+VERSION HTML — INTERFACE MODERNISÉE
+
+Extraire tout le dossier puis ouvrir index.html dans Chrome ou Edge.
+Conserver interface.css à côté des fichiers HTML.
+
+Charte commune aux trois applications et aux deux pages d'accueil.
+Affichage PC compact, adaptation aux petits écrans, fonctionnement hors ligne.
+Les scripts métier et les catalogues de la version 2.1.0 sont conservés.
+Les styles d'impression ne sont pas modifiés.
+Cette livraison concerne la version Windows 2.1.1. Installez-la avec Commandes_Reanimation_Setup_2.1.1.exe.
+
+Vérifications : cinq pages aux largeurs 1366, 1024 et 390 px ; absence de
+ débordement horizontal et d'erreurs JavaScript ; incrément de quantité et aide.
+Les exports et l'impression physique ne sont pas modifiés. Les séquences clavier
+USB et Bluetooth de la douchette sont testées par simulation automatisée.
+
+Pour retrouver les commandes précédentes, utiliser les fonctions de sauvegarde
+et de chargement existantes : un nouveau dossier peut avoir un stockage local distinct.
