@@ -74,18 +74,6 @@
     hash: '',
     android: true,
     save: enregistrer,
-    loadCommand: () => new Promise(resolve => {
-      const input = global.document.createElement('input');
-      input.type = 'file';
-      input.accept = '.json,.csv,.xlsx,application/json,text/csv';
-      input.addEventListener('change', async () => {
-        const fichier = input.files && input.files[0];
-        if (!fichier) { resolve({ cancelled: true }); return; }
-        const extension = (fichier.name.split('.').pop() || 'json').toLowerCase();
-        resolve({ name: fichier.name, format: ['csv', 'xlsx'].includes(extension) ? extension : 'json', data: await base64De(fichier) });
-      });
-      input.click();
-    }),
     openLastPdf: async () => { throw new Error('Aucun PDF de secours pour ce module.'); },
     async ouvrirPdf(blob, nom){
       await enregistrer('Archives', nom, blob);

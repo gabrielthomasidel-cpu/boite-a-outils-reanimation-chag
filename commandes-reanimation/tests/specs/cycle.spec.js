@@ -198,20 +198,21 @@ test.describe('Données du poste (C:\\commandes)', () => {
 });
 
 test.describe('Échanges de fichiers', () => {
-  test('commande JSON et catalogue CSV : aller-retour sans perte', async ({ page }) => {
+  test('catalogue CSV : aller-retour sans perte', async ({ page }) => {
     await ouvrir(page, 'solutes');
-    await saisir(page, 'EPPI POCHE 1000ML', 12);
     const r = await page.evaluate(() => {
-      const json = JSON.stringify(commandJsonData(new Date().toISOString()));
-      const commande = commandPayloadFromJson(json);
       const csv = csvDocument(CATALOG_HEADERS, catalogRows(new Date().toISOString()));
       const catalogue = catalogueFromTable(tabularRowsFor(csv, 'csv', 'catalogue'));
-      return {
-        eppi: commande.entries.find(e => e.ref === 'sol3341').inventaire,
-        nb: catalogue.length,
-        code: catalogue.find(a => a.ref === 'sol242').codeBarres,
-      };
+      return { nb: catalogue.length, code: catalogue.find(a => a.ref === 'sol242').codeBarres };
     });
-    expect(r).toEqual({ eppi: 12, nb: 24, code: '0000242' });
+    expect(r).toEqual({ nb: 24, code: '0000242' });
+  });
+
+  test('administration : plus de boutons Charger / Enregistrer la commande', async ({ page }) => {
+    await ouvrir(page, 'solutes');
+    await page.evaluate(() => { adminUnlocked = true; openAdminPanel(); });
+    await expect(page.locator('#adminPanel')).toBeVisible();
+    await expect(page.locator('#btnLoad, #btnSave, #fileInput')).toHaveCount(0);
+    await expect(page.locator('#adminPanel .admin-panel-footer')).not.toContainText('la commande');
   });
 });

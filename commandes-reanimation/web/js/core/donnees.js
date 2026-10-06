@@ -427,15 +427,9 @@ const DATA_FORMATS = Object.freeze({
 });
 
 const PORTABLE_MODULE_CONFIG = Object.freeze({
-  commandStem: MODULE.racineFichiers,
   catalogStem: MODULE.racineCatalogue
 });
 
-const COMMAND_HEADERS = Object.freeze([
-  'format', 'version', 'module', 'exporte_le', 'type_ligne', 'rempli_par',
-  'uid', 'reference', 'denomination', 'inventaire', 'commande_libre',
-  'archive_le', 'quantite_archivee'
-]);
 const CATALOG_HEADERS = Object.freeze([
   'format', 'version', 'module', 'exporte_le', 'reference', 'code_barres',
   'nom', 'denomination', 'localisation', ...(MODULE.type ? ['type'] : []), 'laboratoire', 'dotation',
@@ -559,45 +553,6 @@ function parseJsonText(source){
   }
 }
 
-function commandRows(exportedAt){
-  const common = { format:'commande', version:DATA_VERSION, module:CSV_MODULE, exporte_le:exportedAt };
-  const rows = [{ ...common, type_ligne:'meta', rempli_par:document.getElementById('signature').value }];
-  items.forEach(({uid, ref, denom, inventaire, commandeLibre})=>rows.push({
-    ...common, type_ligne:'article', uid, reference:referenceSansPrefixe(ref), denomination:denom,
-    inventaire: inventaire === null || inventaire === undefined ? '' : inventaire,
-    commande_libre: commandeLibre === null || commandeLibre === undefined ? '' : commandeLibre
-  }));
-  if(lastArchive){
-    rows.push({ ...common, type_ligne:'archive_meta', rempli_par:lastArchive.signature || '', archive_le:lastArchive.archivedAt || '' });
-    (Array.isArray(lastArchive.items) ? lastArchive.items : []).forEach(entry=>rows.push({
-      ...common, type_ligne:'archive', rempli_par:lastArchive.signature || '',
-      reference:referenceSansPrefixe(entry.ref), denomination:entry.denom || '',
-      archive_le:lastArchive.archivedAt || '', quantite_archivee:entry.commande
-    }));
-  }
-  return rows;
-}
-
-function commandJsonData(exportedAt){
-  return {
-    format: 'commande', version: DATA_VERSION, module: CSV_MODULE, exportedAt,
-    signature: document.getElementById('signature').value,
-    items: items.map(({uid, ref, denom, inventaire, commandeLibre})=>({
-      uid, ref: referenceSansPrefixe(ref), denom,
-      inventaire: inventaire === undefined ? null : inventaire,
-      commandeLibre: commandeLibre === undefined ? null : commandeLibre
-    })),
-    lastArchive: lastArchive ? {
-      archivedAt: lastArchive.archivedAt || '',
-      signature: lastArchive.signature || '',
-      items: (Array.isArray(lastArchive.items) ? lastArchive.items : []).map(entry=>({
-        ref: referenceSansPrefixe(entry.ref), denom: entry.denom || '',
-        commande: entry.commande == null ? 0 : entry.commande
-      }))
-    } : null
-  };
-}
-
 function catalogRows(exportedAt){
   return items.map(item=>{
     const row = {
@@ -631,69 +586,6 @@ function catalogJsonData(exportedAt){
       if(MODULE.type) article.type = item.type || '';
       return article;
     })
-  };
-}
-
-function normalizedArchive(source){
-  if(!source || typeof source !== 'object') return null;
-  const rawItems = Array.isArray(source.items) ? source.items : [];
-  return {
-    archivedAt: String(ownValue(source, ['archivedAt', 'archive_le'], '') || ''),
-    signature: String(ownValue(source, ['signature', 'rempli_par'], '') || ''),
-    items: rawItems.map((entry,index)=>({
-      ref: referenceInterne(ownValue(entry, ['ref', 'reference'], '')),
-      denom: String(ownValue(entry, ['denom', 'denomination'], '') || ''),
-      commande: csvQuantity(ownValue(entry, ['commande', 'quantite_archivee'], 0), 0, `Quantité archivée (ligne ${index + 1})`)
-    }))
-  };
-}
-
-function commandPayloadFromJson(source){
-  const data = parseJsonText(source);
-  if(!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('structure JSON incorrecte');
-  validateJsonMarker(data, 'commande');
-  const rawItems = Array.isArray(data.items) ? data.items : (Array.isArray(data.entries) ? data.entries : null);
-  if(!rawItems || !rawItems.length) throw new Error('aucun article à restaurer');
-  return {
-    signature: String(ownValue(data, ['signature', 'rempli_par'], '') || ''),
-    entries: rawItems.map((entry,index)=>({
-      uid: String(ownValue(entry, ['uid'], '') || '').trim(),
-      ref: referenceInterne(ownValue(entry, ['ref', 'reference'], '')),
-      inventaire: csvQuantity(ownValue(entry, ['inventaire'], null), null, `Inventaire (ligne ${index + 1})`),
-      commandeLibre: csvQuantity(ownValue(entry, ['commandeLibre', 'commande_libre'], null), null, `Commande libre (ligne ${index + 1})`)
-    })),
-    lastArchive: normalizedArchive(ownValue(data, ['lastArchive', 'derniereArchive'], null))
-  };
-}
-
-function commandPayloadFromTable(table){
-  ['type_ligne', 'reference', 'inventaire', 'commande_libre'].forEach(header=>{
-    if(!table.headers.includes(header)) throw new Error(`colonne « ${header} » absente`);
-  });
-  const typeLigne = row=> String(row.type_ligne).trim().toLowerCase();
-  const meta = table.rows.find(row=>typeLigne(row) === 'meta');
-  if(!meta) throw new Error('ligne de métadonnées absente');
-  const entries = table.rows.filter(row=>typeLigne(row) === 'article').map((row,index)=>({
-    uid: String(row.uid || '').trim(),
-    ref: referenceInterne(row.reference),
-    inventaire: csvQuantity(row.inventaire, null, `Inventaire (ligne ${index + 1})`),
-    commandeLibre: csvQuantity(row.commande_libre, null, `Commande libre (ligne ${index + 1})`)
-  }));
-  if(!entries.length) throw new Error('aucun article à restaurer');
-  const archiveMeta = table.rows.find(row=>typeLigne(row) === 'archive_meta');
-  const archiveRows = table.rows.filter(row=>typeLigne(row) === 'archive');
-  return {
-    signature: String(meta.rempli_par || ''),
-    entries,
-    lastArchive: archiveMeta ? {
-      archivedAt: String(archiveMeta.archive_le || ''),
-      signature: String(archiveMeta.rempli_par || ''),
-      items: archiveRows.map((row,index)=>({
-        ref: referenceInterne(row.reference),
-        denom: String(row.denomination || '').trim(),
-        commande: csvQuantity(row.quantite_archivee, 0, `Quantité archivée (ligne ${index + 1})`)
-      }))
-    } : null
   };
 }
 

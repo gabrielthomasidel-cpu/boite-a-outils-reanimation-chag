@@ -404,8 +404,8 @@ ${postImpression}
       ${etiquettes}
       <p>Le bouton ouvre d'abord une <b>liste à cocher</b> : n'imprimez que les étiquettes voulues. Raccourcis <b>Tout cocher</b>, <b>Tout décocher</b> et <b>Cocher la sélection affichée</b>. Imprimez à 100 %, sans ajustement à la page ; testez d'abord sur feuille ordinaire.</p>
 
-      <h3>Échanger la base et les commandes</h3>
-      <p><b>Exporter / Importer la base</b> concernent le catalogue ; <b>Enregistrer / Charger la commande</b> sauvegardent ou reprennent un comptage. JSON est proposé par défaut, CSV et XLSX au choix. Un import conserve les comptages en cours lorsque la référence existe encore.</p>
+      <h3>Échanger la base</h3>
+      <p><b>Exporter / Importer la base</b> concernent le catalogue. JSON est proposé par défaut, CSV et XLSX au choix. Un import conserve les comptages en cours lorsque la référence existe encore. Le comptage en cours, lui, est conservé automatiquement sur le poste.</p>
 
       <h3>Régler la douchette (Eyoyo EY-034)</h3>
       <p>Les codes ci-dessous se scannent <b>directement sur cet écran</b>. Scannez les vignettes de <b>1</b> à <b>9</b>, dans l'ordre. Rien ne s'écrit à l'écran : ces codes s'adressent au lecteur.</p>
@@ -533,9 +533,6 @@ ${postImpression}
     <button type="button" id="adminLabels">${libelleEtiquettes}</button>
     <button type="button" id="btnAideAdmin">Mode d'emploi</button>
     <button type="button" id="adminPublish" class="primary-wide" title="Publier immédiatement le catalogue sur le poste (C:\\commandes)">Publier sur le poste</button>
-    <button type="button" id="btnLoad" title="Restaurer une commande JSON, CSV ou XLSX">Charger la commande</button>
-    <input type="file" id="fileInput" accept=".json,application/json">
-    <button type="button" id="btnSave" title="Sauvegarder la commande en JSON, CSV ou XLSX">Enregistrer la commande</button>
     <button type="button" id="adminExport" title="Exporter le catalogue en JSON, CSV ou XLSX">Exporter la base</button>
     <button type="button" id="adminImportBtn" title="Importer le catalogue depuis JSON, CSV ou XLSX">Importer la base</button>
     <button type="button" id="adminRazHistorique" class="danger" title="Effacer l'historique et les statistiques de commande de ce module">Remettre à zéro les statistiques</button>

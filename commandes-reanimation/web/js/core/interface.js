@@ -650,11 +650,6 @@ async function writePortableExport(options){
   toast(result.downloaded ? `${message}.` : `${message} dans ${result.path}`);
 }
 
-async function exportCommand(format){
-  const exportedAt = new Date().toISOString();
-  return writePortableExport({ format, folder:'Sauvegardes', stem:PORTABLE_MODULE_CONFIG.commandStem, label:'Commande', sheetName:'Commande',
-    headers:COMMAND_HEADERS, rows:commandRows(exportedAt), jsonData:commandJsonData(exportedAt) });
-}
 async function exportCatalogue(format){
   const exportedAt = new Date().toISOString();
   return writePortableExport({ format, folder:'Application', stem:PORTABLE_MODULE_CONFIG.catalogStem, label:'Catalogue', sheetName:'Catalogue',
@@ -687,24 +682,6 @@ async function replaceCatalogue(nextItems, format){
   return true;
 }
 
-function applyCommandPayload(payload, format){
-  const applied = applyEntries(payload.entries);
-  if(applied === 0) throw new Error('aucun article du fichier ne correspond au catalogue actuel');
-  signatureEl.value = payload.signature || '';
-  lastArchive = payload.lastArchive || null;
-  hideRestoreBanner();
-  renderList();
-  persistState();
-  toast(`Commande ${formatLabel(format)} restaurée : ${applied} article(s).`);
-}
-
-async function importCommandFile(file, format){
-  if(format === 'xlsx' && typeof chargerVendor === 'function') await chargerVendor('xlsx');
-  const source = await readDataFile(file, format);
-  const payload = format === 'json' ? commandPayloadFromJson(source) : commandPayloadFromTable(tabularRowsFor(source, format, 'commande'));
-  applyCommandPayload(payload, format);
-}
-
 async function importCatalogueFile(file, format){
   if(format === 'xlsx' && typeof chargerVendor === 'function') await chargerVendor('xlsx');
   const source = await readDataFile(file, format);
@@ -730,35 +707,6 @@ document.getElementById('adminImportFile').addEventListener('change', async even
   const format = input.dataset.dataFormat || 'json';
   try{ await importCatalogueFile(file, format); }
   catch(err){ console.error(err); toast(`Import ${formatLabel(format)} impossible : ${err.message || 'fichier invalide'}.`); }
-  finally{ input.value = ''; }
-});
-document.getElementById('btnSave').addEventListener('click', async ()=>{
-  const format = await chooseDataFormat('Format de sauvegarde de la commande', 'Enregistrer');
-  if(!format) return;
-  try{ await exportCommand(format); }
-  catch(err){ console.error(err); toast(`Sauvegarde ${formatLabel(format)} impossible : ${err.message || 'erreur inconnue'}.`); }
-});
-document.getElementById('btnLoad').addEventListener('click', async ()=>{
-  if(window.WindowsStorage && window.WindowsStorage.hash){
-    try{
-      const saved = await window.WindowsStorage.loadCommand();
-      if(saved.cancelled) return;
-      const bytes = Uint8Array.from(atob(saved.data), c=>c.charCodeAt(0));
-      await importCommandFile(new File([bytes], saved.name), saved.format);
-    }catch(e){ toast(e.message || 'Chargement impossible.'); }
-    return;
-  }
-  const format = await chooseDataFormat('Format de la commande à restaurer', 'Choisir le fichier');
-  if(!format) return;
-  prepareDataFileInput(document.getElementById('fileInput'), format);
-});
-document.getElementById('fileInput').addEventListener('change', async event=>{
-  const input = event.target;
-  const file = input.files && input.files[0];
-  if(!file) return;
-  const format = input.dataset.dataFormat || 'json';
-  try{ await importCommandFile(file, format); }
-  catch(err){ console.error(err); toast(`Restauration ${formatLabel(format)} impossible : ${err.message || 'fichier invalide'}.`); }
   finally{ input.value = ''; }
 });
 
