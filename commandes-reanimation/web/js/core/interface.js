@@ -392,7 +392,7 @@ function texteOrigineCatalogue(){
     'poste-repris': 'catalogue repris automatiquement depuis C:\\commandes'
   };
   const publie = window.WindowsStorage && window.WindowsStorage.hash
-    ? `Les modifications sont enregistrées sur ce poste puis publiées automatiquement dans C:\\commandes\\${MODULE.dossierWindows}\\Application.`
+    ? `Les modifications sont enregistrées sur ce poste puis publiées automatiquement dans ${window.CommandesModules.libelleDossier(MODULE, 'Application')}.`
     : 'Hors du lanceur Windows, les modifications restent dans ce navigateur : exportez la base pour les conserver.';
   return `Source actuelle : ${sources[origineCatalogue] || sources.livre}. ${publie}`;
 }

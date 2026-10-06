@@ -22,6 +22,11 @@ web/                     application (ouverte en file:// par le lanceur)
   catalogues/*.js        catalogues livrés (données uniquement)
   img/                   icônes vectorielles
   vendor/                pdf-lib, SheetJS, encodeur QR
+android/                 édition Android (APK autonome)
+  src/…/MainActivity.java    WebView + pont natif (dossier, impression, caméra, PDF)
+  AndroidManifest.xml, res/  manifeste et icônes
+  vendor/                    lecteur caméra html5-qrcode (ajouté à l'APK seulement)
+  construire-apk.sh          construction de dist/Commandes_Reanimation_<version>.apk
 windows/
   CommandesReanimation.exe   lanceur (.NET Framework) : ouvre Edge et sert l'écriture dans C:\commandes
   Launcher.decompile.cs      code du lanceur reconstitué, pour référence
@@ -53,7 +58,26 @@ npx playwright install chromium   # ou CHROMIUM_PATH=/chemin/vers/chrome
 npm test
 ```
 
-Les 30 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues et zones, scan à la douchette, reprise du comptage, « Rempli par », cycle d'impression et historique, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges JSON/CSV, PDF, étiquettes et listes papier.
+Les 34 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues et zones, scan à la douchette, reprise du comptage, « Rempli par », cycle d'impression et historique, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges JSON/CSV, PDF, étiquettes et listes papier, et l'adaptation Android (pont natif simulé).
+
+## Édition Android
+
+Les mêmes pages web sont embarquées dans l'APK et servies à l'adresse sécurisée `https://appassets.androidplatform.net/web/` (stockage persistant, caméra autorisée, aucune sortie réseau). `web/js/android.js` adapte l'application au pont natif :
+
+- un dossier choisi une fois sur l'appareil remplace `C:\commandes` (même arborescence `Pharmacie|Solutés|Magasin/Application|Sauvegardes|Etiquettes|Archives`) ; les données publiées y sont relues à l'ouverture ;
+- impression par le service d'impression Android (PDF ou imprimante) ;
+- scan par la caméra (bouton à côté de la recherche et dans la fiche article), en plus de la douchette ;
+- Édition de secours ouverte dans le lecteur PDF ; listes papier affichées dans `papier.html` ;
+- bouton Retour : ferme la fenêtre ou le panneau ouvert, puis revient à l'accueil.
+
+Construction (sans Gradle) :
+
+```sh
+sudo apt install android-sdk-platform-23 android-sdk-build-tools dalvik-exchange apksigner zipalign default-jdk
+android/construire-apk.sh
+```
+
+La clé de signature (`android/signature/`) n'est pas dans le dépôt. Conservez-la : Android n'accepte une mise à jour que si elle est signée avec la même clé.
 
 ## Construire l'installateur
 

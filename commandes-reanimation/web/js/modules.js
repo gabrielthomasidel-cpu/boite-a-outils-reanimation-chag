@@ -104,8 +104,12 @@
 
   /* Dossier partagé du poste, créé par le lanceur Windows. Il peut être
      redéfini avant le chargement de ce fichier (tests automatisés). */
+  /* Sous Android, l'APK sert les fichiers du dossier choisi sur l'appareil
+     à cette adresse ; sous Windows, lecture directe dans C:\commandes. */
+  const BASE_ANDROID = 'https://appassets.androidplatform.net/poste/';
+
   function dossierPoste(module) {
-    const base = global.COMMANDES_DOSSIER_POSTE || 'file:///C:/commandes/';
+    const base = global.COMMANDES_DOSSIER_POSTE || (global.AndroidBridge ? BASE_ANDROID : 'file:///C:/commandes/');
     return base + encodeURIComponent(module.dossierWindows) + '/Application/';
   }
 
@@ -119,9 +123,17 @@
   function chargerDonneesPoste(id) {
     const module = MODULES[id];
     if (!module) return;
-    if (global.location.protocol !== 'file:' && !global.COMMANDES_DOSSIER_POSTE) return;
+    if (global.location.protocol !== 'file:' && !global.COMMANDES_DOSSIER_POSTE && !global.AndroidBridge) return;
     const url = dossierPoste(module) + fichierPoste(id) + '?t=' + Date.now();
     global.document.write('<script src="' + url + '" onerror="void 0"><\/script>');
+  }
+
+  /* Libellé du dossier de données affiché à l'utilisateur. */
+  function libelleDossier(module, sousDossier) {
+    const parties = [module.dossierWindows].concat(sousDossier ? [sousDossier] : []);
+    return global.AndroidBridge
+      ? 'le dossier Commandes de l’appareil/' + parties.join('/')
+      : 'C:\\commandes\\' + parties.join('\\');
   }
 
   function lienModule(id) {
@@ -139,6 +151,7 @@
     fichierPoste,
     chargerDonneesPoste,
     lienModule,
+    libelleDossier,
     cleResume: id => 'commandes-resume:' + id,
     cleHistorique: id => 'commandes-historique:' + id,
     CLE_SIGNATAIRES: 'commandes-signataires',

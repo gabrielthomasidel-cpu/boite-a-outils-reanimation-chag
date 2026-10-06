@@ -64,12 +64,12 @@ syncChromeSizes();
 initDestDir();
 
 if(origineCatalogue === 'poste-repris'){
-  toast(`Catalogue repris automatiquement depuis C:\\commandes\\${MODULE.dossierWindows} (version la plus récente).`);
+  toast(`Catalogue repris automatiquement depuis ${window.CommandesModules.libelleDossier(MODULE)} (version la plus récente).`);
 }
 /* Les données publiées sont rafraîchies au démarrage si le poste ne possède
    pas encore de fichier (première ouverture de la version 2.7) ou si
    l'historique local est plus riche que le fichier. */
-if(window.WindowsStorage && window.WindowsStorage.hash){
+if(window.WindowsStorage && window.WindowsStorage.hash && (!window.WindowsStorage.android || window.WindowsStorage.dossier())){
   const historiquePoste = DONNEES_POSTE && Array.isArray(DONNEES_POSTE.historique) ? DONNEES_POSTE.historique.length : 0;
   if(!DONNEES_POSTE || historiqueCommandes().length > historiquePoste) planifierPublicationPoste(4000);
 }

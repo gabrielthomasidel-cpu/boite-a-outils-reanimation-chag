@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!-- Édition Android : affiche la liste papier préparée par le module
+     (mode dégradé). Sans objet sous Windows, où la liste s'ouvre dans une
+     nouvelle fenêtre. -->
+<script src="js/android.js"></script>
+<script>
+(function(){
+  var html = '';
+  try { html = sessionStorage.getItem('commandes-papier') || ''; } catch (e) {}
+  if (!html) { location.replace('index.html'); return; }
+  /* La liste se conserve via le dossier de l'appareil : le lien de
+     téléchargement du navigateur n'a pas d'effet dans l'APK. */
+  html = html.replace('<a id="download"', '<a id="download" hidden');
+  document.write(html);
+})();
+</script>

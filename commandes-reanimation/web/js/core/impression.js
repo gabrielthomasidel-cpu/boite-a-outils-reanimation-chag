@@ -660,6 +660,17 @@ document.getElementById('btnPrint').addEventListener('click', async ()=>{
 /* ---------- Édition de secours ---------- */
 document.getElementById('btnEditionSecours').addEventListener('click', async ()=>{
   const button = document.getElementById('btnEditionSecours');
+  if(window.WindowsStorage && typeof window.WindowsStorage.ouvrirPdf === 'function'){
+    // Android : le PDF est rangé dans Archives puis ouvert dans le lecteur PDF.
+    button.disabled = true;
+    try{
+      const saved = await secoursCommande.read(CSV_MODULE);
+      if(!saved || !saved.blob){ toast('Aucun PDF de secours pour ce module. Une copie sera créée à la prochaine impression.'); return; }
+      await window.WindowsStorage.ouvrirPdf(saved.blob, `${MODULE.racineFichiers}_Edition_secours.pdf`);
+    }catch(e){ toast(e.message || 'Impossible d’ouvrir le dernier PDF.'); }
+    finally{ button.disabled = false; }
+    return;
+  }
   if(window.WindowsStorage && window.WindowsStorage.hash){
     /* La fenêtre est réservée dans le clic, avant toute lecture asynchrone :
        Edge pourrait sinon l'ouvrir en arrière-plan. */

@@ -15,7 +15,8 @@
 
   var SOURCES = {
     xlsx: 'vendor/xlsx.full.min.js',
-    pdflib: 'vendor/pdf-lib.min.js'
+    pdflib: 'vendor/pdf-lib.min.js',
+    scanner: 'vendor/html5-qrcode.min.js' // édition Android uniquement
   };
 
   var enCours = Object.create(null);

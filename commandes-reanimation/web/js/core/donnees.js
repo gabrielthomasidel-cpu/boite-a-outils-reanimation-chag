@@ -281,6 +281,8 @@ async function publierDonneesPoste(){
   publicationTimer = null;
   publicationEnAttente = false;
   if(!window.WindowsStorage || !window.WindowsStorage.hash) return null;
+  // Android : rien n'est publié tant que le dossier de l'appareil n'est pas choisi.
+  if(window.WindowsStorage.android && !window.WindowsStorage.dossier()) return null;
   const blob = new Blob([scriptDonneesPoste(donneesPoste())], { type:'text/javascript' });
   const resultat = await window.WindowsStorage.save('Application', window.CommandesModules.fichierPoste(CSV_MODULE), blob);
   return resultat && resultat.path;

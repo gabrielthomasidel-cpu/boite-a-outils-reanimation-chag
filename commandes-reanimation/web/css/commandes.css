@@ -533,3 +533,10 @@ body.panel-open{ overflow:hidden; }
   .p-check{ width:34px; }
   .p-foot{ margin-top:6px; font-family:var(--mono); font-size:9px; color:#555; }
 }
+
+/* ============ Édition Android ============ */
+.camera-btn{ display:inline-flex; align-items:center; justify-content:center; padding:0 12px; }
+.camera-ligne{ display:flex; gap:8px; align-items:stretch; }
+.camera-ligne input{ flex:1; min-width:0; }
+.camera-lecteur{ width:100%; min-height:260px; background:#000; border-radius:10px; overflow:hidden; }
+.camera-lecteur video{ width:100% !important; height:auto !important; display:block; }

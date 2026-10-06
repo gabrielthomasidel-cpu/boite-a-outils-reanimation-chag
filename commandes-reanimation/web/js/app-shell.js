@@ -345,7 +345,7 @@ ${postImpression}
     <h3>6. Terminer la commande</h3>
     ${impression}
     <p>Avant l'impression, une fenêtre récapitule le nombre d'articles commandés, ceux qui ne sont pas comptés et les quantités inhabituelles.</p>
-    <p>Une copie PDF datée est conservée dans <b>C:\\commandes\\${M.dossierWindows}\\Archives</b> avant l'ouverture de l'impression ; la commande est aussi ajoutée à l'<b>historique</b>.</p>
+    <p>Une copie PDF datée est conservée dans <b>${global.CommandesModules.libelleDossier(M, 'Archives')}</b> avant l'ouverture de l'impression ; la commande est aussi ajoutée à l'<b>historique</b>.</p>
     <p class="aide-alerte">Une fois l'impression terminée, <b>les compteurs sont remis à zéro</b> et le champ « Rempli par » est vidé : le cycle est clos.</p>
 
     <h3>7. Historique</h3>
@@ -392,11 +392,11 @@ ${postImpression}
       <p>Le bouton <b>Contrôler le catalogue</b> détecte les références ou codes-barres en double, les dénominations vides, les seuils incohérents et les champs manquants. Le même contrôle est présenté avant chaque import : un catalogue comportant des erreurs ne s'importe qu'après confirmation explicite.</p>
 
       <h3 class="aide-important">Conservation et partage du catalogue</h3>
-      <p>Chaque ajout ou correction est enregistré sur ce poste, puis <b>publié automatiquement</b> dans <b>C:\\commandes\\${M.dossierWindows}\\Application\\donnees-${M.id}.js</b> (la version précédente est copiée dans Archives). Ce fichier est relu à chaque ouverture : il est partagé entre les comptes Windows du poste, conserve aussi l'historique et le mot de passe, et permet une <b>reprise automatique</b> après une réinstallation, un changement de profil ou une mise à jour. La version la plus récente l'emporte.</p>
+      <p>Chaque ajout ou correction est enregistré sur ce poste, puis <b>publié automatiquement</b> dans <b>${global.CommandesModules.libelleDossier(M, 'Application')}/donnees-${M.id}.js</b> (la version précédente est copiée dans Archives). Ce fichier est relu à chaque ouverture : il est partagé entre les comptes Windows du poste, conserve aussi l'historique et le mot de passe, et permet une <b>reprise automatique</b> après une réinstallation, un changement de profil ou une mise à jour. La version la plus récente l'emporte.</p>
       <p>Pour transférer le catalogue vers un autre poste, utilisez <b>Exporter la base</b> (JSON recommandé, CSV ou XLSX) puis <b>Importer la base</b> sur le poste de destination, ou copiez le fichier <code>donnees-${M.id}.js</code> dans le même dossier du poste de destination.</p>
 
       <h3>Dossier de sauvegarde automatique</h3>
-      <p>Les fichiers sont enregistrés dans C:\\commandes\\${M.dossierWindows} : <b>Application</b> (données publiées et exports de catalogue), <b>Sauvegardes</b> (commandes enregistrées), <b>Etiquettes</b> (planches), <b>Archives</b> (PDF de commande et anciennes versions remplacées).</p>
+      <p>Les fichiers sont enregistrés dans ${global.CommandesModules.libelleDossier(M)} : <b>Application</b> (données publiées et exports de catalogue), <b>Sauvegardes</b> (commandes enregistrées), <b>Etiquettes</b> (planches), <b>Archives</b> (PDF de commande et anciennes versions remplacées).</p>
 
       ${etiquettes}
       <p>Le bouton ouvre d'abord une <b>liste à cocher</b> : n'imprimez que les étiquettes voulues. Raccourcis <b>Tout cocher</b>, <b>Tout décocher</b> et <b>Cocher la sélection affichée</b>. Imprimez à 100 %, sans ajustement à la page ; testez d'abord sur feuille ordinaire.</p>
@@ -517,7 +517,7 @@ ${postImpression}
     <h2 id="adminPanelTitle">Gestion du catalogue — ${module.court}</h2>
     <button type="button" id="adminClose" title="Fermer" aria-label="Fermer la gestion du catalogue">✕</button>
   </div>
-  <div class="admin-warning" id="adminPublication">Les ajouts et modifications sont enregistrés sur ce poste et publiés automatiquement dans C:\\commandes\\${module.dossierWindows}\\Application.</div>
+  <div class="admin-warning" id="adminPublication">Les ajouts et modifications sont enregistrés sur ce poste et publiés automatiquement dans ${global.CommandesModules.libelleDossier(module, 'Application')}.</div>
   <div class="admin-panel-toolbar">
     <input type="search" id="adminSearch" placeholder="Rechercher un article, une référence…" aria-label="Rechercher dans le catalogue"
            autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
