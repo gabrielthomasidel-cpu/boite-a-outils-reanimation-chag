@@ -1,31 +1,49 @@
-﻿COMMANDES RÉANIMATION — WINDOWS 10 64 BITS
+﻿COMMANDES RÉANIMATION 2.7.0 — WINDOWS 10 / 11 64 BITS
 
-1. Double-cliquez sur Commandes_Reanimation_Setup_2.6.2.exe.
+1. Double-cliquez sur Commandes_Reanimation_Setup_2.7.0.exe.
 2. Suivez l'assistant en français. Aucun droit administrateur n'est requis.
 3. Ouvrez Commandes Réanimation depuis le Bureau ou le menu Démarrer.
 
-Microsoft Edge doit être installé. L'application s'ouvre directement en plein
-écran dans Edge. Le bouton du bandeau permet de basculer en mode fenêtré et de
-revenir en plein écran. Utilisez Quitter afin de terminer les sauvegardes
-programmées avant la fermeture. Les fichiers fournis sont intégrés pour une utilisation
-hors connexion : trois modules, catalogues, exports et listes papier PDF.
+Mise à jour depuis une version 2.x : installez simplement par-dessus.
+L'ancienne version est remplacée au même emplacement
+(%LOCALAPPDATA%\Programs\CommandesReanimationWin64) ; les comptages,
+catalogues modifiés et réglages du profil
+%LOCALAPPDATA%\CommandesReanimationWin64\Profil sont conservés.
 
-Les données de cette édition sont conservées dans un profil dédié :
-%LOCALAPPDATA%\CommandesReanimationWin64\Profil
-La désinstallation conserve ce profil. Les données d'une ancienne édition
-ou d'un navigateur ne sont pas reprises automatiquement : exportez-les au
-format JSON dans l'ancienne édition puis importez-les dans celle-ci.
-Effectuez régulièrement une sauvegarde JSON de vos données.
+Microsoft Edge doit être installé. L'application s'ouvre dans une fenêtre
+Edge dédiée ; fermez-la avec la croix Windows : les sauvegardes programmées
+sont terminées avant la fermeture.
 
-L'installateur n'est pas signé numériquement.
-La compatibilité Windows 10 est ciblée ; les opérations métier et les
-périphériques doivent être validés sur le poste de destination.
+Nouveautés de la version 2.7.0
+- Code commun aux trois modules : une correction s'applique partout.
+- Catalogues livrés séparés des pages ; catalogue modifié, historique et mot
+  de passe publiés automatiquement dans C:\commandes\<module>\Application
+  (fichier donnees-<module>.js) et repris automatiquement à l'ouverture,
+  y compris après réinstallation, changement de profil ou de compte Windows.
+- Cases « non comptées » distinctes d'un stock compté à 0.
+- Vues Tous / À compter / À commander avec compteurs, navigation par zone,
+  bouton « Prochain à compter ».
+- Historique des commandes imprimées et synthèse par article.
+- Accueil : état de chaque commande en cours et dernière commande.
+- Signalement des quantités inhabituelles et récapitulatif avant impression.
+- « Rempli par » : derniers noms proposés, champ signalé tant qu'il est vide.
+- Contrôle d'intégrité du catalogue (doublons, champs manquants, seuils).
+- Nouvelle présentation : onglets entre modules, couleurs à trois états,
+  icônes vectorielles, affichage mobile, noms en casse adaptée (bouton Aa).
+- Installateur allégé (icônes vectorielles, composants inutilisés retirés).
 
-Les trois modules proposent le format d'étiquette « Avery plastifié »
-(Avery L7060 : 21 étiquettes de 63,5 × 38,1 mm sur une page A4).
+Dossiers C:\commandes
+Les dossiers C:\commandes\Pharmacie, C:\commandes\Solutés et
+C:\commandes\Magasin sont créés au lancement. Chacun contient Application
+(données publiées et exports de catalogue), Sauvegardes (commandes et
+historiques exportés), Etiquettes (planches) et Archives (PDF de commande et
+versions précédentes remplacées). Le compte Windows doit pouvoir écrire dans
+C:\commandes. Lancez toujours le programme avec son raccourci Windows pour
+activer ces enregistrements.
 
-Consultez le bouton ? de chaque module pour l’aide Windows et la rubrique Avertissement et sécurité. Les précautions sont également disponibles dans web/SECURITE.txt.
+Les trois modules proposent les étiquettes « Standard 27 » et « Avery
+plastifié » (Avery L7060 : 21 étiquettes de 63,5 × 38,1 mm sur une page A4).
 
-
-Sauvegarde automatique Windows
-Les dossiers C:\commandes\Pharmacie, C:\commandes\Solutés et C:\commandes\Magasin sont créés au lancement. Chaque module utilise Application (catalogues et HTML), Sauvegardes (commandes enregistrées), Etiquettes (planches QR et codes-barres), Archives (PDF de commande et anciennes versions remplacées). Lancez le programme avec son raccourci Windows pour activer ces enregistrements. Le compte Windows doit pouvoir écrire dans C:\commandes. Aucun choix de dossier n’est nécessaire.
+L'installateur n'est pas signé numériquement. Faites valider le déploiement
+par votre service informatique. Consultez le bouton ? de chaque module et
+web\SECURITE.txt pour les précautions d'utilisation.

@@ -1,28 +1,24 @@
-COMMANDES RÉANIMATION — WINDOWS 10 64 BITS
+﻿COMMANDES RÉANIMATION 2.7.0 — VERSION HTML
 
-1. Double-cliquez sur Commandes_Reanimation_Setup_2.6.0.exe.
-2. Suivez l'assistant en français. Aucun droit administrateur n'est requis.
-3. Ouvrez Commandes Réanimation depuis le Bureau ou le menu Démarrer.
+Ouvrir index.html dans Microsoft Edge (ou Chrome). Sous Windows, utiliser le
+raccourci installé : il active l'enregistrement dans C:\commandes.
 
-Microsoft Edge doit être installé. L'application s'ouvre directement en plein
-écran dans Edge. Le bouton du bandeau permet de basculer en mode fenêtré et de
-revenir en plein écran. Utilisez Quitter afin de terminer les sauvegardes
-programmées avant la fermeture. Les fichiers fournis sont intégrés pour une utilisation
-hors connexion : trois modules, catalogues, exports et listes papier PDF.
+Organisation des fichiers
+  index.html                         accueil et état des commandes en cours
+  Commande_*.html                    pages des trois modules (quelques lignes)
+  css/commandes.css                  feuille de style unique (thèmes clair et sombre)
+  js/modules.js                      configuration et différences entre modules
+  js/app-shell.js                    structure d'écran et mode d'emploi
+  js/core/                           code métier commun aux trois modules
+  catalogues/<module>.js             catalogues livrés (données uniquement)
+  img/                               icônes vectorielles
+  vendor/                            bibliothèques embarquées (pdf-lib, SheetJS, QR)
+  Listes_papier/                     listes vierges du mode dégradé
 
-Les données de cette édition sont conservées dans un profil dédié :
-%LOCALAPPDATA%\CommandesReanimationWin64\Profil
-La désinstallation conserve ce profil. Les données d'une ancienne édition
-ou d'un navigateur ne sont pas reprises automatiquement : exportez-les au
-format JSON dans l'ancienne édition puis importez-les dans celle-ci.
-Effectuez régulièrement une sauvegarde JSON de vos données.
+Les comptages sont conservés automatiquement sur le poste. Exportez
+régulièrement une sauvegarde JSON du catalogue (Gestion du catalogue).
+Ne saisissez aucune donnée de patient.
 
-L'installateur n'est pas signé numériquement.
-La compatibilité Windows 10 est ciblée ; les opérations métier et les
-périphériques doivent être validés sur le poste de destination.
-
-Les trois modules proposent le format d'étiquette « Avery plastifié »
-(Avery L7060 : 21 étiquettes de 63,5 × 38,1 mm sur une page A4).
-
-Consultez le bouton ? de chaque module pour l’aide Windows et SECURITE.txt pour les précautions d’utilisation.
-
+Mode dégradé : le bouton « Liste papier » de chaque module ouvre une liste
+vierge A4 à remplir à la main. Rééditez-la après une modification du
+catalogue. Aucune synchronisation automatique avec l'application.

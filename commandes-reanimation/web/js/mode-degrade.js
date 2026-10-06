@@ -27,12 +27,12 @@
   window.modeDegradeDocument = buildDocument;
   const button = document.createElement('button');
   button.type='button'; button.id='btnModeDegrade';
-  button.innerHTML='<span class="ic" aria-hidden="true">▤</span>Liste papier';
+  button.innerHTML=(window.CommandesShell ? window.CommandesShell.icone('papier', 18) : '')+'<span>Liste papier</span>';
   button.title='Mode dégradé : imprimer une liste vierge pour commander à la main';
   document.querySelector('.action-bar').insertBefore(button,document.getElementById('btnPrint'));
   const dialog=document.createElement('dialog');
   dialog.id='modeDegradeDlg'; dialog.setAttribute('aria-labelledby','modeDegradeTitle');
-  dialog.innerHTML='<div class="dlg-body"><h2 id="modeDegradeTitle">Commande manuelle sur papier</h2><p>Imprimez une liste vierge ou conservez-la en PDF avant une panne. Les quantités et la signature seront remplies à la main.</p><div class="form-grid"><label class="full">Zone à imprimer<select id="paperZone"></select></label></div><p id="paperCount" aria-live="polite"></p><p>La liste inclut tous les articles de la zone, même ceux déjà comptés ou masqués par une recherche. La commande en cours reste conservée.</p><div class="dlg-actions"><button type="button" id="paperCancel">Annuler</button><button type="button" id="paperOpen" class="primary">Ouvrir la liste</button></div><p id="paperError" role="alert"></p></div>';
+  dialog.innerHTML='<div class="dlg-body"><h2 id="modeDegradeTitle">Commande manuelle sur papier</h2><p>Imprimez une liste vierge ou conservez-la en PDF avant une panne. Les quantités et la signature seront remplies à la main.</p><div class="form-grid"><label class="full">Zone à imprimer<select id="paperZone"></select></label></div><p id="paperCount" aria-live="polite"></p><p>La liste inclut tous les articles de la zone, même ceux déjà comptés ou masqués par une recherche. La commande en cours reste conservée.</p><div class="dlg-actions"><button type="button" class="ghost" id="paperCancel">Annuler</button><button type="button" id="paperOpen" class="primary">Ouvrir la liste</button></div><p id="paperError" role="alert"></p></div>';
   document.body.append(dialog);
   const select=dialog.querySelector('select');
   const material = typeof window.materielPapier === 'function';

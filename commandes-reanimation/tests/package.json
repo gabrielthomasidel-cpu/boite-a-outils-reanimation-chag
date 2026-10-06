@@ -1,0 +1,11 @@
+{
+  "name": "commandes-reanimation-tests",
+  "private": true,
+  "description": "Tests automatisés de l'application Commandes Réanimation (pages web, hors lanceur Windows).",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

@@ -1,14 +1,11 @@
 /* ============================================================
    Chargement des bibliothèques lourdes
    ============================================================
-   Avant : html5-qrcode (375 Ko), xlsx (881 Ko) et pdf-lib (525 Ko) étaient
-   analysés dans le <head>, donc avant le moindre pixel affiché — même pour
-   un simple comptage.
-
-   Maintenant : rien n'est chargé au démarrage. Chaque bibliothèque est
-   récupérée à la première utilisation réelle (export, import, scan), et
-   préchargée discrètement une fois la page affichée, de sorte que le premier
-   appui sur « Export » ou « Scanner » ne fasse pas attendre non plus.
+   xlsx (881 Ko) et pdf-lib (525 Ko) ne sont pas chargés au démarrage.
+   Chaque bibliothèque est récupérée à la première utilisation réelle.
+   pdf-lib, nécessaire à chaque impression, est préchargé discrètement une
+   fois la page affichée ; xlsx n'est chargé que pour un import ou un export
+   au format Excel.
 
    Toutes les fonctions renvoient une promesse mémorisée : plusieurs appels
    simultanés ne déclenchent qu'un seul téléchargement.
@@ -18,8 +15,7 @@
 
   var SOURCES = {
     xlsx: 'vendor/xlsx.full.min.js',
-    pdflib: 'vendor/pdf-lib.min.js',
-    scanner: 'vendor/html5-qrcode.min.js'
+    pdflib: 'vendor/pdf-lib.min.js'
   };
 
   var enCours = Object.create(null);
@@ -66,14 +62,9 @@
     return apresPeinture().then(function () { return charger(nom); });
   };
 
-  /* Préchargement en tâche de fond, dans l'ordre où l'utilisateur en a
-     généralement besoin. Les échecs sont ignorés : la demande explicite
-     réessaiera et affichera alors un message. */
+  /* Préchargement en tâche de fond de pdf-lib. Un échec est ignoré : la
+     demande explicite réessaiera et affichera alors un message. */
   apresPeinture().then(function () {
-    ['scanner', 'xlsx', 'pdflib'].reduce(function (chaine, nom) {
-      return chaine.then(function () {
-        return charger(nom).catch(function () { return null; });
-      });
-    }, Promise.resolve());
+    return charger('pdflib').catch(function () { return null; });
   });
 })(window);

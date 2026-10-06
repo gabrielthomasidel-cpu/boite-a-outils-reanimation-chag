@@ -1,6 +1,0 @@
-MODE DÉGRADÉ - WINDOWS 1.8.5
-Le bouton Liste papier propose des listes vierges A4 portrait sans colonne Réglages catalogue.
-Matériel : liste pharmacie hors stock exclu et liste hors stock par laboratoire.
-Solutés et Aide-soignant : liste par zone.
-Saisir les quantités et le visa à la main. Rééditer après une modification du catalogue.
-Vérifier et transmettre selon les procédures du service ; aucune synchronisation automatique.

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Matériel">
+  <defs><mask id="mm"><rect width="64" height="64" fill="#fff"/><rect x="15" y="25" width="28" height="27" rx="4" fill="#000"/></mask></defs>
+  <path mask="url(#mm)" d="M25 4.5h10a1.5 1.5 0 0 1 1.5 1.5v9.5H46a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5h-9.5V38a1.5 1.5 0 0 1-1.5 1.5H25a1.5 1.5 0 0 1-1.5-1.5v-9.5H14a1.5 1.5 0 0 1-1.5-1.5V17a1.5 1.5 0 0 1 1.5-1.5h9.5V6A1.5 1.5 0 0 1 25 4.5z" fill="none" stroke="#b03a48" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M6 30a27 27 0 0 0 29 28.5" fill="none" stroke="#b03a48" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M54 49.5 60 39.5" fill="none" stroke="#b03a48" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="0.1 4.2"/>
+  <path d="M55.6 39.6l4.9-1.6 1.4 5" fill="none" stroke="#b03a48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="45" cy="51" r="8.5" fill="#b03a48"/>
+  <path d="M41 51.2l2.9 2.9 5.4-5.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M28 27l-11 5v12l11 5 11-5V32z" fill="#b03a48"/>
+  <path d="M17 32l11 5 11-5M28 37v12" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M22.5 29.5l11 5" stroke="#fff" stroke-width="1.6"/>
+</svg>
