@@ -446,7 +446,9 @@ function recapitulatifImpressionHtml(){
     + (horsStock.length ? ` dont <b>${horsStock.length}</b> Hors Stock` : '') + '.</p>';
   if(nonComptes.length){
     html += `<p class="recap-alerte">⚠ <b>${nonComptes.length}</b> article(s) avec dotation ne sont pas comptés : ils ne seront pas commandés.`
-      + ` <button type="button" class="link-btn" data-recap="aCompter">Voir la liste</button></p>`;
+      + (AFFICHAGE_SIMPLIFIE
+        ? ` <button type="button" class="link-btn" data-recap="prochain">Aller au premier non compté</button></p>`
+        : ` <button type="button" class="link-btn" data-recap="aCompter">Voir la liste</button></p>`);
   }
   if(anomalies.length){
     html += `<div class="recap-alerte">⚠ <b>${anomalies.length}</b> quantité(s) inhabituelle(s) à vérifier :<ul>`

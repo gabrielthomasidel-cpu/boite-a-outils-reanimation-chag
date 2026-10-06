@@ -540,7 +540,8 @@ body.panel-open{ overflow:hidden; }
 .camera-ligne input{ flex:1; min-width:0; }
 .camera-lecteur{ width:100%; min-height:260px; background:#000; border-radius:10px; overflow:hidden; }
 .camera-lecteur video{ width:100% !important; height:auto !important; display:block; }
-/* Affichage simplifié (édition Android) : recherche, vues et avancement seulement. */
+/* Affichage simplifié (édition Android) : recherche et avancement seulement. */
+.affichage-simplifie #vueSelecteur,
 .affichage-simplifie #filterSelectRow,
 .affichage-simplifie #btnSansDotation,
 .affichage-simplifie #zoneNav{ display:none !important; }

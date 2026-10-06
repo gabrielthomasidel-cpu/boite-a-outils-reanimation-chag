@@ -16,8 +16,9 @@ let locFilterVal = '';
 let vueListe = 'tous';
 let lastArchive = null; // dernier instantané avant réinitialisation
 /* Affichage simplifié (smartphone, édition Android) : pas de filtres de
-   zone, de type ni de dotation, ni de rangée de zones ; toutes les
-   références sont proposées d'emblée. */
+   zone, de type ni de dotation, ni de rangée de zones, ni de sélecteur
+   Tous / À compter / À commander ; toutes les références sont proposées
+   d'emblée, dans la vue « Tous ». */
 const AFFICHAGE_SIMPLIFIE = Boolean(window.AndroidBridge);
 if(AFFICHAGE_SIMPLIFIE) document.documentElement.classList.add('affichage-simplifie');
 /* Matériel : les articles sans dotation sont masqués au démarrage (sauf affichage simplifié). */

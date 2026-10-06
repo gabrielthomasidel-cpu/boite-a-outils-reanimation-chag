@@ -73,9 +73,17 @@ test('Android : affichage simplifié, toutes les références d’emblée', asyn
   await expect(page.locator('#filterSelectRow')).toBeHidden();
   await expect(page.locator('#btnSansDotation')).toBeHidden();
   await expect(page.locator('#zoneNav')).toBeHidden();
+  await expect(page.locator('#vueSelecteur')).toBeHidden();
   await expect(page.locator('#vueCountTous')).toHaveText('319');
   await expect(page.locator('#list .item')).toHaveCount(319);
   // après une réinitialisation, toujours toutes les références
   await page.evaluate(() => remettreAZero());
   await expect(page.locator('#vueCountTous')).toHaveText('319');
+  // le récapitulatif mène au premier non compté sans changer de vue
+  await saisir(page, 'CATHETER HEMODIALYSE 15CM', 0);
+  await page.fill('#signature', 'Mobile');
+  await page.click('#btnPrint');
+  await page.click('#confirmDlg [data-recap=prochain]');
+  await expect(page.locator('#list .item')).toHaveCount(319);
+  await expect(page.locator('#list .item input:focus')).toHaveCount(1);
 });

@@ -29,7 +29,8 @@ function confirmDialog(title, text, okLabel, options){
       const lien = e.target.closest('[data-recap]');
       if(!lien) return;
       finir(false);
-      appliquerVue(lien.dataset.recap);
+      if(lien.dataset.recap === 'prochain') allerAuProchainNonCompte();
+      else appliquerVue(lien.dataset.recap);
     };
     function cleanup(){
       okBtn.removeEventListener('click', onOk);
