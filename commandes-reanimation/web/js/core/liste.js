@@ -15,8 +15,13 @@ let locFilterVal = '';
 /* Vue : « tous », « aCompter » (non comptés) ou « aCommander ». */
 let vueListe = 'tous';
 let lastArchive = null; // dernier instantané avant réinitialisation
-/* Matériel : les articles sans dotation sont masqués au démarrage. */
-let afficherSansDotation = !MODULE.masquerSansDotation;
+/* Affichage simplifié (smartphone, édition Android) : pas de filtres de
+   zone, de type ni de dotation, ni de rangée de zones ; toutes les
+   références sont proposées d'emblée. */
+const AFFICHAGE_SIMPLIFIE = Boolean(window.AndroidBridge);
+if(AFFICHAGE_SIMPLIFIE) document.documentElement.classList.add('affichage-simplifie');
+/* Matériel : les articles sans dotation sont masqués au démarrage (sauf affichage simplifié). */
+let afficherSansDotation = AFFICHAGE_SIMPLIFIE || !MODULE.masquerSansDotation;
 
 /* ============ Règles de calcul ============ */
 function qteCommandeDe(it){ return quantiteEntiere(it.qteCommande, null); }
@@ -383,7 +388,7 @@ function updateSummary(){
   document.getElementById('vueCountACompter').textContent = c.aCompter;
   document.getElementById('vueCountACommander').textContent = c.aCommander;
   document.getElementById('btnNextUncounted').disabled = c.aCompter === 0;
-  renderZoneNav();
+  if(!AFFICHAGE_SIMPLIFIE) renderZoneNav();
   majSignatureRequise();
   ecrireResume(c);
 }
@@ -759,7 +764,7 @@ function remettreAZero(){
   erreurScan = null;
   document.getElementById('search').value = '';
   searchTerm = '';
-  if(MODULE.masquerSansDotation){ afficherSansDotation = false; majBoutonSansDotation(); refreshFilterOptions(); }
+  if(MODULE.masquerSansDotation && !AFFICHAGE_SIMPLIFIE){ afficherSansDotation = false; majBoutonSansDotation(); refreshFilterOptions(); }
   hideRestoreBanner();
   appliquerVue('tous');
   persistState();

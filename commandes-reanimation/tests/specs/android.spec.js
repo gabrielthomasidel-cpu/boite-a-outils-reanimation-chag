@@ -66,3 +66,16 @@ test('Android : bouton Retour ferme d’abord le panneau ouvert', async ({ page 
   expect(await page.evaluate(() => window.CommandesRetour())).toBe(true);
   await expect(page.locator('#histPanel')).toBeHidden();
 });
+
+test('Android : affichage simplifié, toutes les références d’emblée', async ({ page }) => {
+  await simulerAndroid(page);
+  await ouvrir(page, 'materiel_reanimation');
+  await expect(page.locator('#filterSelectRow')).toBeHidden();
+  await expect(page.locator('#btnSansDotation')).toBeHidden();
+  await expect(page.locator('#zoneNav')).toBeHidden();
+  await expect(page.locator('#vueCountTous')).toHaveText('319');
+  await expect(page.locator('#list .item')).toHaveCount(319);
+  // après une réinitialisation, toujours toutes les références
+  await page.evaluate(() => remettreAZero());
+  await expect(page.locator('#vueCountTous')).toHaveText('319');
+});
