@@ -118,7 +118,7 @@
   <span class="action-spacer"></span>
   <button type="button" id="btnNextUncounted" title="Aller au prochain article non compté">${icone('suivant', 18)}<span>Prochain à compter</span></button>
   <button type="button" id="btnEditionSecours" title="Rouvrir le dernier PDF de commande conservé sur cet appareil">${icone('secours', 18)}<span>Édition de secours</span></button>
-  <button type="button" id="btnPrint" class="primary">${icone('imprimer', 18)}<span>Imprimer</span></button>
+  <button type="button" id="btnPrint" class="primary" title="Imprimer la commande puis clore le cycle">${icone('imprimer', 18)}<span>Commander</span></button>
 </div>`;
   }
 
@@ -284,8 +284,8 @@ ${postImpression}
     const sansDotation = M.masquerSansDotation
       ? '<p><b>Articles sans dotation</b> — ils sont masqués au démarrage pour alléger le comptage. Le bouton <b>Afficher sans dotation</b> les fait apparaître ; il devient <b>Masquer sans dotation</b> lorsqu’ils sont visibles.</p>' : '';
     const impression = M.impressionEnDeuxLots
-      ? '<p><b>Imprimer</b> lance deux travaux distincts et successifs : les dispositifs médicaux d’abord, puis le Hors Stock regroupé par laboratoire. Validez chaque fenêtre d’impression ; les compteurs ne sont remis à zéro qu’après la fin des deux travaux. Un rappel final indique de ne pas solidariser les deux commandes.</p>'
-      : `<p><b>Imprimer</b> — le document ne reprend que les articles à commander, ${M.regroupementImpression === 'localisation' ? 'classés par localisation puis désignation' : 'triés par type ; les articles Hors Stock sortent sur une feuille séparée'}.</p>`;
+      ? '<p><b>Commander</b> lance deux travaux d’impression distincts et successifs : les dispositifs médicaux d’abord, puis le Hors Stock regroupé par laboratoire. Validez chaque fenêtre d’impression. Un rappel final indique de ne pas solidariser les deux commandes.</p>'
+      : `<p><b>Commander</b> imprime la commande : le document ne reprend que les articles à commander, ${M.regroupementImpression === 'localisation' ? 'classés par localisation puis désignation' : 'triés par type ; les articles Hors Stock sortent sur une feuille séparée'}.</p>`;
     const etiquettes = M.codeBarres
       ? `<h3>Étiquettes code-barres</h3>
       <p>Bouton <b>Étiquettes code-barres</b> : le Code 128 contient le code-barres de l'article ; la référence de commande figure en petit. Formats <b>Standard 27 étiquettes</b> (3 × 9) ou <b>Avery plastifié</b> (L7060, 21 étiquettes de 63,5 × 38,1 mm).</p>`
@@ -345,7 +345,8 @@ ${postImpression}
     ${impression}
     <p>Avant l'impression, une fenêtre récapitule le nombre d'articles commandés, ceux qui ne sont pas comptés et les quantités inhabituelles.</p>
     <p>Une copie PDF datée est conservée dans <b>${global.CommandesModules.libelleDossier(M, 'Archives')}</b> avant l'ouverture de l'impression ; la commande est aussi ajoutée à l'<b>historique</b>.</p>
-    <p class="aide-alerte">Une fois l'impression terminée, <b>les compteurs sont remis à zéro</b> et le champ « Rempli par » est vidé : le cycle est clos.</p>
+    <p class="aide-alerte">Après l'impression, l'application demande si la commande a bien été imprimée. <b>Oui</b> : les compteurs sont remis à zéro et le champ « Rempli par » est vidé, le cycle est clos. <b>Non</b> (impression annulée ou imprimante en panne) : le comptage est conservé et vous pouvez commander à nouveau.</p>
+    <p>Si la fenêtre d'impression ne s'ouvre pas (Edge l'empêche quelques secondes après une annulation), l'application réessaie seule, puis conserve le comptage. Si la copie de secours PDF ne peut pas être créée, l'application le signale et propose de commander quand même.</p>
 
     <h3>7. Historique</h3>
     <p>Le bouton <b>Historique</b> de l'en-tête liste les commandes imprimées (date, auteur, articles et quantités) et propose une <b>synthèse</b> : articles commandés le plus souvent, quantité moyenne, et signalement des articles commandés à presque chaque cycle — un indice pour revoir leur dotation. L'historique peut être exporté en CSV.</p>

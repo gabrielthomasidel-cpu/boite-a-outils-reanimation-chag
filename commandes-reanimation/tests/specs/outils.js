@@ -26,8 +26,15 @@ function suivreErreurs(page){
 async function simulerImpression(page){
   await page.addInitScript(() => {
     window.__impressions = 0;
-    window.print = () => { window.__impressions++; setTimeout(() => window.dispatchEvent(new Event('afterprint')), 20); };
+    // Comme Edge : window.print() bloque jusqu'à la fermeture de la fenêtre d'impression.
+    window.print = () => { window.__impressions++; window.dispatchEvent(new Event('beforeprint')); window.dispatchEvent(new Event('afterprint')); };
   });
+}
+
+/* Répond « Oui » à « Commande imprimée ? » (poste Windows). */
+async function confirmerImpression(page){
+  await expect(page.locator('#confirmDlg')).toContainText('bien été imprimée', { timeout: 15000 });
+  await page.click('#dlgOk');
 }
 
 async function ouvrir(page, module, options = {}){
@@ -50,4 +57,4 @@ function dossierTemporaire(){
   return fs.mkdtempSync(path.join(os.tmpdir(), 'commandes-'));
 }
 
-module.exports = { WEB, url, PAGES, suivreErreurs, simulerImpression, ouvrir, carte, saisir, dossierTemporaire, expect };
+module.exports = { WEB, url, PAGES, suivreErreurs, simulerImpression, confirmerImpression, ouvrir, carte, saisir, dossierTemporaire, expect };

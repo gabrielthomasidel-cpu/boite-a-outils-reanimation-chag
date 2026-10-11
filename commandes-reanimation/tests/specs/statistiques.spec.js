@@ -1,13 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const { test } = require('@playwright/test');
-const { simulerImpression, ouvrir, saisir, dossierTemporaire, expect } = require('./outils');
+const { simulerImpression, confirmerImpression, ouvrir, saisir, dossierTemporaire, expect } = require('./outils');
 
 async function imprimerAvec(page, signature){
   await saisir(page, 'BICARBONATE 1,4% 500ML POCHE', 1);
   await page.fill('#signature', signature);
   await page.click('#btnPrint');
   await page.click('#dlgOk');
+  await confirmerImpression(page);
   await expect(page.locator('.toast')).toContainText('Les compteurs sont remis à zéro', { timeout: 15000 });
   await page.waitForTimeout(300);
 }
@@ -20,6 +21,7 @@ test('commande signée « essai » : imprimée mais hors historique, statistique
   await page.click('#btnPrint');
   await expect(page.locator('#confirmDlg')).toContainText('Commande d’essai');
   await page.click('#dlgOk');
+  await confirmerImpression(page);
   await expect(page.locator('.toast')).toContainText('non enregistrée dans l’historique', { timeout: 15000 });
   expect(await page.evaluate(() => window.__impressions)).toBe(1);
   expect(await page.evaluate(() => historiqueCommandes().length)).toBe(0);

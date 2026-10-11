@@ -13,6 +13,7 @@ function confirmDialog(title, text, okLabel, options){
     okBtn.textContent = okLabel || 'Confirmer';
     okBtn.classList.toggle('danger', Boolean(options && options.danger));
     const cancelBtn = document.getElementById('dlgCancel');
+    cancelBtn.textContent = (options && options.cancelLabel) || 'Annuler';
     let termine = false;
     const finir = valeur=>{
       if(termine) return;

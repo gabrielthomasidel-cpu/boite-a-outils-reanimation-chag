@@ -497,18 +497,31 @@ function recapitulatifImpressionHtml(){
     html += `<p>${MODULE.regroupementImpression === 'localisation' ? 'La liste sera classée par localisation.' : 'La liste sera triée par type (ordre du classeur d’origine).'}</p>`;
   }
   html += estCommandeEssai(signatureEl.value)
-    ? '<p class="recap-alerte">Commande d’<b>essai</b> (« Rempli par » contient « essai ») : elle sera imprimée mais <b>ni enregistrée dans l’historique ni comptée dans les statistiques</b>. Les compteurs seront remis à zéro.</p>'
-    : '<p>Une fois l’impression terminée, la commande est ajoutée à l’historique et <b>les compteurs sont remis à zéro</b>.</p>';
+    ? '<p class="recap-alerte">Commande d’<b>essai</b> (« Rempli par » contient « essai ») : elle sera imprimée mais <b>ni enregistrée dans l’historique ni comptée dans les statistiques</b>.</p>'
+    : '<p>Après l’impression, vous confirmerez qu’elle a réussi : la commande sera alors ajoutée à l’historique et <b>les compteurs remis à zéro</b>.</p>';
   return html;
 }
 
-/* ============ Impression : séquence et clôture du cycle ============ */
+/* ============ Commande : séquence d'impression et clôture du cycle ============
+   Sur poste Windows, window.print() est bloquant : il rend la main quand la
+   fenêtre d'impression d'Edge se ferme. On ne dépend donc plus des
+   événements afterprint (absents si le navigateur ignore l'appel) ni d'un
+   délai de secours qui remettait le comptage à zéro sans impression.
+   - Si aucune fenêtre d'impression ne s'est ouverte (Edge ignore les appels
+     rapprochés après une annulation), l'ouverture est retentée puis la
+     commande est abandonnée en conservant le comptage.
+   - À la fin, la personne confirme que la commande est bien imprimée : une
+     fenêtre d'impression annulée ne remet plus le comptage à zéro.
+   Sous Android, le service d'impression signale lui-même fin et annulation. */
 const TITRE_PAGE_AVANT_IMPRESSION = document.title;
+const DELAIS_NOUVEL_ESSAI_MS = [2500, 5000, 9000];
 let cycleImpression = null;
 let sequenceImpressionEnCours = false;
+let debutSequenceImpression = 0;
 let lotsImpression = [];
 let indexLotImpression = -1;
 let lotImpressionActif = null;
+let essaisOuverture = 0;
 
 function lotsImpressionDisponibles(){
   const { normal, horsStock } = buildPrintGroups();
@@ -525,17 +538,21 @@ function restaurerContexteImpression(){
   indexLotImpression = -1;
   lotImpressionActif = null;
   sequenceImpressionEnCours = false;
+  cycleImpression = null;
+  essaisOuverture = 0;
 }
 function demarrerSequenceImpression(){
   if(sequenceImpressionEnCours) return;
   lotsImpression = lotsImpressionDisponibles();
   if(!lotsImpression.length) return;
   sequenceImpressionEnCours = true;
+  debutSequenceImpression = Date.now();
   indexLotImpression = -1;
   lancerLotImpressionSuivant();
 }
 function lancerLotImpressionSuivant(){
   indexLotImpression += 1;
+  essaisOuverture = 0;
   lotImpressionActif = lotsImpression[indexLotImpression] || null;
   if(!lotImpressionActif) return;
   renderPrintTable(lotImpressionActif.cle);
@@ -547,22 +564,60 @@ function lancerLotImpressionSuivant(){
 }
 function lancerImpression(){
   if(!sequenceImpressionEnCours || !lotImpressionActif) return;
-  if(cycleImpression !== null && cycleImpression !== 'android') clearTimeout(cycleImpression);
-  cycleImpression = window.__androidPrintManaged ? 'android' : setTimeout(cloreCycleImpression, 60000);
-  window.print();
-}
-function cloreCycleImpression(){
-  if(cycleImpression === null || !sequenceImpressionEnCours) return;
-  if(cycleImpression !== 'android') clearTimeout(cycleImpression);
+  if(window.__androidPrintManaged){
+    cycleImpression = 'android';   // la suite arrive par androidprintfinished / androidprintcancelled
+    window.print();
+    return;
+  }
+  cycleImpression = 'poste';
+  let fenetreOuverte = false;
+  const surOuverture = ()=>{ fenetreOuverte = true; };
+  window.addEventListener('beforeprint', surOuverture);
+  try{
+    window.print();
+  }catch(err){
+    console.error('Impression impossible :', err);
+  }finally{
+    window.removeEventListener('beforeprint', surOuverture);
+  }
   cycleImpression = null;
+  if(!fenetreOuverte){ impressionNonOuverte(); return; }
+  lotTermine();
+}
+function impressionNonOuverte(){
+  const delai = DELAIS_NOUVEL_ESSAI_MS[essaisOuverture];
+  if(delai !== undefined){
+    essaisOuverture += 1;
+    toast(`La fenêtre d’impression ne s’est pas ouverte : nouvel essai dans ${Math.round(delai / 1000)} s…`);
+    setTimeout(lancerImpression, delai);
+    return;
+  }
+  const dejaImprimes = indexLotImpression;
+  restaurerContexteImpression();
+  toast((dejaImprimes > 0 ? 'Le second travail d’impression n’a pas pu s’ouvrir. ' : 'L’impression n’a pas pu s’ouvrir. ')
+    + 'Le comptage est conservé : patientez quelques secondes puis cliquez à nouveau sur Commander.');
+}
+function lotTermine(){
   const suivant = lotsImpression[indexLotImpression + 1];
   if(suivant){
-    toast(`Impression « ${lotImpressionActif.titre} » terminée. Ouverture du travail « ${suivant.titre} »…`);
+    toast(`Travail « ${lotImpressionActif.titre} » terminé. Ouverture du travail « ${suivant.titre} »…`);
     setTimeout(lancerLotImpressionSuivant, 650);
     return;
   }
   const nombreLots = lotsImpression.length;
+  if(window.__androidPrintManaged){ restaurerContexteImpression(); finaliserCommande(nombreLots); return; }
+  confirmerImpression(nombreLots);
+}
+async function confirmerImpression(nombreLots){
   restaurerContexteImpression();
+  const ok = await confirmDialog('Commande imprimée ?',
+    `<p>La commande a-t-elle bien été imprimée${nombreLots > 1 ? ' (les deux travaux)' : ''} ?</p>`
+    + '<p>Si vous avez annulé la fenêtre d’impression ou si l’imprimante a échoué, choisissez <b>Non</b> : le comptage est conservé et vous pourrez commander à nouveau.</p>',
+    'Oui, clore la commande', { html: true, cancelLabel: 'Non, conserver le comptage' });
+  if(ok) finaliserCommande(nombreLots);
+  else toast('Comptage conservé. Le PDF reste disponible dans Édition de secours.');
+}
+function finaliserCommande(nombreLots){
   const essai = estCommandeEssai(signatureEl.value);
   if(!essai) retenirSignataire(signatureEl.value);
   enregistrerCommandeHistorique();
@@ -571,13 +626,13 @@ function cloreCycleImpression(){
   toast(`${nombreLots > 1 ? 'Les deux commandes ont été imprimées séparément.' : 'Commande imprimée.'} ${suite} Les compteurs sont remis à zéro.`);
   if(MODULE.rappelApresImpression) ouvrirRappelPostImpression();
 }
-window.addEventListener('afterprint', ()=>{
-  if(!window.__androidPrintManaged) cloreCycleImpression();
+window.addEventListener('androidprintfinished', ()=>{
+  if(cycleImpression !== 'android' || !sequenceImpressionEnCours) return;
+  cycleImpression = null;
+  lotTermine();
 });
-window.addEventListener('androidprintfinished', cloreCycleImpression);
 window.addEventListener('androidprintcancelled', ()=>{
   if(cycleImpression !== 'android') return;
-  cycleImpression = null;
   const titre = lotImpressionActif ? lotImpressionActif.titre : 'Commande';
   restaurerContexteImpression();
   toast(`Impression « ${titre} » annulée : les compteurs sont conservés.`);
@@ -589,7 +644,7 @@ window.addEventListener('keydown', event=>{
   if(!MODULE.impressionEnDeuxLots) return;
   if((event.ctrlKey || event.metaKey) && String(event.key).toLowerCase() === 'p' && !sequenceImpressionEnCours){
     event.preventDefault();
-    toast('Utilisez le bouton Imprimer pour lancer séparément dispositifs médicaux puis Hors stock.');
+    toast('Utilisez le bouton Commander pour lancer séparément dispositifs médicaux puis Hors stock.');
     document.getElementById('btnPrint').focus();
   }
 }, true);
@@ -646,7 +701,7 @@ if(MODULE.rappelApresImpression){
   document.getElementById('postPrintDlg').addEventListener('cancel', e=>{ if(postPrintFermeture) e.preventDefault(); });
 }
 
-/* ---------- bouton Imprimer ---------- */
+/* ---------- bouton Commander ---------- */
 async function archiverPdfCommande(blob){
   const filename = `${MODULE.racineFichiers}_${horodatage()}.pdf`;
   if((window.WindowsStorage && window.WindowsStorage.hash) || window.__androidAutoFolder){
@@ -657,42 +712,89 @@ async function archiverPdfCommande(blob){
   return await writeToDest('PDF', filename, blob);
 }
 
-document.getElementById('btnPrint').addEventListener('click', async ()=>{
-  if(sequenceImpressionEnCours){
-    toast('La séquence d’impression en cours doit être terminée ou annulée.');
-    return;
-  }
-  if(!signatureEl.value.trim()){
-    toast('Merci de renseigner « Rempli par » avant l\'impression.');
-    majSignatureRequise();
-    signatureEl.focus();
-    return;
-  }
-  if(buildPrintOrder().length === 0){
-    toast('Aucun article à commander pour le moment.');
-    return;
-  }
-  const ok = await confirmDialog('Imprimer la commande', recapitulatifImpressionHtml(), 'Imprimer', { html: true });
-  if(!ok) return;
+/* Toute attente est bornée : un stockage ou un lanceur qui ne répond pas ne
+   doit jamais laisser le bouton grisé. */
+function avecDelai(promesse, ms, message){
+  return new Promise((resolve, reject)=>{
+    const minuteur = setTimeout(()=> reject(new Error(message)), ms);
+    Promise.resolve(promesse).then(
+      v=>{ clearTimeout(minuteur); resolve(v); },
+      e=>{ clearTimeout(minuteur); reject(e); });
+  });
+}
+function delaiSecours(){ return Number(window.__DELAI_SECOURS_MS) > 0 ? Number(window.__DELAI_SECOURS_MS) : 20000; }
+function delaiSequence(){ return Number(window.__DELAI_SEQUENCE_MS) > 0 ? Number(window.__DELAI_SEQUENCE_MS) : 120000; }
 
-  // archivage préalable : une panne d'imprimante ne doit pas faire perdre la trace
-  const btn = document.getElementById('btnPrint');
-  btn.disabled = true;
+/* Copie de secours (PDF conservé sur le poste) puis archivage dans
+   C:\commandes. Renvoie un message d'erreur, ou null si tout s'est bien
+   passé. Un échec n'empêche plus de commander : il est signalé. */
+async function preparerCopiesDeSecours(){
+  let pdf;
   try{
-    await attendreAffichage();
-    const pdf = await generatePdfBlob();
-    await secoursCommande.save(CSV_MODULE, pdf);
-    if((window.WindowsStorage && window.WindowsStorage.hash) || destDirHandle || window.__androidAutoFolder){
-      try{ await archiverPdfCommande(pdf); }
-      catch(err){ console.error(err); toast('Archivage externe impossible ; le PDF reste disponible dans Édition de secours.'); }
-    }
+    await avecDelai(attendreAffichage(), 1000, 'affichage').catch(()=>{});
+    pdf = await avecDelai(generatePdfBlob(), delaiSecours(), 'la création du PDF ne répond pas');
+    await avecDelai(secoursCommande.save(CSV_MODULE, pdf), delaiSecours(), 'le stockage du poste ne répond pas');
   }catch(err){
-    console.error(err);
-    toast('Copie de secours impossible : impression suspendue, comptage conservé. Vérifiez le stockage puis réessayez.');
-    return;
-  }finally{ btn.disabled = false; }
+    console.error('Copie de secours impossible :', err);
+    return err && err.message ? err.message : 'erreur inconnue';
+  }
+  if((window.WindowsStorage && window.WindowsStorage.hash) || destDirHandle || window.__androidAutoFolder){
+    try{ await avecDelai(archiverPdfCommande(pdf), delaiSecours(), 'le dossier de sauvegarde ne répond pas'); }
+    catch(err){ console.error(err); toast('Archivage du PDF dans le dossier de sauvegarde impossible ; il reste disponible dans Édition de secours.'); }
+  }
+  return null;
+}
 
-  setTimeout(demarrerSequenceImpression, 80);
+let commandeEnPreparation = false;
+document.getElementById('btnPrint').addEventListener('click', async ()=>{
+  if(commandeEnPreparation) return;
+  const btn = document.getElementById('btnPrint');
+  try{
+    if(sequenceImpressionEnCours){
+      /* Une séquence qui ne s'est jamais terminée (service d'impression muet,
+         fenêtre fermée de force…) ne bloque plus le bouton indéfiniment. */
+      if(Date.now() - debutSequenceImpression < delaiSequence()){
+        toast('La commande en cours d’impression doit d’abord être terminée ou annulée.');
+        return;
+      }
+      const reprendre = await confirmDialog('Impression précédente inachevée',
+        'L’impression précédente ne s’est pas terminée. Le comptage est conservé. Recommencer la commande ?', 'Recommencer');
+      if(!reprendre) return;
+      restaurerContexteImpression();
+    }
+    if(!signatureEl.value.trim()){
+      toast('Merci de renseigner « Rempli par » avant de commander.');
+      majSignatureRequise();
+      signatureEl.focus();
+      return;
+    }
+    if(buildPrintOrder().length === 0){
+      toast('Aucun article à commander pour le moment : comptez au moins un article dont le stock est insuffisant.');
+      return;
+    }
+    const ok = await confirmDialog('Passer la commande', recapitulatifImpressionHtml(), 'Commander', { html: true });
+    if(!ok) return;
+
+    commandeEnPreparation = true;
+    btn.disabled = true;
+    // Copie de secours d'abord : une panne d'imprimante ne doit pas faire perdre la trace.
+    const erreur = await preparerCopiesDeSecours();
+    btn.disabled = false;
+    if(erreur){
+      const continuer = await confirmDialog('Copie de secours impossible',
+        `<p>La copie de secours PDF n’a pas pu être créée (${escapeHtml(erreur)}).</p><p>Vous pouvez commander quand même : la commande sera imprimée, mais <b>Édition de secours</b> ne pourra pas la réimprimer.</p>`,
+        'Commander quand même', { html: true });
+      if(!continuer){ toast('Commande suspendue : le comptage est conservé.'); return; }
+    }
+    setTimeout(demarrerSequenceImpression, 80);
+  }catch(err){
+    console.error('Commande impossible :', err);
+    restaurerContexteImpression();
+    toast('La commande n’a pas pu être lancée (' + (err && err.message ? err.message : 'erreur inconnue') + '). Le comptage est conservé ; réessayez.');
+  }finally{
+    commandeEnPreparation = false;
+    btn.disabled = false;
+  }
 });
 
 /* ---------- Édition de secours ---------- */

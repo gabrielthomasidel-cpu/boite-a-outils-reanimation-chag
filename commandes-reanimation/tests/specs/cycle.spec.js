@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { test } = require('@playwright/test');
-const { url, suivreErreurs, simulerImpression, ouvrir, carte, saisir, dossierTemporaire, expect } = require('./outils');
+const { url, suivreErreurs, simulerImpression, confirmerImpression, ouvrir, carte, saisir, dossierTemporaire, expect } = require('./outils');
 
 async function imprimer(page){
   await page.click('#btnPrint');
@@ -28,6 +28,7 @@ test.describe('Impression et historique', () => {
     await expect(dlg).toContainText('ne sont pas comptés');
     await expect(dlg).toContainText('quantité(s) inhabituelle(s)');
     await page.click('#dlgOk');
+    await confirmerImpression(page);
 
     await expect(page.locator('.toast')).toContainText('historique', { timeout: 15000 });
     expect(await page.evaluate(() => window.__impressions)).toBe(1);
@@ -68,6 +69,9 @@ test.describe('Impression et historique', () => {
     await page.fill('#signature', 'Durand');
     await page.click('#btnPrint');
     await expect(page.locator('#confirmDlg')).toContainText('Deux validations');
+    await page.click('#dlgOk');
+    await expect(page.locator('#confirmDlg')).toContainText('les deux travaux', { timeout: 15000 });
+    expect(await page.evaluate(() => window.__impressions)).toBe(2);
     await page.click('#dlgOk');
     await expect(page.locator('#postPrintDlg')).toBeVisible({ timeout: 15000 });
     expect(await page.evaluate(() => window.__impressions)).toBe(2);
