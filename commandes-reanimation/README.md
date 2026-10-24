@@ -2,13 +2,14 @@
 
 Application de comptage et de commande du service de réanimation : **Solutés**, **Matériel Pharmacie** et **Magasin**. Elle tourne hors connexion dans une fenêtre Microsoft Edge ouverte par un petit lanceur Windows.
 
-Version actuelle : **2.7.0**. Le commit « import de la version Windows 2.6.2 » conserve la version d'origine pour comparaison.
+Version actuelle : **2.7.4**, construite sur la 2.7.3 fournie par l'utilisateur (qui sert de base à partir de maintenant). Le commit « import de la version Windows 2.6.2 » conserve la version d'origine pour comparaison.
 
 ## Organisation
 
 ```
 web/                     application (ouverte en file:// par le lanceur)
   index.html             accueil : état des commandes en cours, listes papier
+  Mode_emploi.html, aide/ mode d'emploi illustré (produit depuis docs/, ne pas modifier)
   Commande_*.html        une page courte par module (configuration + scripts)
   css/commandes.css      feuille de style unique, thèmes clair et sombre
   js/modules.js          configuration des trois modules et de leurs différences
@@ -22,6 +23,9 @@ web/                     application (ouverte en file:// par le lanceur)
   catalogues/*.js        catalogues livrés (données uniquement)
   img/                   icônes vectorielles
   vendor/                pdf-lib, SheetJS, encodeur QR
+docs/
+  Mode_emploi_Commandes_Reanimation.docx  mode d'emploi (source, installé avec l'application)
+  construire-aide.py     produit web/Mode_emploi.html et web/aide/ depuis le docx (pandoc)
 android/                 édition Android (APK autonome)
   src/…/MainActivity.java    WebView + pont natif (dossier, impression, caméra, PDF)
   AndroidManifest.xml, res/  manifeste et icônes
@@ -61,7 +65,7 @@ npx playwright install chromium   # ou CHROMIUM_PATH=/chemin/vers/chrome
 npm test
 ```
 
-Les 48 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle de commande et historique, robustesse du bouton Commander (impression refusée, copie de secours ou stockage en échec, annulation), commandes d'essai, remise à zéro des statistiques, noms de dossiers et de fichiers, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges du catalogue JSON/CSV, PDF, étiquettes et listes papier, et l'adaptation Android (pont natif simulé).
+Les 50 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle de commande et historique, robustesse du bouton Commander (impression refusée, copie de secours ou stockage en échec, annulation), commandes d'essai, remise à zéro des statistiques, noms de dossiers et de fichiers, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges du catalogue JSON/CSV, PDF, étiquettes et listes papier, l'adaptation Android (pont natif simulé) et le mode d'emploi intégré (images, sommaire, retour à la page d'origine).
 
 ## Édition Android
 
@@ -82,6 +86,17 @@ android/construire-apk.sh
 
 La clé de signature (`android/signature/`) n'est pas dans le dépôt. Conservez-la : Android n'accepte une mise à jour que si elle est signée avec la même clé.
 
+## Mode d'emploi
+
+Le document Word `docs/Mode_emploi_Commandes_Reanimation.docx` est la source. Après une modification (et à chaque changement de version, que le document mentionne) :
+
+```sh
+sudo apt install pandoc python3-pil
+docs/construire-aide.py
+```
+
+La page `web/Mode_emploi.html` (accueil → Mode d'emploi, ou lien en tête de l'aide de chaque module) est alors reconstruite et embarquée dans l'installateur et l'APK ; l'installateur copie aussi le docx dans le dossier d'installation, avec un raccourci du menu Démarrer.
+
 ## Construire l'installateur
 
 ```sh
@@ -89,4 +104,4 @@ sudo apt install nsis      # ou makensis sous Windows
 windows/construire-installateur.sh
 ```
 
-L'installateur n'est pas signé. Il s'installe sans droits administrateur dans `%LOCALAPPDATA%\Programs\CommandesReanimationWin64` avec la même clé de désinstallation que la 2.x : une version antérieure est mise à jour en place.
+L'installateur n'est pas signé. Il s'installe sans droits administrateur dans `%LOCALAPPDATA%\Programs\CommandesReanimationWin64`, avec la clé de désinstallation de la 2.7.3 (l'ancienne clé 2.x est retirée) : une version antérieure est mise à jour en place. Il demande de fermer l'application si elle est ouverte.

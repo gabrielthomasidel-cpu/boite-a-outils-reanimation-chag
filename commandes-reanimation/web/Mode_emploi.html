@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="application-version" content="2.7.4">
+<!-- Page produite par docs/construire-aide.py à partir du mode d'emploi Word : ne pas modifier à la main. -->
+<title>Mode d'emploi — Commandes Réanimation</title>
+<link rel="icon" type="image/svg+xml" href="img/app-logo.svg">
+<link rel="stylesheet" href="css/commandes.css">
+<script src="js/theme.js"></script>
+</head>
+<body class="home mode-emploi">
+
+<header class="masthead home-header">
+  <div class="masthead-row">
+    <img class="app-logo" src="img/app-logo.svg" alt="" width="64" height="64">
+    <div class="masthead-title">
+      <span class="eyebrow">Commandes Réanimation 2.7.4</span>
+      <h1>Mode d’emploi</h1>
+    </div>
+    <div class="home-tools">
+      <a class="tool-btn" id="aideRetour" href="index.html">← Retour</a>
+      <button type="button" class="tool-btn" id="aideImprimer">Imprimer</button>
+    </div>
+  </div>
+</header>
+
+<main class="aide">
+  <nav class="aide-sommaire" aria-label="Sommaire"><b>Sommaire</b><ol><li><a href="#présentation">1. Présentation</a></li><li><a href="#installation-et-mise-à-jour">2. Installation et mise à jour</a></li><li><a href="#faire-une-commande">3. Faire une commande</a></li><li><a href="#le-module-magasin">4. Le module Magasin</a></li><li><a href="#historique-et-synthèse-par-article">5. Historique et synthèse par article</a></li><li><a href="#édition-de-secours-et-mode-dégradé">6. Édition de secours et mode dégradé</a></li><li><a href="#partie-administrateur">7. Partie administrateur</a></li><li><a href="#douchette-eyoyo-ey-034">8. Douchette (Eyoyo EY-034)</a></li><li><a href="#en-cas-de-problème">9. En cas de problème</a></li><li><a href="#précautions-dusage">10. Précautions d’usage</a></li><li><a href="#régler-la-douchette-eyoyo-ey-034">Régler la douchette Eyoyo EY 034</a></li></ol></nav>
+  <article class="aide-texte">
+<aside class="note alerte"><p><strong>Avertissement.</strong> Cette application est un outil de comptage et de préparation des commandes. Elle ne fournit aucune recommandation de prescription ni de prise en charge. Les quantités proposées doivent être contrôlées par le professionnel responsable avant transmission. Ne saisissez aucune donnée de patient.</p></aside><h2 id="présentation">1. Présentation</h2>
+<p>Commandes Réanimation permet de compter le stock du service, puis d’imprimer la commande correspondante. Trois modules partagent le même fonctionnement :</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th><strong>Module</strong></th>
+<th><strong>Usage</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Solutés</td>
+<td>Comptage et commande des solutés de perfusion.</td>
+</tr>
+<tr class="even">
+<td>Matériel (Pharmacie)</td>
+<td>Comptage du matériel ; articles sans dotation masqués par défaut ; feuille « Hors Stock » séparée.</td>
+</tr>
+<tr class="odd">
+<td>Magasin</td>
+<td>Produits d’hôtellerie, de lingerie et de soins ; commande classée par type puis nom magasin.</td>
+</tr>
+</tbody>
+</table></div>
+<p>L’application fonctionne hors connexion : catalogues et bibliothèques sont intégrés. Le comptage en cours est conservé automatiquement sur le poste. Ce mode d’emploi est aussi consultable dans l’application : bouton « Mode d’emploi » de l’accueil, ou lien en tête de l’aide (?) de chaque module.</p>
+<figure class="capture"><img src="aide/image2.png" alt="" loading="lazy"><figcaption>Écran d’accueil : une carte par module, avec l’état de la commande en cours.</figcaption></figure>
+<h2 id="installation-et-mise-à-jour">2. Installation et mise à jour</h2>
+<ol type="1">
+<li><p>Fermez l’application si elle est ouverte (croix de la fenêtre Windows).</p></li>
+<li><p>Double-cliquez sur Commandes_Reanimation_Setup_2.7.4.exe et suivez l’assistant en français. Aucun droit administrateur n’est requis.</p></li>
+<li><p>Ouvrez l’application avec le raccourci « Commandes Réanimation » (Bureau ou menu Démarrer). Utilisez toujours ce raccourci : il active l’enregistrement dans C:\commandes.</p></li>
+</ol>
+<p>Pour une mise à jour, installez simplement par-dessus. Les comptages, catalogues modifiés et réglages sont conservés. Si l’application est encore ouverte, l’installateur le signale : fermez-la puis cliquez sur « Réessayer ».</p>
+<p>Prérequis : Microsoft Edge. L’installateur n’est pas signé numériquement ; faites valider le déploiement par votre service informatique.</p>
+<h3 id="dossiers-de-données">Dossiers de données</h3>
+<p>Au lancement, trois dossiers sont créés dans C:\commandes (le compte Windows doit pouvoir y écrire) :</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th><strong>Dossier</strong></th>
+<th><strong>Rôle</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DM_Pharmacie, Solutés, Magasin</td>
+<td>Un dossier par module.</td>
+</tr>
+<tr class="even">
+<td>… \Application</td>
+<td>Données publiées (catalogue modifié, historique, mot de passe) et exports de catalogue.</td>
+</tr>
+<tr class="odd">
+<td>… \Sauvegardes</td>
+<td>Commandes et historiques exportés.</td>
+</tr>
+<tr class="even">
+<td>… \Etiquettes</td>
+<td>Planches d’étiquettes.</td>
+</tr>
+<tr class="odd">
+<td>… \Archives</td>
+<td>PDF de commande et versions précédentes remplacées.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="faire-une-commande">3. Faire une commande</h2>
+<h3 id="avant-de-commencer">3.1 Avant de commencer</h3>
+<p>Renseignez votre nom dans <strong>Rempli par</strong>. Il figure sur la commande ; sans lui, la commande est refusée. Les derniers noms saisis sont proposés.</p>
+<h3 id="compter-le-stock">3.2 Compter le stock</h3>
+<ul>
+<li><p><strong>À la douchette :</strong> scannez l’étiquette du casier. L’article s’affiche seul et le curseur se place dans la case quantité. Tapez le nombre d’unités en stock, appuyez sur Entrée, puis scannez le suivant (scan → chiffre → Entrée → scan).</p></li>
+<li><p><strong>À la main :</strong> tapez un nom ou une référence dans la recherche, puis saisissez la quantité au clavier ou avec les boutons − et +. La molette de la souris ne modifie jamais une quantité.</p></li>
+</ul>
+<aside class="note"><p><strong>Case vide = non compté.</strong> Une case vide signifie que l’article n’a pas encore été compté. Tapez 0 si le casier est vide : l’article est alors compté, et commandé si besoin.</p></aside>
+<figure class="capture"><img src="aide/image3.png" alt="" loading="lazy"><figcaption>Module Magasin : articles regroupés par zone, avec la quantité à commander calculée en direct.</figcaption></figure>
+<h3 id="lire-les-pastilles">3.3 Lire les pastilles</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th><strong>Pastille</strong></th>
+<th><strong>Signification</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>À compter</td>
+<td>Stock pas encore saisi. L’article n’est pas commandé tant qu’il n’est pas compté.</td>
+</tr>
+<tr class="even">
+<td>Stock OK</td>
+<td>Compté, stock suffisant : rien à commander.</td>
+</tr>
+<tr class="odd">
+<td>Commander 5</td>
+<td>Compté, il manque 5 unités.</td>
+</tr>
+<tr class="even">
+<td>Sans dotation</td>
+<td>Pas de dotation définie : indiquez la quantité voulue, ou laissez vide.</td>
+</tr>
+<tr class="odd">
+<td>Aucune commande</td>
+<td>Article sans dotation pour lequel vous avez mis 0.</td>
+</tr>
+<tr class="even">
+<td>⚠ À vérifier</td>
+<td>Quantité inhabituelle (par exemple plus de trois fois la dotation) : probable erreur de frappe. Rappelée avant l’impression.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="se-repérer">3.4 Se repérer</h3>
+<ul>
+<li><p>La barre d’avancement indique le nombre d’articles comptés et à commander.</p></li>
+<li><p>Le sélecteur Tous / À compter / À commander filtre la liste ; les compteurs donnent le nombre d’articles de chaque vue.</p></li>
+<li><p>Chaque zone indique combien de ses articles sont comptés ; une zone terminée est cochée.</p></li>
+<li><p>Le bouton « Prochain à compter » amène au premier article non compté. Un scan reste prioritaire : l’article s’affiche même hors de la vue en cours.</p></li>
+</ul>
+<h3 id="terminer-et-commander">3.5 Terminer et commander</h3>
+<ol type="1">
+<li><p>Cliquez sur <strong>Commander</strong>. Une fenêtre récapitule le nombre d’articles commandés, ceux qui ne sont pas comptés et les quantités inhabituelles.</p></li>
+<li><p>Confirmez avec <strong>Commander</strong>. Une copie PDF datée est conservée dans le dossier Archives, puis la fenêtre d’impression de Windows s’ouvre. Pour le Matériel, deux travaux se suivent : dispositifs médicaux, puis Hors Stock.</p></li>
+<li><p>Après l’impression, l’application demande <strong>Commande imprimée ?</strong> — <strong>Oui</strong> : la commande est ajoutée à l’historique, les compteurs sont remis à zéro et « Rempli par » est vidé ; le cycle est clos. <strong>Non</strong> : le comptage est conservé, il suffit de cliquer de nouveau sur Commander.</p></li>
+</ol>
+<figure class="capture"><img src="aide/image4.png" alt="" loading="lazy"><figcaption>Récapitulatif avant la commande : articles commandés, articles non comptés, tri appliqué.</figcaption></figure>
+<aside class="note"><p><strong>Commande d’essai.</strong> Pour un essai ou une formation, écrivez « essai » dans « Rempli par » (par exemple « Essai Martin »). La commande s’imprime normalement mais n’est enregistrée ni dans l’historique ni dans les statistiques.</p></aside>
+<h3 id="interrompre-et-reprendre">3.6 Interrompre et reprendre</h3>
+<p>Le comptage est conservé automatiquement. À la réouverture, un bandeau propose <strong>Continuer</strong> ou <strong>Repartir de zéro</strong>. Le bouton <strong>Réinitialiser</strong> efface tous les comptages pour démarrer un nouveau cycle.</p>
+<h2 id="le-module-magasin">4. Le module Magasin</h2>
+<p>Le module Magasin fonctionne comme les deux autres, avec ces particularités :</p>
+<ul>
+<li><p><strong>Commande imprimée par type,</strong> puis par nom magasin. Les articles sans type sont regroupés sous « Sans type ».</p></li>
+<li><p><strong>Liste papier (mode dégradé)</strong> classée de la même façon, avec un filtre « Type » à la place de « Zone » et une colonne « Nom magasin ».</p></li>
+<li><p><strong>Édition de secours :</strong> elle rouvre le dernier PDF imprimé, donc déjà classé par type pour les impressions faites depuis la version 2.7.3.</p></li>
+<li><p>À l’écran, le comptage reste organisé par zone de rangement (localisation) pour faciliter le parcours ; le type apparaît en sous-titre de chaque zone.</p></li>
+</ul>
+<p>Le catalogue livré compte 92 articles, avec leurs types (Changes, Hôtellerie, Soins).</p>
+<h2 id="historique-et-synthèse-par-article">5. Historique et synthèse par article</h2>
+<p>Le bouton <strong>Historique</strong> de l’en-tête liste les commandes imprimées (date, auteur, articles, quantités) et peut les exporter en CSV. L’onglet <strong>Synthèse par article</strong> indique pour chaque article le nombre de fois où il a été commandé, la quantité moyenne et maximale, et la dotation actuelle.</p>
+<p>La dotation est colorée selon son écart avec la quantité moyenne commandée, pour repérer les dotations mal calibrées :</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th><strong>Couleur</strong></th>
+<th><strong>Règle</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vert</td>
+<td>Dotation au plus 15 % au-dessus de la quantité moyenne commandée.</td>
+</tr>
+<tr class="even">
+<td>Orange</td>
+<td>Dotation de plus de 15 % au-dessus de la quantité moyenne.</td>
+</tr>
+<tr class="odd">
+<td>Rouge</td>
+<td>Dotation de plus de 25 % au-dessus de la quantité moyenne.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Les dotations « libre » (0) ou absentes ne sont pas colorées. La remarque « Commandé à presque chaque cycle » signale les articles dont la dotation mérite peut-être d’être revue.</p>
+<figure class="capture"><img src="aide/image5.png" alt="" loading="lazy"><figcaption>Synthèse par article (exemple avec données fictives) : légende des couleurs au-dessus du tableau.</figcaption></figure>
+<h2 id="édition-de-secours-et-mode-dégradé">6. Édition de secours et mode dégradé</h2>
+<ul>
+<li><p><strong>Édition de secours :</strong> rouvre le dernier PDF de commande du module dans une fenêtre Edge dédiée, pour le réimprimer. Elle ne valide pas de nouvelle commande et ne modifie pas le comptage.</p></li>
+<li><p><strong>Liste papier :</strong> ouvre une liste vierge A4 à remplir à la main (stock compté, à commander, visa). Rééditez-la après toute modification du catalogue. Des listes PDF prêtes à imprimer figurent aussi sur l’écran d’accueil.</p></li>
+</ul>
+<figure class="capture"><img src="aide/image6.png" alt="" loading="lazy"><figcaption>Liste papier du module Magasin : choix du type à imprimer.</figcaption></figure>
+<p>En cas de panne : suspendez la transmission, vérifiez le stock, utilisez les listes papier à jour et évitez les doubles commandes à la reprise.</p>
+<h3 id="affichage">Affichage</h3>
+<p>Le bouton soleil / lune bascule entre affichage clair et sombre. Le bouton Aa bascule les noms d’articles entre casse adaptée (lecture plus rapide) et casse d’origine du catalogue ; les références et les documents imprimés restent identiques au catalogue. À l’ouverture, la fenêtre est agrandie à la zone de travail de l’écran (sans plein écran).</p>
+<h2 id="partie-administrateur">7. Partie administrateur</h2>
+<p>L’icône <strong>⚙</strong> (Gestion du catalogue) demande le mot de passe d’administration. Ce mot de passe ne chiffre pas les données : il n’empêche pas un accès au poste.</p>
+<h3 id="modifier-le-catalogue">7.1 Modifier le catalogue</h3>
+<figure class="capture"><img src="aide/image7.png" alt="" loading="lazy"><figcaption>Gestion du catalogue : recherche, ajout, modification, export, import, contrôle.</figcaption></figure>
+<p>Chaque article dispose d’un bouton de modification et de suppression ; « + Ajouter un article » crée une fiche.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th><strong>Champ</strong></th>
+<th><strong>Rôle</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Référence</td>
+<td>Identifiant de l’article, encodé dans l’étiquette.</td>
+</tr>
+<tr class="even">
+<td>Dénomination</td>
+<td>Nom utilisé pendant le comptage et sur les étiquettes.</td>
+</tr>
+<tr class="odd">
+<td>Nom Magasin / Nom Pharmacie</td>
+<td>Nom repris sur la commande destinée au magasin / à la pharmacie.</td>
+</tr>
+<tr class="even">
+<td>Localisation</td>
+<td>Zone de rangement : détermine l’ordre de parcours.</td>
+</tr>
+<tr class="odd">
+<td>Type</td>
+<td>Détermine le tri à l’impression. « Hors Stock » bascule l’article en rouge et sur une commande séparée.</td>
+</tr>
+<tr class="even">
+<td>Dotation</td>
+<td>Stock cible. À 0, l’article passe en saisie libre.</td>
+</tr>
+<tr class="odd">
+<td>Seuil</td>
+<td>Facultatif : aucune commande tant que le stock reste au-dessus.</td>
+</tr>
+<tr class="even">
+<td>Quantité à commander</td>
+<td>Facultatif : quantité imposée dès que le seuil est atteint.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="le-seuil-de-déclenchement">7.2 Le seuil de déclenchement</h3>
+<p>Tant que le stock reste au-dessus du seuil, rien n’est commandé. Au seuil ou en dessous :</p>
+<ul>
+<li><p>si une quantité à commander est renseignée, elle est commandée telle quelle (doublée si le stock est à 0, pour le Matériel) ;</p></li>
+<li><p>sinon, pour un article courant : le complément pour revenir à la dotation (dotation − stock) ;</p></li>
+<li><p>sinon, pour un article Hors Stock : la dotation entière.</p></li>
+</ul>
+<p>Exemple : article courant, dotation 4, seuil 2. À 3 en stock : rien ; à 2 : commande de 2 ; à 1 : commande de 3.</p>
+<h3 id="contrôle-export-et-import">7.3 Contrôle, export et import</h3>
+<ul>
+<li><p><strong>Contrôler le catalogue :</strong> détecte les doublons de référence, dénominations vides, seuils incohérents et champs manquants. Le même contrôle précède chaque import.</p></li>
+<li><p><strong>Exporter la base :</strong> JSON recommandé (CSV ou XLSX possibles). Faites une sauvegarde JSON régulièrement et avant toute modification, import ou mise à jour.</p></li>
+<li><p><strong>Importer la base :</strong> conserve les comptages en cours lorsque la référence existe encore.</p></li>
+<li><p>Pour transférer le catalogue vers un autre poste : exportez puis importez, ou copiez le fichier Donnees_&lt;Module&gt;.js dans le même dossier Application du poste de destination.</p></li>
+</ul>
+<h3 id="conservation-automatique">7.4 Conservation automatique</h3>
+<p>Chaque modification est enregistrée sur le poste puis publiée dans C:\commandes\&lt;Module&gt;\Application ; la version précédente est copiée dans Archives. Ce fichier est relu à chaque ouverture : il est partagé entre les comptes Windows du poste et permet la reprise après réinstallation ou changement de profil.</p>
+<h3 id="statistiques-et-étiquettes">7.5 Statistiques et étiquettes</h3>
+<ul>
+<li><p><strong>Remettre à zéro les statistiques</strong> efface l’historique du module, donc la synthèse par article et la « dernière commande » de l’accueil. Exportez l’historique en CSV avant.</p></li>
+<li><p><strong>Étiquettes :</strong> formats « Standard 27 » et « Avery plastifié » (Avery L7060 : 21 étiquettes de 63,5 × 38,1 mm sur A4). Cochez les étiquettes voulues, imprimez à 100 % sans ajustement à la page, et testez d’abord sur une feuille ordinaire.</p></li>
+</ul>
+<h2 id="douchette-eyoyo-ey-034">8. Douchette (Eyoyo EY-034)</h2>
+<p>Les codes de réglage sont affichés dans le mode d’emploi intégré (bouton ?). Ils se scannent directement à l’écran. Résumé :</p>
+<ol type="1">
+<li><p>Scannez les 9 codes dans l’ordre : mode normal, activation des codes 2D, suffixe Entrée, volume, vibration, veille, puis la séquence préfixe (étapes 7, 8 et 9, à enchaîner).</p></li>
+<li><p>Pour un PC Windows, scannez ensuite « Clavier français ».</p></li>
+</ol>
+<p>Le préfixe Entrée referme d’abord la case quantité, puis la référence arrive dans la recherche : vous scannez sans surveiller le curseur.</p>
+<h2 id="en-cas-de-problème">9. En cas de problème</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th><strong>Symptôme</strong></th>
+<th><strong>Que faire</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>« Référence inconnue »</td>
+<td>L’étiquette ne correspond à aucun article (peut-être périmée). Signalez-la à l’administrateur.</td>
+</tr>
+<tr class="even">
+<td>Le scan tape des symboles</td>
+<td>Le clavier de la douchette ne correspond pas à Windows : scannez « Clavier français ».</td>
+</tr>
+<tr class="odd">
+<td>Rien ne se passe au scan</td>
+<td>Vérifiez qu’un suffixe Entrée ou Tabulation est activé sur la douchette.</td>
+</tr>
+<tr class="even">
+<td>L’installation signale un fichier verrouillé</td>
+<td>Fermez l’application (croix Windows), puis « Réessayer ». En dernier recours, terminez CommandesReanimation.exe dans le Gestionnaire des tâches.</td>
+</tr>
+<tr class="odd">
+<td>Commander ne lance pas l’impression</td>
+<td>Un message l’indique et le comptage est conservé : patientez quelques secondes puis cliquez de nouveau sur Commander. Si la copie PDF ne peut pas être enregistrée, « Commander quand même » permet de poursuivre.</td>
+</tr>
+<tr class="even">
+<td>Le bouton « Dossier » ne répond pas</td>
+<td>Les chemins réseau \\serveur\… ne sont pas acceptés : mappez d’abord le dossier sur une lettre de lecteur.</td>
+</tr>
+<tr class="odd">
+<td>Comptage disparu après mise à jour du catalogue livré</td>
+<td>Les catalogues enregistrés sont remplacés par le nouveau catalogue livré : réimportez votre sauvegarde JSON.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="précautions-dusage">10. Précautions d’usage</h2>
+<ul>
+<li><p>Vérifiez références, noms, unités, stocks, dotations et quantités ; après un scan ou un import, contrôlez le résultat.</p></li>
+<li><p>Exportez régulièrement une sauvegarde JSON dans un dossier autorisé par le service ; le dossier C:\commandes ne remplace pas une sauvegarde.</p></li>
+<li><p>Verrouillez votre session Windows et limitez l’accès aux fichiers et sauvegardes.</p></li>
+<li><p>Utilisez uniquement un installateur fourni par le responsable du service ; faites valider les mises à jour de Windows et d’Edge par le service informatique.</p></li>
+<li><p>Signalez toute anomalie au responsable de l’application.</p></li>
+</ul>
+<h2 class="annexe" id="régler-la-douchette-eyoyo-ey-034">Régler la douchette Eyoyo EY 034</h2>
+<p>Les codes ci-dessous se scannent directement sur cet écran, le lecteur en main. Inutile de ressortir le manuel papier.</p>
+<h3 id="paramétrage-complet-scannez-les-9-codes-dans-lordre">Paramétrage complet scannez les 9 codes dans l’ordre</h3>
+<p>C'est la seule manipulation à connaître. Prenez la douchette, scannez les vignettes de 1 à 9, une par une, sans en sauter. Un bip confirme chaque étape. Rien ne s'écrit à l'écran : ces codes s'adressent au lecteur, pas à l'application.</p>
+<p>Les étapes 7, 8 et 9 vont ensemble : elles programment le préfixe et doivent être scannées à la suite, dans cet ordre. Si vous êtes interrompu, reprenez à l'étape 7.</p>
+<div class="codes"><figure class="code"><img src="aide/image8.png" alt="" loading="lazy"><figcaption><b>Étape 1 — Mode normal</b>Le lecteur transmet aussitôt, au lieu de stocker en mémoire.</figcaption></figure>
+<figure class="code"><img src="aide/image9.png" alt="" loading="lazy"><figcaption><b>Étape 2 — Activer les codes 2D</b>Autorise la lecture des QR. Sans lui, vos étiquettes ne passent pas.</figcaption></figure>
+<figure class="code"><img src="aide/image10.png" alt="" loading="lazy"><figcaption><b>Étape 3 — Suffixe Entrée</b>Une Entrée après le code : l'application saute alors sur l'article scanné.</figcaption></figure>
+<figure class="code"><img src="aide/image11.png" alt="" loading="lazy"><figcaption><b>Étape 4 — Volume moyen</b>Bip audible sans être sonore. Le réglage d'usine est plus fort.</figcaption></figure>
+<figure class="code"><img src="aide/image12.png" alt="" loading="lazy"><figcaption><b>Étape 5 — Vibration activée</b>Le lecteur vibre à chaque lecture. Utile en chambre, où le bip dérange.</figcaption></figure>
+<figure class="code"><img src="aide/image13.png" alt="" loading="lazy"><figcaption><b>Étape 6 — Veille après 5 minutes</b>La batterie tient la journée ; la gâchette réveille le lecteur.</figcaption></figure>
+<figure class="code"><img src="aide/image14.png" alt="" loading="lazy"><figcaption><b>Étape 7 — Ajouter un préfixe</b>Ouvre la programmation du préfixe. Enchaînez immédiatement sur 8 puis 9.</figcaption></figure>
+<figure class="code"><img src="aide/image15.png" alt="" loading="lazy"><figcaption><b>Étape 8 — Caractère Entrée</b>C'est le préfixe choisi : une Entrée envoyée avant la référence.</figcaption></figure>
+<figure class="code"><img src="aide/image16.png" alt="" loading="lazy"><figcaption><b>Étape 9 — Enregistrer et quitter</b>Valide le préfixe. Sans cette étape, les étapes 7 et 8 sont perdues.</figcaption></figure>
+</div>
+<p>À quoi sert ce préfixe ? Sans lui, une référence scannée alors que le curseur se trouve dans une case quantité venait s'ajouter au nombre déjà saisi. L'Entrée envoyée avant la référence referme d'abord la case, puis la référence arrive dans la recherche. Vous pouvez ainsi scanner sans jamais surveiller où se trouve le curseur.</p>
+<h3 id="selon-lappareil-le-clavier">Selon l’appareil le clavier</h3>
+<p>Sur Windows, utilisez le clavier ou les boutons − et + pour saisir les quantités.</p>
+<div class="codes"><figure class="code"><img src="aide/image17.png" alt="" loading="lazy"><figcaption><b>Clavier français</b>Pour PC Windows. Sans lui, un scan de 15700 produit &amp;5700.</figcaption></figure>
+<figure class="code"><img src="aide/image18.png" alt="" loading="lazy"><figcaption><b>Clavier américain</b>Réglage à utiliser uniquement si adapté à votre douchette et à la configuration Windows. Consultez sa notice et testez une référence connue.</figcaption></figure>
+</div>
+<h3 id="selon-la-liaison">Selon la liaison</h3>
+<p>En USB filaire, rien à scanner : le câble suffit.</p>
+<div class="codes"><figure class="code"><img src="aide/image19.png" alt="" loading="lazy"><figcaption><b>Appairage Bluetooth</b>Réglage à utiliser uniquement si adapté à votre douchette et à la configuration Windows. Consultez sa notice et testez une référence connue.</figcaption></figure>
+<figure class="code"><img src="aide/image20.png" alt="" loading="lazy"><figcaption><b>Liaison sans fil 2,4 GHz</b>Pour poste fixe avec le petit récepteur USB. À scanner en premier.</figcaption></figure>
+<figure class="code"><img src="aide/image21.png" alt="" loading="lazy"><figcaption><b>Associer au récepteur</b>À scanner juste après le précédent, récepteur USB branché.</figcaption></figure>
+</div>
+<h3 id="en-cas-de-problème-1">En cas de problème</h3>
+<div class="codes"><figure class="code"><img src="aide/image22.png" alt="" loading="lazy"><figcaption><b>Réglages d'usine</b>Repart de zéro. Refaites ensuite la séquence des 9 codes, puis le clavier.</figcaption></figure>
+<figure class="code"><img src="aide/image23.png" alt="" loading="lazy"><figcaption><b>Niveau de batterie</b>Le lecteur écrit sa charge restante. Placez d'abord le curseur dans « Rempli par », puis effacez.</figcaption></figure>
+<figure class="code"><img src="aide/image24.png" alt="" loading="lazy"><figcaption><b>Transmission lente</b>Réglage à utiliser uniquement si adapté à votre douchette et à la configuration Windows. Consultez sa notice et testez une référence connue.</figcaption></figure>
+<figure class="code"><img src="aide/image25.png" alt="" loading="lazy"><figcaption><b>Ne jamais s'éteindre</b>Pour un inventaire complet sans mise en veille. Consomme davantage.</figcaption></figure>
+</div>
+<p>Le scan écrit des symboles — Le clavier ne correspond pas à l'appareil : voir « Selon l'appareil » ci-dessus.</p>
+<p>Rien ne se passe — Refaites la séquence des 9 codes : le suffixe Entrée manque probablement.</p>
+<p>Les QR ne passent plus — La lecture 2D a été désactivée : refaites la séquence (étape 2).</p>
+<p>La quantité se mélange à la référence — Le préfixe manque : refaites les étapes 7, 8 et 9.</p>
+<p>Des caractères manquent — Scannez « Transmission lente ».</p>
+<p>Plus rien ne fonctionne — Scannez « Réglages d'usine », puis reprenez la séquence complète.</p>
+<p>Sur Windows, utilisez le clavier ou les boutons − et + pour saisir les quantités.</p>
+<ul>
+<li></li>
+</ul>
+
+  </article>
+</main>
+
+<script>
+/* Retour vers la page qui a ouvert le mode d'emploi (?retour=…), sinon l'accueil. */
+(function(){
+  var retour = new URLSearchParams(location.search).get('retour') || '';
+  if(/^(index|Commande_[A-Za-z_]+)\.html$/.test(retour)) document.getElementById('aideRetour').setAttribute('href', retour);
+  document.getElementById('aideImprimer').addEventListener('click', function(){ window.print(); });
+})();
+</script>
+</body></html>

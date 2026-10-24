@@ -1,6 +1,6 @@
-﻿COMMANDES RÉANIMATION 2.7.3 — WINDOWS 10 / 11 64 BITS
+﻿COMMANDES RÉANIMATION 2.7.4 — WINDOWS 10 / 11 64 BITS
 
-1. Double-cliquez sur Commandes_Reanimation_Setup_2.7.3.exe.
+1. Double-cliquez sur Commandes_Reanimation_Setup_2.7.4.exe.
 2. Fermez l’application avant la mise à jour, puis suivez l'assistant en français. Aucun droit administrateur n'est requis.
 3. Ouvrez Commandes Réanimation depuis le Bureau ou le menu Démarrer.
 
@@ -13,6 +13,21 @@ catalogues modifiés et réglages du profil
 Microsoft Edge doit être installé. L'application s'ouvre dans une fenêtre
 Edge dédiée ; fermez-la avec la croix Windows : les sauvegardes programmées
 sont terminées avant la fermeture.
+
+Mode d'emploi
+- Dans l'application : bouton « Mode d'emploi » de l'accueil, ou lien en tête
+  de l'aide (?) de chaque module.
+- Version Word : menu Démarrer > Commandes Réanimation > Mode d'emploi (Word),
+  ou Mode_emploi_Commandes_Reanimation.docx dans le dossier d'installation.
+
+Nouveautés de la version 2.7.4
+- Bouton « Imprimer » renommé « Commander » dans les trois modules.
+- Bouton Commander fiabilisé : si la fenêtre d'impression ne s'ouvre pas, un
+  message l'indique et le comptage est conservé ; après l'impression,
+  l'application demande « Commande imprimée ? » (Oui : historique et remise à
+  zéro ; Non : comptage conservé) ; une copie PDF impossible à enregistrer ne
+  bloque plus la commande (« Commander quand même ») ; aucune attente sans fin.
+- Mode d'emploi illustré intégré à l'application et fourni au format Word.
 
 Nouveautés de la version 2.7.3
 - Installateur reconstruit : même emplacement, mêmes raccourcis, mêmes

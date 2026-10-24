@@ -97,6 +97,7 @@ Section "Application principale" SecApplication
 
   File "app.ico"
   File "INSTALLATION.txt"
+  File "../docs/Mode_emploi_Commandes_Reanimation.docx"
   File "${EXE}"
   ; Contenu de web/ uniquement (« File /r ../web » reprenait aussi tout
   ; autre dossier nommé « web », comme la copie de construction Android).
@@ -108,6 +109,7 @@ Section "Application principale" SecApplication
 
   CreateDirectory "$SMPROGRAMS\${NOM}"
   CreateShortCut "$SMPROGRAMS\${NOM}\${NOM}.lnk" "$INSTDIR\${EXE}" "" "$INSTDIR\app.ico" 0
+  CreateShortCut "$SMPROGRAMS\${NOM}\Mode d'emploi (Word).lnk" "$INSTDIR\Mode_emploi_Commandes_Reanimation.docx"
   CreateShortCut "$SMPROGRAMS\${NOM}\Désinstaller ${NOM}.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\app.ico" 0
 
   WriteRegStr HKCU "${CLE_DESINSTALLATION}" "DisplayName" "${NOM} ${VERSION}"
@@ -141,6 +143,7 @@ Section "Uninstall"
   Delete "$INSTDIR\CommandesReanimation*.exe"
   Delete "$INSTDIR\app.ico"
   Delete "$INSTDIR\INSTALLATION.txt"
+  Delete "$INSTDIR\Mode_emploi_Commandes_Reanimation.docx"
   Delete "$INSTDIR\uninstall.exe"
   RMDir "$INSTDIR"
   DeleteRegKey HKCU "${CLE_DESINSTALLATION}"

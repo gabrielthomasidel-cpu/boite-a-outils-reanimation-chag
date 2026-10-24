@@ -314,9 +314,10 @@ ${postImpression}
   </div>
   <div class="aide-contenu">
     <p class="aide-chapeau">Version Windows ${global.CommandesModules.VERSION}, ouverte dans une fenêtre dédiée Microsoft Edge. Catalogues et bibliothèques sont intégrés : l'application fonctionne hors connexion.</p>
+    <p><a class="lien-aide" href="Mode_emploi.html?retour=${M.page}">Mode d’emploi complet et illustré →</a></p>
 
     <h3>1. Avant de commencer</h3>
-    <p>Renseignez votre nom dans <b>Rempli par</b>. Il figure sur la commande ; sans lui, l'impression est refusée. Les derniers noms saisis sur ce poste sont proposés dans la liste.</p>
+    <p>Renseignez votre nom dans <b>Rempli par</b>. Il figure sur la commande ; sans lui, la commande est refusée. Les derniers noms saisis sur ce poste sont proposés dans la liste.</p>
 
     <h3>2. Compter le stock</h3>
     <p><b>Avec la douchette</b> — scannez l'étiquette du casier : l'article s'affiche seul, le curseur se place dans la case quantité. Tapez le nombre d'unités en stock, appuyez sur <b>Entrée</b>, puis scannez le suivant.</p>
