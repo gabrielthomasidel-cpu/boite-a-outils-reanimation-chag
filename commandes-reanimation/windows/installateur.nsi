@@ -5,7 +5,7 @@
 ; ou « makensis windows\installateur.nsi » sous Windows.
 ;
 ; Installation par utilisateur, sans droits administrateur, au même
-; emplacement et avec la même clé de désinstallation que les versions 2.x :
+; emplacement que les versions 2.x et avec la clé de désinstallation de la 2.7.3 :
 ; une version antérieure est remplacée en place. Le profil Edge de
 ; l'application (%LOCALAPPDATA%\CommandesReanimationWin64\Profil) et le
 ; dossier C:\commandes ne sont jamais touchés, ni à l'installation ni à la
@@ -15,12 +15,14 @@ Unicode true
 SetCompressor /SOLID lzma
 
 !ifndef VERSION
-  !define VERSION "2.7.0"
+  !define VERSION "2.7.4"
 !endif
 !define NOM "Commandes Réanimation"
 !define EDITEUR "Gabriel THOMAS"
 !define EXE "CommandesReanimation.exe"
-!define CLE_DESINSTALLATION "Software\Microsoft\Windows\CurrentVersion\Uninstall\{BD46B7EC-D4A7-45CE-A4F1-2A0F565D45C7}_is1"
+; Clé de la 2.7.3 ; celle des versions 2.0 à 2.7.0 est retirée à l'installation.
+!define CLE_DESINSTALLATION "Software\Microsoft\Windows\CurrentVersion\Uninstall\CommandesReanimationWin64"
+!define ANCIENNE_CLE "Software\Microsoft\Windows\CurrentVersion\Uninstall\{BD46B7EC-D4A7-45CE-A4F1-2A0F565D45C7}_is1"
 !ifndef SORTIE
   !define SORTIE "../dist/Commandes_Reanimation_Setup_${VERSION}.exe"
 !endif
@@ -67,9 +69,25 @@ VIAddVersionKey /LANG=1036 "LegalCopyright" "${EDITEUR}"
 
 !insertmacro MUI_LANGUAGE "French"
 
+; Le lanceur reste actif tant que l'application est ouverte : son fichier est
+; alors verrouillé et ne peut pas être remplacé.
+!macro VerifierApplicationFermee ID
+  verifier_${ID}:
+  IfFileExists "$INSTDIR\${EXE}" 0 libre_${ID}
+  ClearErrors
+  FileOpen $0 "$INSTDIR\${EXE}" a
+  IfErrors 0 ouvert_${ID}
+  MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION "${NOM} est ouvert.$\r$\n$\r$\nFermez la fenêtre de l'application avec la croix Windows (les sauvegardes programmées se terminent), puis cliquez sur Réessayer." IDRETRY verifier_${ID}
+  Abort
+  ouvert_${ID}:
+  FileClose $0
+  libre_${ID}:
+!macroend
+
 Section "Application principale" SecApplication
   SectionIn RO
   SetOutPath "$INSTDIR"
+  !insertmacro VerifierApplicationFermee inst
 
   ; Mise à jour propre : les fichiers d'une version précédente sont retirés
   ; avant la copie, pour qu'aucun ancien script ne subsiste.
@@ -102,6 +120,7 @@ Section "Application principale" SecApplication
   WriteRegDWORD HKCU "${CLE_DESINSTALLATION}" "NoModify" 1
   WriteRegDWORD HKCU "${CLE_DESINSTALLATION}" "NoRepair" 1
   WriteRegDWORD HKCU "${CLE_DESINSTALLATION}" "EstimatedSize" 4200
+  DeleteRegKey HKCU "${ANCIENNE_CLE}"
 SectionEnd
 
 Section "Raccourci sur le Bureau" SecBureau
@@ -114,6 +133,7 @@ SectionEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section "Uninstall"
+  !insertmacro VerifierApplicationFermee desinst
   ; Le profil Edge et C:\commandes sont volontairement conservés.
   Delete "$DESKTOP\${NOM}.lnk"
   RMDir /r "$SMPROGRAMS\${NOM}"
@@ -124,4 +144,5 @@ Section "Uninstall"
   Delete "$INSTDIR\uninstall.exe"
   RMDir "$INSTDIR"
   DeleteRegKey HKCU "${CLE_DESINSTALLATION}"
+  DeleteRegKey HKCU "${ANCIENNE_CLE}"
 SectionEnd

@@ -725,6 +725,18 @@ function commandesAnalysees(){
   return n > 0 ? toutes.slice(0, n) : toutes;
 }
 
+/* Couleur de la dotation selon son écart avec la quantité moyenne commandée :
+   vert jusqu'à +15 %, orange au-delà de +15 %, rouge au-delà de +25 %.
+   Sans dotation chiffrée (libre, absente) ou sans moyenne : pas de couleur. */
+const SEUIL_DOTATION_ORANGE = 0.15, SEUIL_DOTATION_ROUGE = 0.25;
+function classeDotation(dotation, moyenne){
+  if(!(dotation > 0) || !(moyenne > 0)) return '';
+  const ecart = (dotation - moyenne) / moyenne;
+  if(ecart > SEUIL_DOTATION_ROUGE) return ' dot-rouge';
+  if(ecart > SEUIL_DOTATION_ORANGE) return ' dot-orange';
+  return ' dot-vert';
+}
+
 function syntheseHistorique(commandes){
   const parArticle = new Map();
   commandes.forEach(cmd=>{
@@ -760,13 +772,14 @@ function renderHistorique(){
   if(histOnglet === 'synthese'){
     const lignes = syntheseHistorique(commandes);
     contenu.innerHTML = `<p class="hist-intro">Analyse de <b>${commandes.length}</b> commande(s), du ${escapeHtml(dateCourte(commandes[commandes.length-1].date))} au ${escapeHtml(dateCourte(commandes[0].date))}. Les articles commandés à presque chaque cycle sont signalés : leur dotation mérite peut-être d’être revue.</p>
+      <p class="hist-legende"><span class="dot-vert">Dotation</span> ≤ 15 % au-dessus de la quantité moyenne commandée · <span class="dot-orange">Dotation</span> &gt; 15 % · <span class="dot-rouge">Dotation</span> &gt; 25 %</p>
       <div class="table-scroll"><table class="hist-table">
         <thead><tr><th>Article</th><th>Réf</th><th class="num">Commandé</th><th class="num">Qté moyenne</th><th class="num">Qté max</th><th class="num">Dotation</th><th>Remarque</th></tr></thead>
         <tbody>${lignes.map(l=>`<tr class="${l.conseil ? 'hist-signal' : ''}">
           <td>${escapeHtml(nomAffiche(l.denom))}</td><td>${escapeHtml(l.ref)}</td>
           <td class="num">${l.fois} / ${commandes.length}<span class="freq-bar" style="--f:${Math.round(l.frequence*100)}%"></span></td>
           <td class="num">${l.moyenne.toLocaleString('fr-FR', { maximumFractionDigits: 1 })}</td>
-          <td class="num">${l.max}</td><td class="num">${l.dotation == null ? '—' : l.dotation}</td>
+          <td class="num">${l.max}</td><td class="num${classeDotation(l.dotation, l.moyenne)}">${l.dotation == null ? '—' : l.dotation}</td>
           <td>${escapeHtml(l.conseil)}</td></tr>`).join('')}</tbody>
       </table></div>`;
     return;

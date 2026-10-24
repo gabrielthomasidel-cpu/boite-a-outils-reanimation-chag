@@ -11,8 +11,8 @@ test.describe('Chargement', () => {
     });
   }
 
-  test('les catalogues livrés gardent leur empreinte 2.6 (catalogues modifiés conservés)', async ({ page }) => {
-    const attendu = { solutes: '24-lfxkfu', materiel_reanimation: '319-1216wn2', aide_soignant: '80-1cygemw' };
+  test('les catalogues livrés gardent leur empreinte (Magasin : catalogue 2.7.3)', async ({ page }) => {
+    const attendu = { solutes: '24-lfxkfu', materiel_reanimation: '319-1216wn2', aide_soignant: '92-se9ba7' };
     for (const [module, empreinte] of Object.entries(attendu)) {
       await ouvrir(page, module);
       expect(await page.evaluate(() => EMPREINTE_LIVREE)).toBe(empreinte);

@@ -229,7 +229,7 @@ ${postImpression}
     <div class="form-grid">
       ${champReference}
       <label class="full">Dénomination <input type="text" id="fDenom"></label>
-      <label class="full">Nom Pharmacie <input type="text" id="fNom"></label>
+      <label class="full">${module.id === 'aide_soignant' ? 'Nom Magasin' : 'Nom Pharmacie'} <input type="text" id="fNom"></label>
       <label>Dotation <input type="number" id="fDotation" min="0" step="1" inputmode="numeric"></label>
       <label>Localisation <input type="text" id="fLoc" list="locList"></label>
       ${champType}
@@ -280,7 +280,7 @@ ${postImpression}
     <p>Ils apparaissent <b>en rouge</b>. Certains disposent d'un seuil réglé par l'administrateur : tant que le stock reste au-dessus, rien n'est commandé ; dès qu'il descend au seuil, la quantité prévue est commandée.${M.doublerQuantiteSiRupture ? ' Lorsqu’une quantité fixe est configurée, elle est doublée si le stock saisi est égal à 0.' : ''} Comptez normalement, vous n'avez rien de particulier à faire.</p>`
       : `
     <h3>4. Articles sans dotation</h3>
-    <p>Pour un article à dotation nulle, saisissez directement la quantité à commander. Le catalogue Magasin n'utilise pas de champ Type : la localisation organise le parcours et l'impression.</p>`;
+    <p>Pour un article à dotation nulle, saisissez directement la quantité à commander. Le champ Type est libre : les types déjà saisis sont proposés pour les autres articles. La localisation organise le parcours de comptage ; la commande imprimée est regroupée par type, puis par nom. Les articles sans type sont regroupés sous « Sans type ».</p>`;
     const sansDotation = M.masquerSansDotation
       ? '<p><b>Articles sans dotation</b> — ils sont masqués au démarrage pour alléger le comptage. Le bouton <b>Afficher sans dotation</b> les fait apparaître ; il devient <b>Masquer sans dotation</b> lorsqu’ils sont visibles.</p>' : '';
     const impression = M.impressionEnDeuxLots
@@ -298,7 +298,7 @@ ${postImpression}
         <tr><td><b>Code-barres</b></td><td>Code lu pendant le comptage et imprimé en Code 128 sur les étiquettes, sans préfixe.</td></tr>`
           : '<tr><td><b>Référence</b></td><td>Identifiant pharmacie, encodé dans le QR. Vous pouvez la saisir ou la scanner dans la fiche.</td></tr>'}
         <tr><td><b>Dénomination</b></td><td>Nom utilisé pendant le comptage et sur les étiquettes.</td></tr>
-        <tr><td><b>Nom Pharmacie</b></td><td>Nom repris sur la commande destinée à la pharmacie.</td></tr>
+        <tr><td><b>${M.id === 'aide_soignant' ? 'Nom Magasin' : 'Nom Pharmacie'}</b></td><td>Nom repris sur la commande destinée ${M.id === 'aide_soignant' ? 'au magasin' : 'à la pharmacie'}.</td></tr>
         <tr><td><b>Localisation</b></td><td>Zone de rangement : détermine l'ordre de parcours.</td></tr>
         ${M.type ? '<tr><td><b>Type</b></td><td>Détermine le tri à l\'impression. Saisir « Hors Stock » bascule l\'article en rouge et sur une commande séparée.</td></tr>' : ''}
         ${M.laboratoire ? '<tr><td><b>Laboratoire</b></td><td>Facultatif. Regroupe et trie la commande Hors Stock ; les valeurs non renseignées sont placées à la fin.</td></tr>' : ''}

@@ -1,7 +1,7 @@
-﻿COMMANDES RÉANIMATION 2.7.0 — WINDOWS 10 / 11 64 BITS
+﻿COMMANDES RÉANIMATION 2.7.3 — WINDOWS 10 / 11 64 BITS
 
-1. Double-cliquez sur Commandes_Reanimation_Setup_2.7.0.exe.
-2. Suivez l'assistant en français. Aucun droit administrateur n'est requis.
+1. Double-cliquez sur Commandes_Reanimation_Setup_2.7.3.exe.
+2. Fermez l’application avant la mise à jour, puis suivez l'assistant en français. Aucun droit administrateur n'est requis.
 3. Ouvrez Commandes Réanimation depuis le Bureau ou le menu Démarrer.
 
 Mise à jour depuis une version 2.x : installez simplement par-dessus.
@@ -14,7 +14,28 @@ Microsoft Edge doit être installé. L'application s'ouvre dans une fenêtre
 Edge dédiée ; fermez-la avec la croix Windows : les sauvegardes programmées
 sont terminées avant la fermeture.
 
-Nouveautés de la version 2.7.0
+Nouveautés de la version 2.7.3
+- Installateur reconstruit : même emplacement, mêmes raccourcis, mêmes
+  données conservées. Si l'application est ouverte, l'installateur demande de
+  la fermer avant de copier les fichiers.
+
+Nouveautés de la version 2.7.2
+- Installateur : le nom « Commandes Réanimation » s'affiche avec ses accents.
+- Magasin : liste vierge (mode dégradé) classée par type puis nom magasin ;
+  catalogue Magasin mis à jour (92 articles, avec leurs types).
+- Synthèse par article de l'historique : dotation colorée selon l'écart avec
+  la quantité moyenne commandée (vert jusqu'à +15 %, orange au-delà de +15 %,
+  rouge au-delà de +25 %).
+- Ouverture : la fenêtre est agrandie à la zone de travail de l'écran, sans
+  plein écran (barre des tâches visible).
+
+Nouveautés de la version 2.7.1
+- Magasin : Nom Pharmacie devient Nom Magasin.
+- Champ Type libre, avec suggestions issues des articles déjà enregistrés.
+- Commande Magasin imprimée par type, puis nom magasin ; groupe Sans type
+  pour les articles non renseignés. Les localisations restent conservées.
+
+Fonctionnalités conservées de la version 2.7.0
 - Code commun aux trois modules : une correction s'applique partout.
 - Catalogues livrés séparés des pages ; catalogue modifié, historique et mot
   de passe publiés automatiquement dans C:\commandes\<module>\Application

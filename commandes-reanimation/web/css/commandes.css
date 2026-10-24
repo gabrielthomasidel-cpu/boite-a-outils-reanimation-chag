@@ -14,7 +14,7 @@
   --accent:#3aa3ae; --accent-strong:#5cc3cd; --accent-ink:#0b1f23; --accent-soft:#18363b;
   --ok:#8fd0a8; --ok-bg:#1b3328; --ok-line:#3d6b52;
   --warn:#f0c674; --warn-bg:#3a3020; --warn-line:#7a6232;
-  --danger:#f0a097; --danger-bg:#3d2527; --danger-line:#7c4643;
+  --danger:#f0a097; --dot-vert:#8fd0a8; --dot-orange:#ff9f43; --dot-rouge:#ff6b5e; --danger-bg:#3d2527; --danger-line:#7c4643;
   --neutral:#b6c3ca; --neutral-bg:#24313a;
   --hs:#ff8f86;
   --radius:12px; --radius-sm:8px;
@@ -32,7 +32,7 @@
   --accent:#0b7c88; --accent-strong:#075f68; --accent-ink:#ffffff; --accent-soft:#e1f2f4;
   --ok:#1f6e43; --ok-bg:#e3f3e9; --ok-line:#9fcfb2;
   --warn:#7a4f00; --warn-bg:#fdf0d3; --warn-line:#e3c27a;
-  --danger:#a3301e; --danger-bg:#fbe8e4; --danger-line:#e6b4ab;
+  --danger:#a3301e; --dot-vert:#1f6e43; --dot-orange:#c25e00; --dot-rouge:#c62828; --danger-bg:#fbe8e4; --danger-line:#e6b4ab;
   --neutral:#4f6272; --neutral-bg:#eef2f5;
   --hs:#b3261e;
   --shadow:0 1px 2px #1c2e3d0d, 0 4px 14px #1c2e3d0f;
@@ -536,3 +536,8 @@ body.panel-open{ overflow:hidden; }
 .affichage-simplifie #vueSelecteur,
 .affichage-simplifie #filterSelectRow,
 .affichage-simplifie #btnSansDotation{ display:none !important; }
+
+.dot-vert{ color:var(--dot-vert); font-weight:700; }
+.dot-orange{ color:var(--dot-orange); font-weight:700; }
+.dot-rouge{ color:var(--dot-rouge); font-weight:700; }
+.hist-legende{ font-size:12.5px; margin:0 0 10px; }

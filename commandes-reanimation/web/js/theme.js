@@ -37,3 +37,25 @@
   window.addEventListener('pageshow', () => apply(read()));
   window.addEventListener('storage', e => { if (e.key === key) apply(read()); });
 })();
+
+/* Fenêtre agrandie à la zone de travail de l'écran (barre des tâches visible),
+   sans passer en plein écran. Tentée une seule fois par fenêtre : un
+   redimensionnement manuel ultérieur n'est pas contrarié. Sans effet sur
+   Android et dans un onglet de navigateur ordinaire (refus du navigateur). */
+(function () {
+  'use strict';
+  if (window.AndroidBridge || window.self !== window.top) return;
+  var cle = 'fenetre-agrandie';
+  try { if (sessionStorage.getItem(cle)) return; } catch (e) {}
+  function agrandir() {
+    try {
+      var s = window.screen;
+      var l = s.availLeft || 0, t = s.availTop || 0;
+      if (s.availWidth - window.outerWidth < 16 && s.availHeight - window.outerHeight < 16) return;
+      window.moveTo(l, t);
+      window.resizeTo(s.availWidth, s.availHeight);
+    } catch (e) {}
+  }
+  function lancer() { agrandir(); setTimeout(agrandir, 400); try { sessionStorage.setItem(cle, '1'); } catch (e) {} }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', lancer); else lancer();
+})();

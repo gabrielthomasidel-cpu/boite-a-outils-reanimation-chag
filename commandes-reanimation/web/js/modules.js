@@ -13,7 +13,7 @@
 (function (global) {
   'use strict';
 
-  const VERSION = '2.7.0';
+  const VERSION = '2.7.4';
 
   const MODULES = Object.freeze({
     solutes: Object.freeze({
@@ -86,14 +86,14 @@
       baseDossier: 'commande-aide-soignant-fs',
       prefixeReference: '',
       codeBarres: false,
-      type: false,
+      type: true,
       laboratoire: false,
       nomPharmacieRequis: false,
       masquerSansDotation: false,
       doublerQuantiteSiRupture: false,
       impressionEnDeuxLots: false,
       rappelApresImpression: false,
-      regroupementImpression: 'localisation',
+      regroupementImpression: 'type',
       titreImpression: 'Commande Magasin',
       racineFichiers: 'Commande_Magasin',
       racineCatalogue: 'Catalogue_Magasin',
@@ -119,7 +119,7 @@
   /* Noms des fichiers produits : Nature_Module[_horodatage], le module
      portant le nom de son dossier (DM_Pharmacie, Solutes, Magasin). */
   function fichierPoste(id) { return 'Donnees_' + MODULES[id].nomFichier + '.js'; }
-  /* Nom utilisé jusqu'à la version 2.7.0 initiale, relu pour la reprise. */
+  /* Nom utilisé jusqu'à la version 2.7.1 initiale, relu pour la reprise. */
   function ancienFichierPoste(id) { return 'donnees-' + id + '.js'; }
 
   /* Charge, s'il existe, le fichier de données publié sur le poste
