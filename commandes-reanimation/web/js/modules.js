@@ -13,7 +13,7 @@
 (function (global) {
   'use strict';
 
-  const VERSION = '2.7.4';
+  const VERSION = '2.7.5';
 
   const MODULES = Object.freeze({
     solutes: Object.freeze({
@@ -87,6 +87,10 @@
       prefixeReference: '',
       codeBarres: false,
       type: true,
+      /* Le champ « type » du catalogue sert d'emplacement dans le magasin. */
+      libelleType: 'Localisation magasin',
+      libelleTypeAucun: 'Sans localisation magasin',
+      libelleTypeTous: 'Toutes les localisations magasin',
       laboratoire: false,
       nomPharmacieRequis: false,
       masquerSansDotation: false,

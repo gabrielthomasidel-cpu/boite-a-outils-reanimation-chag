@@ -599,7 +599,7 @@ function catalogItemFromObject(source, index){
   const item = {
     id: index, ref, nom, denom,
     loc: String(ownValue(source, ['localisation', 'loc'], '') || '').trim(),
-    type: MODULE.type ? String(ownValue(source, ['type'], '') || '').trim() : '',
+    type: MODULE.type ? String(ownValue(source, ['type', 'localisation_magasin', 'localisation magasin'], '') || '').trim() : '',
     dotation: csvQuantity(ownValue(source, ['dotation'], 0), 0, `Dotation (ligne ${index + 1})`),
     seuil: csvQuantity(ownValue(source, ['seuil'], null), null, `Seuil (ligne ${index + 1})`),
     qteCommande: csvQuantity(ownValue(source, ['quantite_commande', 'qteCommande'], null), null, `Quantité de commande (ligne ${index + 1})`),

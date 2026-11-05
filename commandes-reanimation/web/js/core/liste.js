@@ -158,7 +158,7 @@ function fillSelect(el, values, allLabel){
 function refreshFilterOptions(){
   const types = getTypes();
   const locations = getLocations();
-  typeFilterVal = fillSelect(typeFilterEl, types, 'Tous les types');
+  typeFilterVal = fillSelect(typeFilterEl, types, MODULE.libelleTypeTous || 'Tous les types');
   locFilterVal = fillSelect(locFilterEl, locations, 'Toutes les zones');
   typeFilterEl.classList.toggle('is-hidden', types.length === 0);
   locFilterEl.classList.toggle('is-hidden', locations.length <= 1);
@@ -294,7 +294,7 @@ function renderList(){
     }
     if(sousGroupe && it.type !== curType){
       curType = it.type;
-      html += `<div class="group-title subgroup-title${isHorsStockStr(curType) ? ' hors-stock-title' : ''}">${escapeHtml(curType || 'Sans type')}</div>`;
+      html += `<div class="group-title subgroup-title${isHorsStockStr(curType) ? ' hors-stock-title' : ''}">${escapeHtml(curType || MODULE.libelleTypeAucun || 'Sans type')}</div>`;
     }
     html += htmlArticle(it);
   });

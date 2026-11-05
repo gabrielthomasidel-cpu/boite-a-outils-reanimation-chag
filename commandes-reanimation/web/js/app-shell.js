@@ -102,7 +102,7 @@
   </div>
   <div class="filter-line" id="filterSelectRow">
     <select id="locFilter" aria-label="Filtrer par zone"><option value="">Toutes les zones</option></select>
-    <select id="typeFilter" aria-label="Filtrer par type"${module.type ? '' : ' hidden'}><option value="">Tous les types</option></select>
+    <select id="typeFilter" aria-label="Filtrer par ${(module.libelleType || 'type').toLowerCase()}"${module.type ? '' : ' hidden'}><option value="">${module.libelleTypeTous || 'Tous les types'}</option></select>
   </div>
   <div class="summary-bar">
     <span id="sumCounted">0 / 0 comptés</span>
@@ -138,7 +138,7 @@
         <small class="form-hint">Identifiant pharmacie, encodé dans le QR de l'étiquette. Douchette : scannez directement dans ce champ.</small>
       </label>`;
     const champType = module.type
-      ? '<label>Type <input type="text" id="fType" list="typeList"></label>'
+      ? `<label>${module.libelleType || 'Type'} <input type="text" id="fType" list="typeList"></label>`
       : '<input type="hidden" id="fType" value="">';
     const champLabo = module.laboratoire
       ? `<label class="full">Laboratoire <input type="text" id="fLaboratoire" list="laboratoireList" placeholder="facultatif">
@@ -280,12 +280,12 @@ ${postImpression}
     <p>Ils apparaissent <b>en rouge</b>. Certains disposent d'un seuil réglé par l'administrateur : tant que le stock reste au-dessus, rien n'est commandé ; dès qu'il descend au seuil, la quantité prévue est commandée.${M.doublerQuantiteSiRupture ? ' Lorsqu’une quantité fixe est configurée, elle est doublée si le stock saisi est égal à 0.' : ''} Comptez normalement, vous n'avez rien de particulier à faire.</p>`
       : `
     <h3>4. Articles sans dotation</h3>
-    <p>Pour un article à dotation nulle, saisissez directement la quantité à commander. Le champ Type est libre : les types déjà saisis sont proposés pour les autres articles. La localisation organise le parcours de comptage ; la commande imprimée est regroupée par type, puis par nom. Les articles sans type sont regroupés sous « Sans type ».</p>`;
+    <p>Pour un article à dotation nulle, saisissez directement la quantité à commander. Le champ Localisation magasin est libre : les localisations déjà saisies sont proposées pour les autres articles. La localisation (zone du service) organise le parcours de comptage ; la commande imprimée est classée par localisation magasin, dans l’ordre alphabétique et numérique (A2 avant A10), puis par nom. Les articles sans localisation magasin sont regroupés à la fin sous « Sans localisation magasin ».</p>`;
     const sansDotation = M.masquerSansDotation
       ? '<p><b>Articles sans dotation</b> — ils sont masqués au démarrage pour alléger le comptage. Le bouton <b>Afficher sans dotation</b> les fait apparaître ; il devient <b>Masquer sans dotation</b> lorsqu’ils sont visibles.</p>' : '';
     const impression = M.impressionEnDeuxLots
       ? '<p><b>Commander</b> lance deux travaux d’impression distincts et successifs : les dispositifs médicaux d’abord, puis le Hors Stock regroupé par laboratoire. Validez chaque fenêtre d’impression. Un rappel final indique de ne pas solidariser les deux commandes.</p>'
-      : `<p><b>Commander</b> imprime la commande : le document ne reprend que les articles à commander, ${M.regroupementImpression === 'localisation' ? 'classés par localisation puis désignation' : 'triés par type ; les articles Hors Stock sortent sur une feuille séparée'}.</p>`;
+      : `<p><b>Commander</b> imprime la commande : le document ne reprend que les articles à commander, ${M.regroupementImpression === 'localisation' ? 'classés par localisation puis désignation' : (M.id === 'aide_soignant' ? 'classés par localisation magasin (ordre alphabétique et numérique) puis nom magasin' : 'triés par type ; les articles Hors Stock sortent sur une feuille séparée')}.</p>`;
     const etiquettes = M.codeBarres
       ? `<h3>Étiquettes code-barres</h3>
       <p>Bouton <b>Étiquettes code-barres</b> : le Code 128 contient le code-barres de l'article ; la référence de commande figure en petit. Formats <b>Standard 27 étiquettes</b> (3 × 9) ou <b>Avery plastifié</b> (L7060, 21 étiquettes de 63,5 × 38,1 mm).</p>`
@@ -300,7 +300,7 @@ ${postImpression}
         <tr><td><b>Dénomination</b></td><td>Nom utilisé pendant le comptage et sur les étiquettes.</td></tr>
         <tr><td><b>${M.id === 'aide_soignant' ? 'Nom Magasin' : 'Nom Pharmacie'}</b></td><td>Nom repris sur la commande destinée ${M.id === 'aide_soignant' ? 'au magasin' : 'à la pharmacie'}.</td></tr>
         <tr><td><b>Localisation</b></td><td>Zone de rangement : détermine l'ordre de parcours.</td></tr>
-        ${M.type ? '<tr><td><b>Type</b></td><td>Détermine le tri à l\'impression. Saisir « Hors Stock » bascule l\'article en rouge et sur une commande séparée.</td></tr>' : ''}
+        ${M.type ? (M.libelleType ? `<tr><td><b>${M.libelleType}</b></td><td>Emplacement de l\'article dans le magasin : détermine l\'ordre de la commande imprimée (alphabétique et numérique).</td></tr>` : '<tr><td><b>Type</b></td><td>Détermine le tri à l\'impression. Saisir « Hors Stock » bascule l\'article en rouge et sur une commande séparée.</td></tr>') : ''}
         ${M.laboratoire ? '<tr><td><b>Laboratoire</b></td><td>Facultatif. Regroupe et trie la commande Hors Stock ; les valeurs non renseignées sont placées à la fin.</td></tr>' : ''}
         <tr><td><b>Dotation</b></td><td>Stock cible. À 0, l'article passe en saisie libre${M.masquerSansDotation ? ' et reste masqué par défaut' : ''}.</td></tr>
         <tr><td><b>Seuil</b></td><td>Facultatif, sur tout article (voir ci-dessous).</td></tr>

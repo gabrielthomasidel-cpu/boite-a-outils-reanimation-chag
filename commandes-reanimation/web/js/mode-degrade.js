@@ -4,18 +4,20 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const compare = (a,b) => String(a || '').localeCompare(String(b || ''),'fr',{numeric:true});
   const title = document.querySelector('.masthead h1').textContent.trim();
-  /* Module Magasin : liste vierge classée par TYPE puis nom magasin (et non
-     par localisation) ; le filtre porte alors sur le type. */
+  /* Module Magasin : liste vierge classée par localisation magasin (champ
+     type, ordre alphabétique et numérique, non renseignés en dernier) puis
+     nom magasin ; le filtre porte alors sur la localisation magasin. */
   const parType = !!(window.MODULE && MODULE.id === 'aide_soignant');
-  const cle = it => parType ? (String(it.type || '').trim() || 'Sans type') : (it.loc || 'Sans localisation');
-  const libCle = parType ? 'Type' : 'Zone';
-  const libToutes = parType ? 'Tous les types' : 'Toutes les zones';
+  const cle = it => parType ? (String(it.type || '').trim() || 'Sans localisation magasin') : (it.loc || 'Sans localisation');
+  const libCle = parType ? 'Localisation magasin' : 'Zone';
+  const libToutes = parType ? 'Toutes les localisations magasin' : 'Toutes les zones';
+  const compareType = (a,b) => (!String(a || '').trim() - !String(b || '').trim()) || compare(a,b);
   function buildDocument(zone = '', list = 'pharmacie') {
     if (typeof window.materielPapier === 'function') return window.materielPapier(zone, list === 'hors-stock');
     const nomTri = it => parType ? (it.nom || it.denom) : (it.denom || it.nom);
     const selected = items.filter(it => !zone || cle(it) === zone)
       .slice().sort(parType
-        ? (a,b) => compare(a.type,b.type) || compare(nomTri(a),nomTri(b)) || compare(a.ref,b.ref)
+        ? (a,b) => compareType(a.type,b.type) || compare(nomTri(a),nomTri(b)) || compare(a.ref,b.ref)
         : (a,b) => compare(a.loc,b.loc) || compare(a.type,b.type) || compare(nomTri(a),nomTri(b)));
     const stamp = new Date().toLocaleString('fr-FR');
     let lastGroup = null;
@@ -41,7 +43,7 @@
   document.querySelector('.action-bar').insertBefore(button,document.getElementById('btnPrint'));
   const dialog=document.createElement('dialog');
   dialog.id='modeDegradeDlg'; dialog.setAttribute('aria-labelledby','modeDegradeTitle');
-  dialog.innerHTML=`<div class="dlg-body"><h2 id="modeDegradeTitle">Commande manuelle sur papier</h2><p>Imprimez une liste vierge ou conservez-la en PDF avant une panne. Les quantités et la signature seront remplies à la main.</p><div class="form-grid"><label class="full">${libCle} à imprimer<select id="paperZone"></select></label></div><p id="paperCount" aria-live="polite"></p><p>La liste inclut tous les articles ${parType ? 'du type choisi' : 'de la zone'}, même ceux déjà comptés ou masqués par une recherche. La commande en cours reste conservée.</p><div class="dlg-actions"><button type="button" class="ghost" id="paperCancel">Annuler</button><button type="button" id="paperOpen" class="primary">Ouvrir la liste</button></div><p id="paperError" role="alert"></p></div>`;
+  dialog.innerHTML=`<div class="dlg-body"><h2 id="modeDegradeTitle">Commande manuelle sur papier</h2><p>Imprimez une liste vierge ou conservez-la en PDF avant une panne. Les quantités et la signature seront remplies à la main.</p><div class="form-grid"><label class="full">${libCle} à imprimer<select id="paperZone"></select></label></div><p id="paperCount" aria-live="polite"></p><p>La liste inclut tous les articles ${parType ? 'de la localisation magasin choisie' : 'de la zone'}, même ceux déjà comptés ou masqués par une recherche. La commande en cours reste conservée.</p><div class="dlg-actions"><button type="button" class="ghost" id="paperCancel">Annuler</button><button type="button" id="paperOpen" class="primary">Ouvrir la liste</button></div><p id="paperError" role="alert"></p></div>`;
   document.body.append(dialog);
   const select=dialog.querySelector('select');
   const material = typeof window.materielPapier === 'function';
@@ -52,7 +54,7 @@
   const listSelect=dialog.querySelector('#paperList');
   const update=()=> { const n=items.filter(it=>(!select.value || cle(it)===select.value) && (!material || isHorsStock(it)===(listSelect.value==='hors-stock'))).length; document.getElementById('paperCount').textContent=n+' article(s) dans la liste vierge.'; document.getElementById('paperOpen').disabled=n===0; };
   button.addEventListener('click',()=>{
-    select.innerHTML=`<option value="">${libToutes}</option>`+[...new Set(items.map(cle))].sort(compare).map(loc=>`<option value="${esc(loc)}">${esc(loc)}</option>`).join('');
+    select.innerHTML=`<option value="">${libToutes}</option>`+[...new Set(items.map(cle))].sort(parType ? (a,b) => (a === 'Sans localisation magasin') - (b === 'Sans localisation magasin') || compare(a,b) : compare).map(loc=>`<option value="${esc(loc)}">${esc(loc)}</option>`).join('');
     document.getElementById('paperError').textContent=''; update(); dialog.showModal();
   });
   select.addEventListener('change',update);
