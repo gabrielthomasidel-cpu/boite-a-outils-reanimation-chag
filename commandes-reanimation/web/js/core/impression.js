@@ -4,17 +4,13 @@
 
 /* ============ Groupes d'impression ============
    Commande courante : par TYPE, comme la macro « impression » du classeur
-   d'origine ; Magasin : par localisation magasin (champ type), ordre
-   alphabétique et numérique, articles non renseignés en dernier. Hors Stock : feuille ou
+   d'origine ; Magasin : par localisation magasin (champ type), dans l'ordre
+   de cmpLocalisationMagasin (A pair, A impair, B pair…, vides, Cuisine). Hors Stock : feuille ou
    travail séparé, par LABORATOIRE lorsque le module le gère. */
 function trierImpression(a, b){
-  if(MODULE.id === 'aide_soignant') return cmpVidesEnDernier(a.type, b.type) || cmp(nomImprime(a), nomImprime(b)) || cmp(a.ref, b.ref);
+  if(MODULE.id === 'aide_soignant') return cmpLocalisationMagasin(a.type, b.type) || cmp(nomImprime(a), nomImprime(b)) || cmp(a.ref, b.ref);
   if(MODULE.regroupementImpression === 'localisation') return cmp(a.loc, b.loc) || cmp(a.denom, b.denom);
   return cmp(a.type, b.type) || cmp(a.loc, b.loc) || cmp(a.denom, b.denom);
-}
-function cmpVidesEnDernier(a, b){
-  const va = String(a || '').trim(), vb = String(b || '').trim();
-  return (!va - !vb) || cmp(va, vb);
 }
 function buildPrintGroups(){
   const aCommander = items.filter(it => commandeOf(it) > 0);
@@ -40,7 +36,7 @@ function nomImprime(it){ return it.nom || it.denom; }
 const TITRE_NORMAL = `${MODULE.titreImpression} — Service Réanimation`;
 const TITRE_HORS_STOCK = `${MODULE.titreImpressionHorsStock || MODULE.titreImpression + ' — Hors Stock'} — Service Réanimation`;
 const NOTE_NORMAL = MODULE.id === 'aide_soignant'
-  ? 'Tri d’impression : par LOCALISATION MAGASIN (alphabétique et numérique) puis nom magasin — articles non localisés en dernier'
+  ? 'Tri d’impression : par LOCALISATION MAGASIN (A pair, A impair, B pair…) puis nom magasin — sans localisation magasin, puis Cuisine, en dernier'
   : MODULE.regroupementImpression === 'localisation'
   ? 'Tri d\'impression : par LOCALISATION puis désignation'
   : 'Tri d\'impression : par TYPE (ordre croissant), conforme à la macro « impression » du classeur d\'origine';
@@ -502,7 +498,7 @@ function recapitulatifImpressionHtml(){
       ? '<p>Deux validations d’impression seront demandées : <b>1/2</b> dispositifs médicaux, puis <b>2/2</b> Hors stock. Les deux travaux restent séparés et ne doivent pas être solidarisés.</p>'
       : '<p>Une seule fenêtre d’impression s’ouvrira : un seul des deux groupes contient des articles.</p>';
   }else{
-    html += `<p>${MODULE.regroupementImpression === 'localisation' ? 'La liste sera classée par localisation.' : (MODULE.id === 'aide_soignant' ? 'La liste sera classée par localisation magasin (ordre alphabétique et numérique), puis nom magasin.' : 'La liste sera triée par type (ordre du classeur d’origine).')}</p>`;
+    html += `<p>${MODULE.regroupementImpression === 'localisation' ? 'La liste sera classée par localisation.' : (MODULE.id === 'aide_soignant' ? 'La liste sera classée par localisation magasin (A pair, A impair, B pair…, puis sans localisation magasin, puis Cuisine), puis nom magasin.' : 'La liste sera triée par type (ordre du classeur d’origine).')}</p>`;
   }
   html += estCommandeEssai(signatureEl.value)
     ? '<p class="recap-alerte">Commande d’<b>essai</b> (« Rempli par » contient « essai ») : elle sera imprimée mais <b>ni enregistrée dans l’historique ni comptée dans les statistiques</b>.</p>'

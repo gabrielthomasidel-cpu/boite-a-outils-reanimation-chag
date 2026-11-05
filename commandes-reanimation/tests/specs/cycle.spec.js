@@ -87,7 +87,7 @@ test.describe('Impression et historique', () => {
     await page.goto(url('index.html'));
     const magasin = page.locator('.app-card', { hasText: 'Commande Magasin' });
     await expect(magasin).toContainText('En cours');
-    await expect(magasin).toContainText('1 / 92 comptés');
+    await expect(magasin).toContainText('1 / 98 comptés');
     await expect(magasin).toContainText('par Léa');
     await expect(page.locator('#homeResume')).toContainText('1 comptage en cours');
   });
@@ -137,7 +137,7 @@ test.describe('Catalogue', () => {
     await page.fill('#fLoc', 'Office');
     await page.fill('#fDotation', '4');
     await page.click('#itemFormSave');
-    await expect(page.locator('#adminCount')).toHaveText('93');
+    await expect(page.locator('#adminCount')).toHaveText('99');
 
     const fichier = path.join(dossierTemporaire(), 'catalogue.json');
     fs.writeFileSync(fichier, JSON.stringify({ format: 'catalogue', version: '1', module: 'aide_soignant',
@@ -148,7 +148,7 @@ test.describe('Catalogue', () => {
     await expect(page.locator('#confirmDlg')).toContainText('Référence 1 en double');
     await expect(page.locator('#dlgOk')).toHaveText('Importer malgré les erreurs');
     await page.click('#dlgCancel');
-    await expect(page.locator('#adminCount')).toHaveText('93');
+    await expect(page.locator('#adminCount')).toHaveText('99');
   });
 });
 
@@ -188,7 +188,7 @@ test.describe('Données du poste (C:\\commandes)', () => {
       catalogue: { enregistreLe: new Date().toISOString(), empreinteEmbarquee: '1-ancien', articles: [{ ref: 'x', denom: 'x', loc: 'x', dotation: 1 }] }
     });
     await ouvrir(page, 'aide_soignant', { dossierPoste: 'file://' + dossier + '/' });
-    expect(await page.evaluate(() => items.length)).toBe(92);
+    expect(await page.evaluate(() => items.length)).toBe(98);
   });
 
   test('le fichier publié est un script relisible', async ({ page }) => {

@@ -13,7 +13,7 @@
 (function (global) {
   'use strict';
 
-  const VERSION = '2.7.5';
+  const VERSION = '2.7.6';
 
   const MODULES = Object.freeze({
     solutes: Object.freeze({

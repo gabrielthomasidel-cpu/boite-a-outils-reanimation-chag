@@ -5,13 +5,13 @@
   const compare = (a,b) => String(a || '').localeCompare(String(b || ''),'fr',{numeric:true});
   const title = document.querySelector('.masthead h1').textContent.trim();
   /* Module Magasin : liste vierge classée par localisation magasin (champ
-     type, ordre alphabétique et numérique, non renseignés en dernier) puis
+     type, même ordre que la commande : cmpLocalisationMagasin) puis
      nom magasin ; le filtre porte alors sur la localisation magasin. */
   const parType = !!(window.MODULE && MODULE.id === 'aide_soignant');
   const cle = it => parType ? (String(it.type || '').trim() || 'Sans localisation magasin') : (it.loc || 'Sans localisation');
   const libCle = parType ? 'Localisation magasin' : 'Zone';
   const libToutes = parType ? 'Toutes les localisations magasin' : 'Toutes les zones';
-  const compareType = (a,b) => (!String(a || '').trim() - !String(b || '').trim()) || compare(a,b);
+  const compareType = (a,b) => typeof cmpLocalisationMagasin === 'function' ? cmpLocalisationMagasin(a,b) : compare(a,b);
   function buildDocument(zone = '', list = 'pharmacie') {
     if (typeof window.materielPapier === 'function') return window.materielPapier(zone, list === 'hors-stock');
     const nomTri = it => parType ? (it.nom || it.denom) : (it.denom || it.nom);
@@ -54,7 +54,7 @@
   const listSelect=dialog.querySelector('#paperList');
   const update=()=> { const n=items.filter(it=>(!select.value || cle(it)===select.value) && (!material || isHorsStock(it)===(listSelect.value==='hors-stock'))).length; document.getElementById('paperCount').textContent=n+' article(s) dans la liste vierge.'; document.getElementById('paperOpen').disabled=n===0; };
   button.addEventListener('click',()=>{
-    select.innerHTML=`<option value="">${libToutes}</option>`+[...new Set(items.map(cle))].sort(parType ? (a,b) => (a === 'Sans localisation magasin') - (b === 'Sans localisation magasin') || compare(a,b) : compare).map(loc=>`<option value="${esc(loc)}">${esc(loc)}</option>`).join('');
+    select.innerHTML=`<option value="">${libToutes}</option>`+[...new Set(items.map(cle))].sort(parType ? (a,b) => compareType(a === 'Sans localisation magasin' ? '' : a, b === 'Sans localisation magasin' ? '' : b) : compare).map(loc=>`<option value="${esc(loc)}">${esc(loc)}</option>`).join('');
     document.getElementById('paperError').textContent=''; update(); dialog.showModal();
   });
   select.addEventListener('change',update);

@@ -141,7 +141,7 @@ document.getElementById('todayMeta').textContent = fmtDate(new Date());
 
 /* ---------- zones et types ---------- */
 function getLocations(){ return [...new Set(articlesDuParcours().map(i=>String(i.loc||'').trim()))].sort(cmp); }
-function getTypes(){ return MODULE.type ? [...new Set(articlesDuParcours().map(i=>String(i.type||'').trim()).filter(Boolean))].sort(cmp) : []; }
+function getTypes(){ return MODULE.type ? [...new Set(articlesDuParcours().map(i=>String(i.type||'').trim()).filter(Boolean))].sort(cmpType) : []; }
 
 const typeFilterEl = document.getElementById('typeFilter');
 const locFilterEl = document.getElementById('locFilter');
@@ -167,7 +167,7 @@ function refreshFilterOptions(){
 
 /* ============ Liste ============ */
 function trierParcours(a, b){
-  return cmp(a.loc, b.loc) || (MODULE.type ? cmp(a.type, b.type) : 0) || cmp(a.denom, b.denom);
+  return cmp(a.loc, b.loc) || (MODULE.type ? cmpType(a.type, b.type) : 0) || cmp(a.denom, b.denom);
 }
 
 function articleCorrespond(i, recherche){

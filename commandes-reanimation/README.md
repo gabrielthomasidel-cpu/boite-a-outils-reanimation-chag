@@ -2,7 +2,7 @@
 
 Application de comptage et de commande du service de réanimation : **Solutés**, **Matériel Pharmacie** et **Magasin**. Elle tourne hors connexion dans une fenêtre Microsoft Edge ouverte par un petit lanceur Windows.
 
-Version actuelle : **2.7.5**, construite sur la 2.7.3 fournie par l'utilisateur (qui sert de base à partir de maintenant). Le commit « import de la version Windows 2.6.2 » conserve la version d'origine pour comparaison.
+Version actuelle : **2.7.6**, construite sur la 2.7.3 fournie par l'utilisateur (qui sert de base à partir de maintenant). Le commit « import de la version Windows 2.6.2 » conserve la version d'origine pour comparaison.
 
 ## Organisation
 
@@ -65,7 +65,7 @@ npx playwright install chromium   # ou CHROMIUM_PATH=/chemin/vers/chrome
 npm test
 ```
 
-Les 51 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle de commande et historique, robustesse du bouton Commander (impression refusée, copie de secours ou stockage en échec, annulation), commandes d'essai, remise à zéro des statistiques, noms de dossiers et de fichiers, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges du catalogue JSON/CSV, PDF, étiquettes et listes papier, l'adaptation Android (pont natif simulé), le mode d’emploi intégré (images, sommaire, retour à la page d’origine) et le tri Magasin par localisation magasin.
+Les 52 tests couvrent : chargement sans erreur, empreintes des catalogues, règles de calcul (seuil, Hors Stock, quantité imposée, doublement Matériel), « non compté » contre 0, garde-fous, vues, scan à la douchette, reprise du comptage, « Rempli par », cycle de commande et historique, robustesse du bouton Commander (impression refusée, copie de secours ou stockage en échec, annulation), commandes d'essai, remise à zéro des statistiques, noms de dossiers et de fichiers, impression en deux travaux (Matériel), accueil, contrôle d'intégrité, administration et import contrôlé, reprise depuis `C:\commandes`, échanges du catalogue JSON/CSV, PDF, étiquettes et listes papier, l'adaptation Android (pont natif simulé), le mode d’emploi intégré (images, sommaire, retour à la page d’origine) et le tri Magasin par localisation magasin (pair avant impair, vides puis Cuisine en dernier).
 
 ## Édition Android
 

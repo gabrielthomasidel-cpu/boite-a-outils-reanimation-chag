@@ -91,6 +91,24 @@ function escapeHtml(s){
 const collator = new Intl.Collator('fr', { sensitivity: 'base', numeric: true });
 const cmp = (a,b) => collator.compare(String(a == null ? '' : a), String(b == null ? '' : b));
 
+/* Ordre des localisations magasin (module Magasin) : alphanumérique, « pair »
+   avant « impair » pour une même lettre (A pair, A impair, B pair…), puis les
+   articles sans localisation magasin, puis « Cuisine » en dernier. */
+function cleLocalisationMagasin(valeur){
+  const t = String(valeur == null ? '' : valeur).trim();
+  if(!t) return [1, '', 0];
+  if(/^cuisine$/i.test(t)) return [2, '', 0];
+  const m = t.match(/^(.*?)\s+(pair|paire|impair)$/i);
+  return m ? [0, m[1], /^impair$/i.test(m[2]) ? 2 : 1] : [0, t, 0];
+}
+function cmpLocalisationMagasin(a, b){
+  const x = cleLocalisationMagasin(a), y = cleLocalisationMagasin(b);
+  return (x[0] - y[0]) || cmp(x[1], y[1]) || (x[2] - y[2]);
+}
+/* Comparaison du champ type : ordre des localisations magasin pour le
+   Magasin, alphanumérique ailleurs. */
+function cmpType(a, b){ return MODULE.libelleType ? cmpLocalisationMagasin(a, b) : cmp(a, b); }
+
 /* Recherche identique quels que soient casse et accents. */
 function normaliserRecherche(value){
   const texte = String(value === null || value === undefined ? '' : value);

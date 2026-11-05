@@ -2,7 +2,7 @@
   "format": "catalogue",
   "version": "1",
   "module": "aide_soignant",
-  "exportedAt": "2026-10-23T23:40:52.904Z",
+  "exportedAt": "2026-11-05T19:30:00.000Z",
   "items": [
     {
       "ref": "6706",
@@ -14,7 +14,7 @@
       "dotation": 3,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6709",
@@ -26,7 +26,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6715",
@@ -38,7 +38,7 @@
       "dotation": 3,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6716",
@@ -50,7 +50,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6717",
@@ -62,7 +62,7 @@
       "dotation": 3,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6719",
@@ -74,7 +74,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6722",
@@ -86,7 +86,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6728",
@@ -98,7 +98,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "72375",
@@ -110,7 +110,7 @@
       "dotation": 50,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "72376",
@@ -122,7 +122,7 @@
       "dotation": 50,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "72377",
@@ -134,7 +134,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "A impair"
     },
     {
       "ref": "6723",
@@ -146,7 +146,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "F"
     },
     {
       "ref": "6738",
@@ -158,7 +158,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "F"
     },
     {
       "ref": "6725",
@@ -170,7 +170,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Changes"
+      "type": "F"
     },
     {
       "ref": "3456",
@@ -182,7 +182,7 @@
       "dotation": 8,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B pair"
     },
     {
       "ref": "67020",
@@ -194,7 +194,7 @@
       "dotation": 100,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B pair"
     },
     {
       "ref": "6721",
@@ -206,7 +206,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B impair"
     },
     {
       "ref": "6724",
@@ -218,7 +218,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "A pair"
     },
     {
       "ref": "472",
@@ -230,7 +230,7 @@
       "dotation": 100,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B pair"
     },
     {
       "ref": "6727",
@@ -242,7 +242,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B pair"
     },
     {
       "ref": "5016",
@@ -254,7 +254,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "G impair"
     },
     {
       "ref": "3130",
@@ -266,7 +266,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "G impair"
     },
     {
       "ref": "17079",
@@ -278,7 +278,7 @@
       "dotation": 6,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "G impair"
     },
     {
       "ref": "8839",
@@ -290,7 +290,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "G impair"
     },
     {
       "ref": "3401",
@@ -302,7 +302,7 @@
       "dotation": 20,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "D pair"
     },
     {
       "ref": "73104",
@@ -314,7 +314,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "F impair"
     },
     {
       "ref": "73101",
@@ -326,7 +326,7 @@
       "dotation": 500,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "A pair"
     },
     {
       "ref": "73204",
@@ -338,7 +338,7 @@
       "dotation": 3,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "74172",
@@ -350,7 +350,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "G impair"
     },
     {
       "ref": "73046",
@@ -362,7 +362,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "G impair"
     },
     {
       "ref": "741460",
@@ -374,7 +374,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "D pair"
     },
     {
       "ref": "74061",
@@ -386,7 +386,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "Cuisine"
     },
     {
       "ref": "72103",
@@ -398,7 +398,7 @@
       "dotation": 12,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "Cuisine"
     },
     {
       "ref": "72114",
@@ -410,7 +410,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "Cuisine"
     },
     {
       "ref": "72116",
@@ -422,7 +422,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "Cuisine"
     },
     {
       "ref": "72128",
@@ -434,7 +434,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "Cuisine"
     },
     {
       "ref": "73225",
@@ -446,7 +446,7 @@
       "dotation": 4,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "73217",
@@ -458,7 +458,7 @@
       "dotation": 4,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "73120",
@@ -470,7 +470,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "73212",
@@ -482,7 +482,7 @@
       "dotation": 4,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "72062",
@@ -494,7 +494,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "73222",
@@ -506,7 +506,7 @@
       "dotation": 4,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "73077",
@@ -518,7 +518,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B pair"
     },
     {
       "ref": "73179",
@@ -530,7 +530,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B pair"
     },
     {
       "ref": "73041",
@@ -542,7 +542,7 @@
       "dotation": 4,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B pair"
     },
     {
       "ref": "678",
@@ -554,7 +554,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "C impair"
     },
     {
       "ref": "73123",
@@ -566,7 +566,7 @@
       "dotation": 10,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "F impair"
     },
     {
       "ref": "73025",
@@ -578,7 +578,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "G impair"
     },
     {
       "ref": "72120",
@@ -590,7 +590,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "D pair"
     },
     {
       "ref": "73151",
@@ -602,7 +602,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "I pair"
     },
     {
       "ref": "73229",
@@ -614,7 +614,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "I pair"
     },
     {
       "ref": "72037",
@@ -626,7 +626,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "D pair"
     },
     {
       "ref": "720270",
@@ -638,7 +638,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "D impair"
     },
     {
       "ref": "72110",
@@ -650,7 +650,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "D impair"
     },
     {
       "ref": "72124",
@@ -662,7 +662,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B impair"
     },
     {
       "ref": "72458",
@@ -674,7 +674,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "A pair"
     },
     {
       "ref": "72461",
@@ -686,7 +686,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B pair"
     },
     {
       "ref": "74201",
@@ -698,7 +698,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "D pair"
     },
     {
       "ref": "89418",
@@ -710,7 +710,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "F pair"
     },
     {
       "ref": "70057",
@@ -722,7 +722,7 @@
       "dotation": 3,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "A pair"
     },
     {
       "ref": "892010",
@@ -734,7 +734,7 @@
       "dotation": 8,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "A pair"
     },
     {
       "ref": "892700",
@@ -746,7 +746,7 @@
       "dotation": 8,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "A pair"
     },
     {
       "ref": "73146",
@@ -758,7 +758,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "B pair"
     },
     {
       "ref": "6730",
@@ -770,7 +770,7 @@
       "dotation": 300,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "A pair"
     },
     {
       "ref": "72433",
@@ -782,7 +782,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "D impair"
     },
     {
       "ref": "72456",
@@ -794,7 +794,7 @@
       "dotation": 8,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "D impair"
     },
     {
       "ref": "74208",
@@ -806,7 +806,7 @@
       "dotation": 20,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "F pair"
     },
     {
       "ref": "89578",
@@ -818,7 +818,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "F pair"
     },
     {
       "ref": "89123",
@@ -830,7 +830,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "F pair"
     },
     {
       "ref": "1809",
@@ -842,7 +842,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "G pair"
     },
     {
       "ref": "89372",
@@ -854,7 +854,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "E pair"
     },
     {
       "ref": "6700",
@@ -866,7 +866,7 @@
       "dotation": 400,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "I pair"
     },
     {
       "ref": "43",
@@ -878,7 +878,7 @@
       "dotation": 160,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "I pair"
     },
     {
       "ref": "45",
@@ -890,7 +890,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "I pair"
     },
     {
       "ref": "23",
@@ -902,7 +902,7 @@
       "dotation": 300,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "I pair"
     },
     {
       "ref": "9145",
@@ -914,7 +914,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "G impair"
     },
     {
       "ref": "72155",
@@ -926,7 +926,7 @@
       "dotation": 6,
       "seuil": null,
       "qteCommande": null,
-      "type": ""
+      "type": "A pair"
     },
     {
       "ref": "73089",
@@ -938,19 +938,19 @@
       "dotation": 24,
       "seuil": null,
       "qteCommande": null,
-      "type": ""
+      "type": "A pair"
     },
     {
       "ref": "72032",
       "codeBarres": "",
-      "nom": "Rasoirs Jettable",
-      "denom": "Rasoirs Jettable",
+      "nom": "Rasoirs bilame Jetable",
+      "denom": "Rasoirs bilame Jetable sachet de 10",
       "loc": "Lingerie",
       "laboratoire": "",
-      "dotation": 20,
+      "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": ""
+      "type": "G impair"
     },
     {
       "ref": "73111",
@@ -962,7 +962,7 @@
       "dotation": 5,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "F impair"
     },
     {
       "ref": "T00001",
@@ -974,7 +974,7 @@
       "dotation": 8,
       "seuil": null,
       "qteCommande": null,
-      "type": ""
+      "type": "B impair"
     },
     {
       "ref": "732130",
@@ -986,7 +986,7 @@
       "dotation": 10,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "9101",
@@ -998,7 +998,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": "G impair"
     },
     {
       "ref": "73220",
@@ -1010,7 +1010,7 @@
       "dotation": 1,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "I pair"
     },
     {
       "ref": "72037?",
@@ -1022,7 +1022,7 @@
       "dotation": 2,
       "seuil": null,
       "qteCommande": null,
-      "type": "Soins"
+      "type": ""
     },
     {
       "ref": "6734",
@@ -1034,19 +1034,19 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": ""
     },
     {
       "ref": "73094",
       "codeBarres": "",
-      "nom": "Poche vestiaire patient",
+      "nom": "Sac  vestiaire",
       "denom": "Poche vestiaire patient",
       "loc": "Secteur sale",
       "laboratoire": "",
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B impair"
     },
     {
       "ref": "72039",
@@ -1058,19 +1058,19 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": ""
     },
     {
       "ref": "73075",
       "codeBarres": "",
-      "nom": "Spray blanc/vert (détergent,détartrant,désinfectant)",
+      "nom": "Détergent/détartrant/désinfectant",
       "denom": "Spray blanc/vert (détergent,détartrant,désinfectant)",
       "loc": "Secteur sale",
       "laboratoire": "",
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B pair"
     },
     {
       "ref": "73178",
@@ -1082,7 +1082,7 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": "B pair"
     },
     {
       "ref": "72100",
@@ -1094,10 +1094,10 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": ""
     },
     {
-      "ref": "Miroir",
+      "ref": "000???",
       "codeBarres": "",
       "nom": "Miroir",
       "denom": "Miroir",
@@ -1106,7 +1106,79 @@
       "dotation": 0,
       "seuil": null,
       "qteCommande": null,
-      "type": "Hôtellerie"
+      "type": ""
+    },
+    {
+      "ref": "9146",
+      "codeBarres": "",
+      "nom": "Attelle digitale alu mousse 80X400 mm",
+      "denom": "Attelle digitale alu mousse 80X400 mm",
+      "loc": "Salle matériel",
+      "laboratoire": "",
+      "dotation": 0,
+      "seuil": null,
+      "qteCommande": null,
+      "type": "G impair"
+    },
+    {
+      "ref": "73163",
+      "codeBarres": "",
+      "nom": "Diffuseur de parfum/",
+      "denom": "Diffuseur de parfum",
+      "loc": "",
+      "laboratoire": "",
+      "dotation": 0,
+      "seuil": null,
+      "qteCommande": null,
+      "type": "F impair"
+    },
+    {
+      "ref": "72021",
+      "codeBarres": "",
+      "nom": "Mousse à raser en bombes",
+      "denom": "Mousse à raser en bombes",
+      "loc": "Lingerie",
+      "laboratoire": "",
+      "dotation": 3,
+      "seuil": null,
+      "qteCommande": null,
+      "type": "G impair"
+    },
+    {
+      "ref": "73172",
+      "codeBarres": "",
+      "nom": "Gel doux lavant - bébé",
+      "denom": "Gel doux lavant - bébé",
+      "loc": "",
+      "laboratoire": "",
+      "dotation": 0,
+      "seuil": null,
+      "qteCommande": null,
+      "type": "F impair"
+    },
+    {
+      "ref": "75526",
+      "codeBarres": "",
+      "nom": "Boules Quies",
+      "denom": "Boules Quies",
+      "loc": "Lingerie",
+      "laboratoire": "",
+      "dotation": 5,
+      "seuil": null,
+      "qteCommande": null,
+      "type": "E pair"
+    },
+    {
+      "ref": "73005",
+      "codeBarres": "",
+      "nom": "Carton DASRI",
+      "denom": "Carton DASRI",
+      "loc": "",
+      "laboratoire": "",
+      "dotation": 0,
+      "seuil": null,
+      "qteCommande": null,
+      "type": "B impair"
     }
   ]
 }
