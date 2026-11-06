@@ -156,7 +156,7 @@ function fillSelect(el, values, allLabel){
   return el.value;
 }
 function refreshFilterOptions(){
-  const types = getTypes();
+  const types = MODULE.typeMasqueAuComptage ? [] : getTypes();
   const locations = getLocations();
   typeFilterVal = fillSelect(typeFilterEl, types, MODULE.libelleTypeTous || 'Tous les types');
   locFilterVal = fillSelect(locFilterEl, locations, 'Toutes les zones');
@@ -282,7 +282,7 @@ function renderList(){
     return;
   }
   const stats = statsZones();
-  const sousGroupe = MODULE.type && getTypes().length > 0;
+  const sousGroupe = MODULE.type && !MODULE.typeMasqueAuComptage && getTypes().length > 0;
   let html = '';
   let curLoc = null, curType = null;
   data.forEach(it=>{

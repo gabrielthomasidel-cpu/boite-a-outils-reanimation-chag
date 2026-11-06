@@ -21,3 +21,18 @@ test('Magasin : catalogue livré en localisations pair / impair', async ({ page 
   expect(types).toContain('B impair');
   expect(types.some(t => /\d/.test(t))).toBe(false);
 });
+
+test('Magasin : localisation magasin absente de l’écran de comptage, tri conservé', async ({ page }) => {
+  await ouvrir(page, 'aide_soignant');
+  await expect(page.locator('#list .subgroup-title')).toHaveCount(0);
+  await expect(page.locator('#typeFilter')).toBeHidden();
+  const texte = await page.locator('#list').innerText();
+  expect(texte).not.toMatch(/\b[A-I] (pair|impair)\b/);
+  // Dans une zone, les articles restent rangés par localisation magasin.
+  const ordreRespecte = await page.evaluate(() => {
+    const ids = [...document.querySelectorAll('#list .item')].map(e => Number(e.dataset.id));
+    const liste = ids.map(id => items.find(it => it.id === id));
+    return liste.every((it, i) => i === 0 || liste[i - 1].loc !== it.loc || cmpLocalisationMagasin(liste[i - 1].type, it.type) <= 0);
+  });
+  expect(ordreRespecte).toBe(true);
+});

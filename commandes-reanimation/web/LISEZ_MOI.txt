@@ -1,4 +1,4 @@
-﻿COMMANDES RÉANIMATION 2.7.6 — VERSION HTML
+﻿COMMANDES RÉANIMATION 2.7.7 — VERSION HTML
 
 Ouvrir index.html dans Microsoft Edge (ou Chrome). Sous Windows, utiliser le
 raccourci installé : il active l'enregistrement dans C:\commandes.

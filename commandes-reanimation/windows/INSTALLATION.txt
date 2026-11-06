@@ -1,6 +1,6 @@
-﻿COMMANDES RÉANIMATION 2.7.6 — WINDOWS 10 / 11 64 BITS
+﻿COMMANDES RÉANIMATION 2.7.7 — WINDOWS 10 / 11 64 BITS
 
-1. Double-cliquez sur Commandes_Reanimation_Setup_2.7.6.exe.
+1. Double-cliquez sur Commandes_Reanimation_Setup_2.7.7.exe.
 2. Fermez l’application avant la mise à jour, puis suivez l'assistant en français. Aucun droit administrateur n'est requis.
 3. Ouvrez Commandes Réanimation depuis le Bureau ou le menu Démarrer.
 
@@ -19,6 +19,11 @@ Mode d'emploi
   de l'aide (?) de chaque module.
 - Version Word : menu Démarrer > Commandes Réanimation > Mode d'emploi (Word),
   ou Mode_emploi_Commandes_Reanimation.docx dans le dossier d'installation.
+
+Nouveautés de la version 2.7.7
+- Magasin : la localisation magasin n'apparaît plus sur l'écran de comptage
+  (ni sous-titres, ni filtre). Elle continue de classer la commande imprimée
+  et la liste papier (A pair, A impair…, sans localisation, Cuisine).
 
 Nouveautés de la version 2.7.6
 - Magasin : nouveau catalogue livré (98 articles) avec les localisations

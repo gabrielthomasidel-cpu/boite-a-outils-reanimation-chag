@@ -15,7 +15,7 @@ Unicode true
 SetCompressor /SOLID lzma
 
 !ifndef VERSION
-  !define VERSION "2.7.6"
+  !define VERSION "2.7.7"
 !endif
 !define NOM "Commandes Réanimation"
 !define EDITEUR "Gabriel THOMAS"

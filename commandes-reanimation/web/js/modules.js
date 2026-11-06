@@ -13,7 +13,7 @@
 (function (global) {
   'use strict';
 
-  const VERSION = '2.7.6';
+  const VERSION = '2.7.7';
 
   const MODULES = Object.freeze({
     solutes: Object.freeze({
@@ -91,6 +91,9 @@
       libelleType: 'Localisation magasin',
       libelleTypeAucun: 'Sans localisation magasin',
       libelleTypeTous: 'Toutes les localisations magasin',
+      /* Écran de comptage : la localisation magasin sert au tri sans être
+         affichée (ni sous-titre, ni filtre). */
+      typeMasqueAuComptage: true,
       laboratoire: false,
       nomPharmacieRequis: false,
       masquerSansDotation: false,
